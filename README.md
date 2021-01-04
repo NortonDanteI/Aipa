@@ -18,7 +18,7 @@
 - Generar un modelo de un jugador virtual de ajedrez que sea capaz de:
   * Aprender de partidas y vencer a jugadores no expertos. 
   * Aconsejar al usuario en partidas de práctica.
-  * Posteriormente este modelo se canalizará mediante la implementación de un software.
+- Posteriormente este modelo se canalizará mediante la implementación de un software.
 
 
 
