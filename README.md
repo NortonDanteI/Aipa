@@ -1,7 +1,7 @@
 # Proyecto Aipa
 
 **Descripción del repositorio:**
-- Este repositorio corresponde al software Mentral, el cual contiene la documentación correspondiente al proceso de ingeniería de software y el código asociado a su implementación.
+- Este repositorio corresponde al software Aipa, el cual contiene la documentación correspondiente al proceso de ingeniería de software y el código asociado a su implementación.
 
 **Documentación** 
 -	Plan general.
