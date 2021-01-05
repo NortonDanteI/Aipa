@@ -17,8 +17,6 @@ namespace Aipa.Vista
             InitializeComponent();
         }
 
-
-
         #region Funcionalidades del formulario arrastrar, y redimensionar
         /*Metodo para re dimensionar el tamaño de un formulario en tiempo de ejecucion, el tamaño de la chuleta (rectangulo infrerior) sera definido en 10*/
         private readonly int tolerance = 10;
@@ -116,6 +114,12 @@ namespace Aipa.Vista
             this.Size = Screen.PrimaryScreen.WorkingArea.Size;
             this.Location = Screen.PrimaryScreen.WorkingArea.Location;
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void Boton_restaurar_Click(object sender, EventArgs e)
         {
             boton_maximizar.Visible = true;

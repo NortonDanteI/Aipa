@@ -47,19 +47,20 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1194, 70);
+            this.panel1.Size = new System.Drawing.Size(1303, 37);
             this.panel1.TabIndex = 0;
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.Window;
             this.panel2.Controls.Add(this.bienvenida);
             this.panel2.Controls.Add(this.circularProgressBar1);
             this.panel2.Controls.Add(this.imagen_izquierda);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 69);
+            this.panel2.Location = new System.Drawing.Point(0, 36);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1194, 431);
+            this.panel2.Size = new System.Drawing.Size(1303, 545);
             this.panel2.TabIndex = 1;
             // 
             // bienvenida
@@ -68,7 +69,7 @@
             this.bienvenida.AutoSize = true;
             this.bienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bienvenida.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.bienvenida.Location = new System.Drawing.Point(557, 39);
+            this.bienvenida.Location = new System.Drawing.Point(611, 39);
             this.bienvenida.Name = "bienvenida";
             this.bienvenida.Size = new System.Drawing.Size(511, 69);
             this.bienvenida.TabIndex = 2;
@@ -114,7 +115,7 @@
             this.imagen_izquierda.Image = ((System.Drawing.Image)(resources.GetObject("imagen_izquierda.Image")));
             this.imagen_izquierda.Location = new System.Drawing.Point(0, 0);
             this.imagen_izquierda.Name = "imagen_izquierda";
-            this.imagen_izquierda.Size = new System.Drawing.Size(411, 431);
+            this.imagen_izquierda.Size = new System.Drawing.Size(497, 545);
             this.imagen_izquierda.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imagen_izquierda.TabIndex = 0;
             this.imagen_izquierda.TabStop = false;
@@ -134,7 +135,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.ClientSize = new System.Drawing.Size(1194, 500);
+            this.ClientSize = new System.Drawing.Size(1303, 581);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

@@ -37,9 +37,7 @@ namespace Aipa.Vista
             {
                 timer1.Stop();
                 timer2.Stop();
-                //this.Close();
-                Ventana_juego ventana_juego = new Ventana_juego();
-                ventana_juego.Show();
+                this.Close();
             }
         }
 
