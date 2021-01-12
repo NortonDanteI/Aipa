@@ -23,14 +23,14 @@ namespace Aipa.Modelo
             for (int x = 0; x < 8; x++)
                 for (int y = 0; y < 8; y++)
                 {
-                    int _x = (x * 100) + 5 * (x + 1);
-                    int _y = (y * 100) + 5 * (y + 1);
+                    int _x = (x * 80) + 9 * (x + 1);
+                    int _y = (y * 70) + 5 * (y + 1);
 
                     Celdas[x, y] = new Celda_tablero()
                     {
                         Posicion_en_tablero = new Point(_x, _y),
                     };
-                    // indica la posision en pantalla que cada celda del tablero
+                    // indica la posicion en pantalla de cada celda del tablero
                 }
         }
         #endregion

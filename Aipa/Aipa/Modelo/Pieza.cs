@@ -61,7 +61,7 @@ namespace Aipa.Modelo
         public override void Draw(DrawHandler drawHandler)
         {
             if (this.Seleccionada)
-                drawHandler.Draw(this.SelectedImage, this.Ubicacion);
+                drawHandler.Draw(this.SelectedImage, this.Posicion);
 
             base.Draw(drawHandler);
         }

@@ -21,10 +21,6 @@ namespace Aipa.Vista
         /// Timer que refresca la imagen del juego
         /// </summary>
         private Timer _timer;
-        /// <summary>
-        /// Evento que se desencadena al liberar el boton del mouse sobre el lienzo
-        /// </summary>
-        
         #endregion
 
         #region Constructor
@@ -33,7 +29,7 @@ namespace Aipa.Vista
             InitializeComponent();
             _gameTime = new Tiempo();
             _timer = new Timer();
-            _timer.Interval = 1000 / 30; // 60 PFS (el intervalo no siempre se respeta en winforms)
+            _timer.Interval = 1000 / 30; // PFS (el intervalo no siempre se respeta en winforms)
             _timer.Tick += (sender, e) =>
             {
                 var _now = DateTime.Now;
@@ -57,21 +53,12 @@ namespace Aipa.Vista
         #endregion
 
         #region Propiedades
-        /*Metodo para re dimensionar el tamaño de un formulario en tiempo de ejecucion, el tamaño de la chuleta (rectangulo infrerior) sera definido en 10*/
-        private readonly int tolerance = 10;
-        /*El mensaje WM_NCHITTEST se envía a una ventana cuando el cursor se mueve o cuando se pulsa o se suelta uno de los botones del ratón.*/
-        private const int WM_NCHITTEST = 132;
-        /*la pantalla se modifica en todos los sentidos con el valor 17*/
-        private const int HTBOTTOMRIGHT = 17;
-        private Rectangle sizeGripRectangle;
-        /*declaro variables para capturar posicion y tamaño antes de maximizar, para poder restaurar despues a la posicion y tamaño que tenia antes de maximizar*/
+
         int lx, ly;
         int sw, sh;
 
         int posY = 0;
         int posX = 0;
-
-        #region Properties
         /// <summary>
         /// Recursos de imagenes a usar en el juego
         /// </summary>
@@ -105,51 +92,8 @@ namespace Aipa.Vista
         /// </summary>
         public State GameState { get; set; }
         #endregion
-        #endregion
 
-        #region Funcionalidades del formulario arrastrar, y redimensionar
-        protected override void WndProc(ref Message m)
-        {
-            switch (m.Msg)
-            {
-                case WM_NCHITTEST:
-                    base.WndProc(ref m);
-                    /*LParam para obtener las coordenadas x,y*/
-                    var hitPoint = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
-                    if (sizeGripRectangle.Contains(hitPoint))
-                        m.Result = new IntPtr(HTBOTTOMRIGHT);
-                    break;
-                default:
-                    base.WndProc(ref m);
-                    break;
-            }
-        }
-        /*Dibujo el rectangulo pero solo su interior */
-        protected override void OnSizeChanged(EventArgs e)
-        {
-            base.OnSizeChanged(e);
-            var region = new Region(new Rectangle(0, 0, this.ClientRectangle.Width, this.ClientRectangle.Height));
-            sizeGripRectangle = new Rectangle(this.ClientRectangle.Width - tolerance, this.ClientRectangle.Height - tolerance, tolerance, tolerance);
-            /*Excluyo el exterior del rectangulo*/
-            region.Exclude(sizeGripRectangle);
-            this.panel_contenedor.Region = region;
-            this.Invalidate();
-        }
-        /*Color y Grip (las lineas, la maya) del rectangulo*/
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            /*color del rencgulo*/
-            SolidBrush blueBrush = new SolidBrush(SystemColors.ControlLightLight);
-            /*relleno el interior*/
-            e.Graphics.FillRectangle(blueBrush, sizeGripRectangle);
-            /*lo pinto*/
-            base.OnPaint(e);
-            /*incluyo una maya, las linea horizontales dentro del rectangulo para que se pueda ver por el usuario es decir hacerlo mas intuitivo*/
-            ControlPaint.DrawSizeGrip(e.Graphics, Color.Transparent, sizeGripRectangle);
-        }
-        #endregion
-
-        #region Eventos
+        #region funcionalidades basicas
         private void Boton_cerrar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Estas seguro que quieres salir", "Precaución", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -202,21 +146,18 @@ namespace Aipa.Vista
         {
             Start_Match();
         }
-        private void Demo_Canvas_MouseUp(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Evento que se desencadena al liberar el boton del mouse sobre el lienzo
+        /// </summary>
+        private void Ventana_juego_Canvas_MouseUp(object sender, MouseEventArgs e)
         {
             Point _mouseLocation = new Point(e.Location.X - 5, e.Location.Y - 5); // resto los bordes del tablero
-            var cell_Location = new Point(e.Location.X / 105, e.Location.Y / 105); // cada celda tiene un tamaños de  100x100 + 5x5 de borde
+            Console.WriteLine(_mouseLocation.X + "|" + _mouseLocation.Y);
+            var cell_Location = new Point(_mouseLocation.X / 80, _mouseLocation.Y / 80); // cada celda tiene un tamaños de  100x100 + 5x5 de borde
+            Console.WriteLine(cell_Location.X +"|"+  cell_Location.Y);
             // Obtengo la coordenada del tablero donde se realizo click
-
             if (!Move_Piece(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
                 Set_SelectedPiece(cell_Location); // si la pieza seleccionada no se puede mover a la celda destino, se intenta seleccionar otra pieza
-        }
-
-        private void pcCanvas_MouseUp(object sender, MouseEventArgs e)
-        {
-            
-          //  if (mousito != null)
-          //      mousito(sender, e);
         }
         #endregion
 
@@ -229,7 +170,7 @@ namespace Aipa.Vista
             string directory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "imagenes");
             this.Resources = new Recursos()
             {
-                Imagen_tablero = Load_Image($"{directory}/Tablero.png"),
+                Imagen_tablero = Load_Image($"{directory}/Tablerov2.png"),
                 Imagen_movimiento_resaltado = Load_Image($"{directory}/Movimiento_resaltado.png"),
                 Imagen_seleccion_resaltado = Load_Image($"{directory}/Seleccion_resaltado.png"),
                 Imagen_peon_blanco = Load_Image($"{directory}/Peon_blanco.png"),
@@ -363,8 +304,8 @@ namespace Aipa.Vista
         /// <returns></returns>
         private Point Get_PiecePosition(Point location)
         {
-            int _x = (location.X * 100) + 5 * (location.X + 1);
-            int _y = (location.Y * 100) + 5 * (location.Y + 1);
+            int _x = (location.X * 78) + 6 * (location.X +1);
+            int _y = (location.Y * 78) + 4 * (location.Y +1);
             return new Point(_x, _y);
         }
         /// <summary>
@@ -395,7 +336,7 @@ namespace Aipa.Vista
         private void Next_Turn(bool firstTurn)
         {
             this.GameState = State.Normal;
-            label4.Text = string.Empty;
+            label_estado.Text = string.Empty;
             //lblMoves.Text = string.Empty;
 
             if (!firstTurn)
@@ -420,7 +361,7 @@ namespace Aipa.Vista
                     this.GameState = State.Draw;
             }
 
-            //lblCheck.Text = this.GameState.ToString();
+            label_estado.Text = this.GameState.ToString();
             if (GameState == State.Checkmate || GameState == State.Draw)
             {
                 MessageBox.Show(this.GameState.ToString(), "Chess", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -499,7 +440,7 @@ namespace Aipa.Vista
                             if (_targetPiece != null && _targetPiece.Color == piece.Color) // en la celda destino hay otra pieza
                                 break; // la pieza destino es del mismo color que la pieza seleccionada "NO PERMITE MOVIMIENTO"
                         }
-
+                        
                         lstAvailableCell.Add(_location); // agrega la coordenada a la lista de celdas habilitadas "PERMITE MOVIMIENTO"
 
                         if (_targetPiece != null && _targetPiece.Color != piece.Color)
@@ -770,9 +711,7 @@ namespace Aipa.Vista
         {
             this.Pieces.ForEach(x => x.Posicion = Get_PiecePosition(x.Ubicacion));
             // Actualiza la posicion en pantalla de cada pieza segun su coordenada en el tablero
-
-            label2.Text = $"Player { (CurrentPlayer.Equals(Player1) ? "1" : "2") }";
-
+            label_jugador.Text = $"Player { (CurrentPlayer.Equals(Player1) ? "1" : "2") }";
         }
         #endregion
 
