@@ -18,10 +18,10 @@ namespace Aipa.Controlador
         /// </summary>
         /// <param name="image">Imagen a dibujar</param>
         /// <param name="position">Posicion en pantalla donde se dibujara</param>
-        public Sprite(Image image, Point position)
+        public Sprite(Image image, Point Ubicacion)
         {
             this.Image = image;
-            this.Posicion = position;
+            this.Posicion = Ubicacion;
 
             Visible = true;
         }

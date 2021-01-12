@@ -13,3 +13,4 @@ B:\Escritorio\Aipa\Aipa\Aipa\bin\Debug\CircularProgressBar.xml
 B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_bienvenida.resources
 B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.csproj.CopyComplete
 B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_juego.resources
+B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Selector.resources

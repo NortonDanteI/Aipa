@@ -35,7 +35,7 @@ namespace Aipa.Modelo
         /// <summary>
         /// Determina si la pieza esta seleccionada
         /// </summary>
-        public bool Selected { get; set; }
+        public bool Seleccionada { get; set; }
 
         /// <summary>
         /// Movimientos que puede realizar la pieza en el tablero
@@ -60,7 +60,7 @@ namespace Aipa.Modelo
         /// <param name="drawHandler">controlador de dibujado</param>
         public override void Draw(DrawHandler drawHandler)
         {
-            if (this.Selected)
+            if (this.Seleccionada)
                 drawHandler.Draw(this.SelectedImage, this.Ubicacion);
 
             base.Draw(drawHandler);

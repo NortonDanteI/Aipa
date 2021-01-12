@@ -13,10 +13,10 @@ namespace Aipa.Modelo
     public class Movimiento
     {
         #region Constructor
-        public Movimiento(int x, int y, bool isLinear = true, Tipo_de_movimiento type = Tipo_de_movimiento.normal)
+        public Movimiento(int x, int y, bool isLinear = true, Tipo_de_movimiento tipo_de_movimiento = Tipo_de_movimiento.normal)
         {
-            this.Direction = new Point(x, y);
-            this.Type = type;
+            this.Direccion = new Point(x, y);
+            this.Tipo_de_mov = tipo_de_movimiento;
             this.IsLinear = isLinear;
         }
         #endregion
@@ -25,11 +25,11 @@ namespace Aipa.Modelo
         /// <summary>
         /// Direccion en la cual se realiza el movimiento
         /// </summary>
-        public Point Direction { get; set; }
+        public Point Direccion { get; set; }
         /// <summary>
         /// Tipo de movimiento
         /// </summary>
-        public Tipo_de_movimiento Type { get; set; }
+        public Tipo_de_movimiento Tipo_de_mov { get; set; }
         /// <summary>
         /// Determina si el movimiento es lineal
         /// </summary>

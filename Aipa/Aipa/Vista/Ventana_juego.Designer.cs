@@ -32,12 +32,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ventana_juego));
             this.panel_contenedor = new System.Windows.Forms.Panel();
             this.panel_derecho = new System.Windows.Forms.Panel();
-            this.imagen_panel_derecho = new System.Windows.Forms.PictureBox();
+            this.Canvas = new System.Windows.Forms.PictureBox();
             this.panel_izquierdo = new System.Windows.Forms.Panel();
+            this.resetear = new System.Windows.Forms.Button();
             this.franja_negra3 = new System.Windows.Forms.PictureBox();
             this.emoticon_guia = new System.Windows.Forms.PictureBox();
             this.boton_activar_consejos = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_estado = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.franja_negra2 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -54,7 +55,7 @@
             this.boton_cerrar = new System.Windows.Forms.PictureBox();
             this.panel_contenedor.SuspendLayout();
             this.panel_derecho.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imagen_panel_derecho)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Canvas)).BeginInit();
             this.panel_izquierdo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.franja_negra3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emoticon_guia)).BeginInit();
@@ -83,7 +84,7 @@
             // 
             // panel_derecho
             // 
-            this.panel_derecho.Controls.Add(this.imagen_panel_derecho);
+            this.panel_derecho.Controls.Add(this.Canvas);
             this.panel_derecho.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_derecho.Location = new System.Drawing.Point(337, 39);
             this.panel_derecho.Name = "panel_derecho";
@@ -92,22 +93,27 @@
             // 
             // imagen_panel_derecho
             // 
-            this.imagen_panel_derecho.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imagen_panel_derecho.Image = ((System.Drawing.Image)(resources.GetObject("imagen_panel_derecho.Image")));
-            this.imagen_panel_derecho.Location = new System.Drawing.Point(0, 0);
-            this.imagen_panel_derecho.Name = "imagen_panel_derecho";
-            this.imagen_panel_derecho.Size = new System.Drawing.Size(1012, 876);
-            this.imagen_panel_derecho.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imagen_panel_derecho.TabIndex = 3;
-            this.imagen_panel_derecho.TabStop = false;
+            this.Canvas.Image = ((System.Drawing.Image)(resources.GetObject("imagen_panel_derecho.Image")));
+            this.Canvas.Location = new System.Drawing.Point(9, 6);
+            this.Canvas.Margin = new System.Windows.Forms.Padding(5);
+            this.Canvas.Size = new System.Drawing.Size(1127, 1039);
+            this.Canvas.BackColor = System.Drawing.Color.White;
+            this.Canvas.Location = new System.Drawing.Point(393, 143);
+            this.Canvas.Margin = new System.Windows.Forms.Padding(4);
+            this.Canvas.Name = "Canvas";
+            this.Canvas.Size = new System.Drawing.Size(110, 136);
+            this.Canvas.TabIndex = 1;
+            this.Canvas.TabStop = false;
+            this.Canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pcCanvas_MouseUp);
             // 
             // panel_izquierdo
             // 
             this.panel_izquierdo.BackColor = System.Drawing.SystemColors.Window;
+            this.panel_izquierdo.Controls.Add(this.resetear);
             this.panel_izquierdo.Controls.Add(this.franja_negra3);
             this.panel_izquierdo.Controls.Add(this.emoticon_guia);
             this.panel_izquierdo.Controls.Add(this.boton_activar_consejos);
-            this.panel_izquierdo.Controls.Add(this.label1);
+            this.panel_izquierdo.Controls.Add(this.label_estado);
             this.panel_izquierdo.Controls.Add(this.label6);
             this.panel_izquierdo.Controls.Add(this.franja_negra2);
             this.panel_izquierdo.Controls.Add(this.label2);
@@ -122,6 +128,25 @@
             this.panel_izquierdo.Name = "panel_izquierdo";
             this.panel_izquierdo.Size = new System.Drawing.Size(337, 876);
             this.panel_izquierdo.TabIndex = 2;
+            // 
+            // resetear
+            // 
+            this.resetear.BackColor = System.Drawing.SystemColors.WindowText;
+            this.resetear.FlatAppearance.BorderSize = 0;
+            this.resetear.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.resetear.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.resetear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.resetear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.resetear.ForeColor = System.Drawing.SystemColors.Window;
+            this.resetear.Location = new System.Drawing.Point(102, 537);
+            this.resetear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.resetear.Name = "resetear";
+            this.resetear.Size = new System.Drawing.Size(117, 38);
+            this.resetear.TabIndex = 36;
+            this.resetear.Text = "Resetear";
+            this.resetear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.resetear.UseVisualStyleBackColor = false;
+            this.resetear.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // franja_negra3
             // 
@@ -161,16 +186,16 @@
             this.boton_activar_consejos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.boton_activar_consejos.UseVisualStyleBackColor = false;
             // 
-            // label1
+            // label_estado
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.label1.Location = new System.Drawing.Point(112, 184);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 20);
-            this.label1.TabIndex = 32;
-            this.label1.Text = "Jaque";
+            this.label_estado.AutoSize = true;
+            this.label_estado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_estado.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.label_estado.Location = new System.Drawing.Point(112, 184);
+            this.label_estado.Name = "label_estado";
+            this.label_estado.Size = new System.Drawing.Size(59, 20);
+            this.label_estado.TabIndex = 32;
+            this.label_estado.Text = "Jaque";
             // 
             // label6
             // 
@@ -206,7 +231,6 @@
             this.label2.Text = "Se recomiendan los siguientes \r\nmovimientos:\r\n* Mover la pieza X en la posición A" +
     " \r\nhacia la posición B.\r\n* Mover la pieza X en la posición A\r\nhacia la posición " +
     "B.";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label4
             // 
@@ -362,11 +386,12 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MinimumSize = new System.Drawing.Size(325, 500);
             this.Name = "Ventana_juego";
+           
             this.Opacity = 0.95D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panel_contenedor.ResumeLayout(false);
             this.panel_derecho.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imagen_panel_derecho)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Canvas)).EndInit();
             this.panel_izquierdo.ResumeLayout(false);
             this.panel_izquierdo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.franja_negra3)).EndInit();
@@ -396,7 +421,7 @@
         private System.Windows.Forms.PictureBox boton_maximizar;
         private System.Windows.Forms.Button boton_manual_usuario;
         private System.Windows.Forms.PictureBox emoticon_manual;
-        private System.Windows.Forms.PictureBox imagen_panel_derecho;
+        private System.Windows.Forms.PictureBox Canvas;
         private System.Windows.Forms.PictureBox franja_negra1;
         private System.Windows.Forms.PictureBox franja_negra4;
         private System.Windows.Forms.Label label2;
@@ -405,8 +430,9 @@
         private System.Windows.Forms.PictureBox franja_negra3;
         private System.Windows.Forms.PictureBox emoticon_guia;
         private System.Windows.Forms.Button boton_activar_consejos;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_estado;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox franja_negra2;
+        private System.Windows.Forms.Button resetear;
     }
 }
