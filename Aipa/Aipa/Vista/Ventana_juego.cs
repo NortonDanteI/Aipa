@@ -360,7 +360,7 @@ namespace Aipa.Vista
             //lblMoves.Text = moves.ToString();
 
             var king = this.Pieces.FirstOrDefault(x => x.Color == CurrentPlayer.Color && x.GetType() == typeof(Rey));
-            var isCheck = this.Pieces.Any(x => x.Color != CurrentPlayer.Color && x.Movimientos_permitidos.Contains(king.Ubicacion));
+            var isCheck = this.Pieces.Any(x => x.Color != CurrentPlayer.Color && x.Movimientos_permitidos.Contains(king.Ubicacion));//Si alguno de los movimientos contiene la ubicacion del rey
             // valida si en la juegada anterior se dejo al rey en jaque
             if (isCheck)
             {
@@ -370,7 +370,7 @@ namespace Aipa.Vista
             }
             else
             {
-                if (moves == 0) // si nos quedamos sin movimientos y no es jaque, el juego queda en tabla
+                if (moves == 0) // si nos quedamos sin movimientos y no es jaque, el juego queda en empate
                     this.GameState = Estado.Empate;
             }
 

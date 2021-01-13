@@ -67,11 +67,11 @@
             // 
             this.bienvenida.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.bienvenida.AutoSize = true;
-            this.bienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bienvenida.Font = new System.Drawing.Font("Monotype Corsiva", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bienvenida.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.bienvenida.Location = new System.Drawing.Point(611, 39);
+            this.bienvenida.Location = new System.Drawing.Point(710, 78);
             this.bienvenida.Name = "bienvenida";
-            this.bienvenida.Size = new System.Drawing.Size(511, 69);
+            this.bienvenida.Size = new System.Drawing.Size(436, 72);
             this.bienvenida.TabIndex = 2;
             this.bienvenida.Text = "Bienvenido a Aipa";
             // 
@@ -85,7 +85,7 @@
             this.circularProgressBar1.InnerColor = System.Drawing.SystemColors.ButtonHighlight;
             this.circularProgressBar1.InnerMargin = 2;
             this.circularProgressBar1.InnerWidth = -1;
-            this.circularProgressBar1.Location = new System.Drawing.Point(694, 203);
+            this.circularProgressBar1.Location = new System.Drawing.Point(813, 248);
             this.circularProgressBar1.MarqueeAnimationSpeed = 2000;
             this.circularProgressBar1.Name = "circularProgressBar1";
             this.circularProgressBar1.OuterColor = System.Drawing.SystemColors.ButtonHighlight;

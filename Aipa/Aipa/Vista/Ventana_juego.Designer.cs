@@ -79,33 +79,35 @@
             this.panel_contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_contenedor.Location = new System.Drawing.Point(0, 0);
             this.panel_contenedor.Name = "panel_contenedor";
-            this.panel_contenedor.Size = new System.Drawing.Size(1250, 1102);
+            this.panel_contenedor.Size = new System.Drawing.Size(1298, 1102);
             this.panel_contenedor.TabIndex = 0;
             // 
             // panel_derecho
             // 
             this.panel_derecho.Controls.Add(this.Canvas);
             this.panel_derecho.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel_derecho.Location = new System.Drawing.Point(337, 39);
+            this.panel_derecho.Location = new System.Drawing.Point(384, 39);
             this.panel_derecho.Name = "panel_derecho";
-            this.panel_derecho.Size = new System.Drawing.Size(913, 1063);
+            this.panel_derecho.Size = new System.Drawing.Size(914, 1063);
             this.panel_derecho.TabIndex = 3;
             // 
             // Canvas
             // 
             this.Canvas.BackColor = System.Drawing.Color.White;
             this.Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Canvas.Image = ((System.Drawing.Image)(resources.GetObject("Canvas.Image")));
             this.Canvas.Location = new System.Drawing.Point(0, 0);
             this.Canvas.Margin = new System.Windows.Forms.Padding(4);
             this.Canvas.Name = "Canvas";
-            this.Canvas.Size = new System.Drawing.Size(913, 1063);
+            this.Canvas.Size = new System.Drawing.Size(914, 1063);
+            this.Canvas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.Canvas.TabIndex = 1;
             this.Canvas.TabStop = false;
             this.Canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Ventana_juego_Canvas_MouseUp);
             // 
             // panel_izquierdo
             // 
-            this.panel_izquierdo.BackColor = System.Drawing.SystemColors.Window;
+            this.panel_izquierdo.BackColor = System.Drawing.Color.LightGray;
             this.panel_izquierdo.Controls.Add(this.resetear);
             this.panel_izquierdo.Controls.Add(this.franja_negra3);
             this.panel_izquierdo.Controls.Add(this.emoticon_guia);
@@ -123,25 +125,24 @@
             this.panel_izquierdo.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_izquierdo.Location = new System.Drawing.Point(0, 39);
             this.panel_izquierdo.Name = "panel_izquierdo";
-            this.panel_izquierdo.Size = new System.Drawing.Size(337, 1063);
+            this.panel_izquierdo.Size = new System.Drawing.Size(384, 1063);
             this.panel_izquierdo.TabIndex = 2;
             // 
             // resetear
             // 
-            this.resetear.BackColor = System.Drawing.SystemColors.WindowText;
+            this.resetear.BackColor = System.Drawing.Color.WhiteSmoke;
             this.resetear.FlatAppearance.BorderSize = 0;
             this.resetear.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
             this.resetear.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
             this.resetear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.resetear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.resetear.ForeColor = System.Drawing.SystemColors.Window;
-            this.resetear.Location = new System.Drawing.Point(102, 537);
+            this.resetear.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resetear.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.resetear.Location = new System.Drawing.Point(0, 537);
             this.resetear.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.resetear.Name = "resetear";
-            this.resetear.Size = new System.Drawing.Size(132, 38);
+            this.resetear.Size = new System.Drawing.Size(384, 38);
             this.resetear.TabIndex = 36;
             this.resetear.Text = "Resetear";
-            this.resetear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.resetear.UseVisualStyleBackColor = false;
             this.resetear.Click += new System.EventHandler(this.btnStart_Click);
             // 
@@ -167,50 +168,50 @@
             // 
             // boton_activar_consejos
             // 
-            this.boton_activar_consejos.BackColor = System.Drawing.SystemColors.WindowText;
+            this.boton_activar_consejos.BackColor = System.Drawing.Color.WhiteSmoke;
             this.boton_activar_consejos.FlatAppearance.BorderSize = 0;
             this.boton_activar_consejos.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
             this.boton_activar_consejos.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
             this.boton_activar_consejos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.boton_activar_consejos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.boton_activar_consejos.ForeColor = System.Drawing.SystemColors.Window;
-            this.boton_activar_consejos.Location = new System.Drawing.Point(56, 227);
+            this.boton_activar_consejos.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.boton_activar_consejos.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.boton_activar_consejos.Location = new System.Drawing.Point(0, 227);
             this.boton_activar_consejos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boton_activar_consejos.Name = "boton_activar_consejos";
-            this.boton_activar_consejos.Size = new System.Drawing.Size(281, 38);
+            this.boton_activar_consejos.Size = new System.Drawing.Size(384, 38);
             this.boton_activar_consejos.TabIndex = 33;
             this.boton_activar_consejos.Text = "Consejos";
-            this.boton_activar_consejos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.boton_activar_consejos.UseVisualStyleBackColor = false;
             // 
             // label_estado
             // 
             this.label_estado.AutoSize = true;
-            this.label_estado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_estado.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.label_estado.Location = new System.Drawing.Point(112, 184);
+            this.label_estado.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_estado.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.label_estado.Location = new System.Drawing.Point(153, 174);
             this.label_estado.Name = "label_estado";
-            this.label_estado.Size = new System.Drawing.Size(59, 20);
+            this.label_estado.Size = new System.Drawing.Size(62, 29);
             this.label_estado.TabIndex = 32;
             this.label_estado.Text = "Jaque";
             // 
             // label_2
             // 
             this.label_2.AutoSize = true;
-            this.label_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.label_2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label_2.Location = new System.Drawing.Point(42, 136);
+            this.label_2.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_2.ForeColor = System.Drawing.Color.Sienna;
+            this.label_2.Location = new System.Drawing.Point(80, 132);
             this.label_2.Name = "label_2";
-            this.label_2.Size = new System.Drawing.Size(211, 25);
+            this.label_2.Size = new System.Drawing.Size(216, 29);
             this.label_2.TabIndex = 31;
             this.label_2.Text = "Estado de la partida:";
+            this.label_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // franja_negra2
             // 
-            this.franja_negra2.BackColor = System.Drawing.SystemColors.WindowText;
+            this.franja_negra2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.franja_negra2.Location = new System.Drawing.Point(0, 136);
             this.franja_negra2.Name = "franja_negra2";
-            this.franja_negra2.Size = new System.Drawing.Size(337, 25);
+            this.franja_negra2.Size = new System.Drawing.Size(384, 25);
             this.franja_negra2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra2.TabIndex = 30;
             this.franja_negra2.TabStop = false;
@@ -218,38 +219,40 @@
             // label_recomendacion
             // 
             this.label_recomendacion.AutoSize = true;
-            this.label_recomendacion.BackColor = System.Drawing.SystemColors.Window;
-            this.label_recomendacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_recomendacion.BackColor = System.Drawing.Color.LightGray;
+            this.label_recomendacion.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_recomendacion.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.label_recomendacion.Location = new System.Drawing.Point(3, 296);
+            this.label_recomendacion.Location = new System.Drawing.Point(3, 280);
             this.label_recomendacion.Name = "label_recomendacion";
-            this.label_recomendacion.Size = new System.Drawing.Size(308, 144);
+            this.label_recomendacion.Size = new System.Drawing.Size(324, 174);
             this.label_recomendacion.TabIndex = 28;
             this.label_recomendacion.Text = "Se recomiendan los siguientes \r\nmovimientos:\r\n* Mover la pieza X en la posición A" +
     " \r\nhacia la posición B.\r\n* Mover la pieza X en la posición A\r\nhacia la posición " +
     "B.";
+            this.label_recomendacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_jugador
             // 
             this.label_jugador.AutoSize = true;
-            this.label_jugador.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_jugador.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_jugador.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.label_jugador.Location = new System.Drawing.Point(112, 97);
+            this.label_jugador.Location = new System.Drawing.Point(144, 92);
             this.label_jugador.Name = "label_jugador";
-            this.label_jugador.Size = new System.Drawing.Size(76, 20);
+            this.label_jugador.Size = new System.Drawing.Size(82, 29);
             this.label_jugador.TabIndex = 26;
             this.label_jugador.Text = "Jugador";
             // 
             // label_1
             // 
             this.label_1.AutoSize = true;
-            this.label_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label_1.Location = new System.Drawing.Point(97, 51);
+            this.label_1.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_1.ForeColor = System.Drawing.Color.Sienna;
+            this.label_1.Location = new System.Drawing.Point(144, 51);
             this.label_1.Name = "label_1";
-            this.label_1.Size = new System.Drawing.Size(106, 25);
+            this.label_1.Size = new System.Drawing.Size(105, 29);
             this.label_1.TabIndex = 25;
             this.label_1.Text = "Turno de:";
+            this.label_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // franja_negra4
             // 
@@ -263,10 +266,10 @@
             // 
             // franja_negra1
             // 
-            this.franja_negra1.BackColor = System.Drawing.SystemColors.WindowText;
+            this.franja_negra1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.franja_negra1.Location = new System.Drawing.Point(0, 51);
             this.franja_negra1.Name = "franja_negra1";
-            this.franja_negra1.Size = new System.Drawing.Size(337, 25);
+            this.franja_negra1.Size = new System.Drawing.Size(384, 25);
             this.franja_negra1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra1.TabIndex = 14;
             this.franja_negra1.TabStop = false;
@@ -283,20 +286,19 @@
             // 
             // boton_manual_usuario
             // 
-            this.boton_manual_usuario.BackColor = System.Drawing.SystemColors.WindowText;
+            this.boton_manual_usuario.BackColor = System.Drawing.Color.WhiteSmoke;
             this.boton_manual_usuario.FlatAppearance.BorderSize = 0;
             this.boton_manual_usuario.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
             this.boton_manual_usuario.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
             this.boton_manual_usuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.boton_manual_usuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.boton_manual_usuario.ForeColor = System.Drawing.SystemColors.Window;
-            this.boton_manual_usuario.Location = new System.Drawing.Point(56, 467);
+            this.boton_manual_usuario.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.boton_manual_usuario.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.boton_manual_usuario.Location = new System.Drawing.Point(38, 467);
             this.boton_manual_usuario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boton_manual_usuario.Name = "boton_manual_usuario";
-            this.boton_manual_usuario.Size = new System.Drawing.Size(281, 38);
+            this.boton_manual_usuario.Size = new System.Drawing.Size(346, 38);
             this.boton_manual_usuario.TabIndex = 4;
             this.boton_manual_usuario.Text = "Manual de usuario";
-            this.boton_manual_usuario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.boton_manual_usuario.UseVisualStyleBackColor = false;
             this.boton_manual_usuario.Click += new System.EventHandler(this.Boton_manual_usuario_click);
             // 
@@ -311,7 +313,7 @@
             this.Barratitulo.Location = new System.Drawing.Point(0, 0);
             this.Barratitulo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Barratitulo.Name = "Barratitulo";
-            this.Barratitulo.Size = new System.Drawing.Size(1250, 39);
+            this.Barratitulo.Size = new System.Drawing.Size(1298, 39);
             this.Barratitulo.TabIndex = 1;
             this.Barratitulo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Barratitulo_MouseMove);
             // 
@@ -320,7 +322,7 @@
             this.boton_restaurar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_restaurar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_restaurar.Image = ((System.Drawing.Image)(resources.GetObject("boton_restaurar.Image")));
-            this.boton_restaurar.Location = new System.Drawing.Point(1187, 7);
+            this.boton_restaurar.Location = new System.Drawing.Point(1235, 7);
             this.boton_restaurar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boton_restaurar.Name = "boton_restaurar";
             this.boton_restaurar.Size = new System.Drawing.Size(25, 25);
@@ -335,7 +337,7 @@
             this.boton_maximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_maximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_maximizar.Image = ((System.Drawing.Image)(resources.GetObject("boton_maximizar.Image")));
-            this.boton_maximizar.Location = new System.Drawing.Point(1187, 9);
+            this.boton_maximizar.Location = new System.Drawing.Point(1235, 9);
             this.boton_maximizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boton_maximizar.Name = "boton_maximizar";
             this.boton_maximizar.Size = new System.Drawing.Size(25, 23);
@@ -349,7 +351,7 @@
             this.boton_minimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_minimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_minimizar.Image = ((System.Drawing.Image)(resources.GetObject("boton_minimizar.Image")));
-            this.boton_minimizar.Location = new System.Drawing.Point(1156, 9);
+            this.boton_minimizar.Location = new System.Drawing.Point(1204, 9);
             this.boton_minimizar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boton_minimizar.Name = "boton_minimizar";
             this.boton_minimizar.Size = new System.Drawing.Size(25, 23);
@@ -365,7 +367,7 @@
             this.boton_cerrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.boton_cerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_cerrar.Image = ((System.Drawing.Image)(resources.GetObject("boton_cerrar.Image")));
-            this.boton_cerrar.Location = new System.Drawing.Point(1218, 9);
+            this.boton_cerrar.Location = new System.Drawing.Point(1266, 9);
             this.boton_cerrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.boton_cerrar.Name = "boton_cerrar";
             this.boton_cerrar.Size = new System.Drawing.Size(25, 23);
@@ -378,14 +380,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1250, 1102);
+            this.ClientSize = new System.Drawing.Size(1298, 1102);
             this.Controls.Add(this.panel_contenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(230, 0);
             this.MinimumSize = new System.Drawing.Size(325, 500);
             this.Name = "Ventana_juego";
             this.Opacity = 0.95D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panel_contenedor.ResumeLayout(false);
             this.panel_derecho.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Canvas)).EndInit();
