@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Aipa.Vista
 {
-    public partial class Selector : Form
+    public partial class Ventana_coronacion : Form
     {
         #region Constructor
 
@@ -20,7 +20,7 @@ namespace Aipa.Vista
         /// </summary>
         /// <param name="recursos">Recursos graficos del juego</param>
         /// <param name="color">Color de la pieza</param>
-        public Selector(Recursos recursos, UnColor color)
+        public Ventana_coronacion(Recursos recursos, UnColor color)
         {
             InitializeComponent();
             this.Color = color;

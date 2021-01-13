@@ -18,7 +18,7 @@ namespace Aipa.Controlador
             try
             {
                 Imagen_base = new Bitmap(width, height);
-                graphics = Graphics.FromImage(Imagen_base);
+                graphics = System.Drawing.Graphics.FromImage(Imagen_base);
             }
             catch { 
             }
@@ -34,7 +34,7 @@ namespace Aipa.Controlador
         /// <summary>
         /// Clase con funciones de dibujado
         /// </summary>
-        private Graphics graphics { get; set; }
+        private System.Drawing.Graphics graphics { get; set; }
         #endregion
 
         #region Metodos

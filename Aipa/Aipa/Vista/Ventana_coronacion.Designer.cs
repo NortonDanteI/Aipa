@@ -1,6 +1,6 @@
 ﻿namespace Aipa.Vista
 {
-    partial class Selector
+    partial class Ventana_coronacion
     {
         /// <summary>
         /// Required designer variable.
@@ -42,7 +42,7 @@
             // 
             this.pieza_reina.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pieza_reina.Location = new System.Drawing.Point(16, 15);
-            this.pieza_reina.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pieza_reina.Margin = new System.Windows.Forms.Padding(4);
             this.pieza_reina.Name = "pieza_reina";
             this.pieza_reina.Size = new System.Drawing.Size(133, 123);
             this.pieza_reina.TabIndex = 0;
@@ -53,7 +53,7 @@
             // 
             this.pieza_alfil.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pieza_alfil.Location = new System.Drawing.Point(157, 15);
-            this.pieza_alfil.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pieza_alfil.Margin = new System.Windows.Forms.Padding(4);
             this.pieza_alfil.Name = "pieza_alfil";
             this.pieza_alfil.Size = new System.Drawing.Size(133, 123);
             this.pieza_alfil.TabIndex = 0;
@@ -64,7 +64,7 @@
             // 
             this.pieza_caballo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pieza_caballo.Location = new System.Drawing.Point(299, 15);
-            this.pieza_caballo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pieza_caballo.Margin = new System.Windows.Forms.Padding(4);
             this.pieza_caballo.Name = "pieza_caballo";
             this.pieza_caballo.Size = new System.Drawing.Size(133, 123);
             this.pieza_caballo.TabIndex = 0;
@@ -75,14 +75,14 @@
             // 
             this.pieza_torre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pieza_torre.Location = new System.Drawing.Point(440, 15);
-            this.pieza_torre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pieza_torre.Margin = new System.Windows.Forms.Padding(4);
             this.pieza_torre.Name = "pieza_torre";
             this.pieza_torre.Size = new System.Drawing.Size(133, 123);
             this.pieza_torre.TabIndex = 0;
             this.pieza_torre.TabStop = false;
             this.pieza_torre.Click += new System.EventHandler(this.Torre_click);
             // 
-            // Selector
+            // Ventana_coronacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -91,12 +91,12 @@
             this.Controls.Add(this.pieza_caballo);
             this.Controls.Add(this.pieza_alfil);
             this.Controls.Add(this.pieza_reina);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Selector";
+            this.Name = "Ventana_coronacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "s";
+            this.Text = "selector";
             ((System.ComponentModel.ISupportInitialize)(this.pieza_reina)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pieza_alfil)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pieza_caballo)).EndInit();
