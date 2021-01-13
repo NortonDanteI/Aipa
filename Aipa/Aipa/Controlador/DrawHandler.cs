@@ -15,8 +15,13 @@ namespace Aipa.Controlador
         #region Constructor
         public DrawHandler(int width, int height)
         {
-            Imagen_base = new Bitmap(width, height);
-            Graphics = System.Drawing.Graphics.FromImage(Imagen_base);
+            try
+            {
+                Imagen_base = new Bitmap(width, height);
+                graphics = Graphics.FromImage(Imagen_base);
+            }
+            catch { 
+            }
         }
         #endregion
 
@@ -29,14 +34,18 @@ namespace Aipa.Controlador
         /// <summary>
         /// Clase con funciones de dibujado
         /// </summary>
-        private System.Drawing.Graphics Graphics { get; set; }
+        private Graphics graphics { get; set; }
         #endregion
 
         #region Metodos
         public void Dispose()
         {
-            Graphics.Dispose();
-            Imagen_base = null;
+            if (graphics != null)
+            {
+                graphics.Dispose();
+                Imagen_base = null;
+            }
+                
         }
 
         /// <summary>
@@ -46,7 +55,9 @@ namespace Aipa.Controlador
         /// <param name="position">Posicion de la imagen en pantalla</param>
         public void Draw(Image image, Point position)
         {
-            Graphics.DrawImage(image, position.X, position.Y, image.Width, image.Height);
+            if (graphics != null) {
+                graphics.DrawImage(image, position.X, position.Y, image.Width, image.Height);
+            }
         }
         #endregion
     }

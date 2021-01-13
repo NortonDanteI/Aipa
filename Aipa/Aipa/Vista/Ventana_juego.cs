@@ -415,6 +415,7 @@ namespace Aipa.Vista
                 // valida que el rey no quede en jaque al realizar el movimiento
             });
         }
+
         /// <summary>
         /// Obtiene las celdas a la cual puede desplazarce la pieza seleccionada
         /// </summary>
@@ -469,6 +470,7 @@ namespace Aipa.Vista
 
             return lstAvailableCell.ToArray();
         }
+
         /// <summary>
         /// Valida si al realizar el movimiento de la pieza el rey queda en jaque
         /// </summary>
@@ -510,7 +512,7 @@ namespace Aipa.Vista
         }
 
         /// <summary>
-        /// Obtiene las celdas a la cual puede desplazarce la pieza seleccionada utilizando un movimiento especial
+        /// Revisa si puede desplazarse la pieza seleccionada utilizando un movimiento especial
         /// </summary>
         /// <param name="piece">Pieza a validar</param>
         /// <param name="move">Movimiento a validar</param>
@@ -518,12 +520,9 @@ namespace Aipa.Vista
         /// <returns></returns>
         private bool Get_MovesLocations_Special(Pieza piece, Movimiento move, Pieza rivalPiece)
         {
-            // CAMBIAR LOGICA
-            // retornar true en cada validacion
-
             if (piece.GetType() == typeof(Peon))
             {
-                #region Special Moves
+                #region movimientos espciales peon
                 if (move.Direccion.X == 0 && move.Direccion.Y == -1) // desplazamiento frontal 1 casillero
                     return rivalPiece == null; // el casillero de en frente debe estar vacio
 
@@ -538,6 +537,7 @@ namespace Aipa.Vista
 
                 if ((move.Direccion.X == -1 || move.Direccion.X == 1) && move.Direccion.Y == -1) // ataque a pieza rival en diagonal
                 {
+                    //last entrega el ultimo elemento de la lista
                     var lastAction = ActionLog.LastOrDefault();
                     if (rivalPiece == null && lastAction != null) // COMER AL PASO
                     {
@@ -545,6 +545,7 @@ namespace Aipa.Vista
                         // El peon rival debe estar en la misma fila que la pieza a mover, en una columna adyacente y debe haberce desplazado en el ultimo turno juegado 2 casilleros
                         if (CurrentPlayer.Numero == 1 && piece.Ubicacion.Y == 3)  // el peon se desplaza hica arriba
                         {
+                            //first devuelve el primer elemento que cumple la condicion especificada
                             var rival = this.Pieces.FirstOrDefault(p => p.Color != piece.Color && p.Ubicacion == new Point(piece.Ubicacion.X + move.Direccion.X, piece.Ubicacion.Y));
                             if (rival != null && Last_Move.Pieza_.Equals(rival) && (Last_Move.Ubicacion_nueva.Y - Last_Move.Ubicacion_original.Y) == 2)
                                 return true; // Habilita comer al paso
@@ -558,12 +559,13 @@ namespace Aipa.Vista
                     }
 
                     if (rivalPiece != null && rivalPiece.Color != piece.Color)
-                        return true; // el movimiento se habilita solo si hay un rival en la posiscion destino
+                        return true; // el movimiento se habilita solo si hay un rival en la posicion destino
                 }
                 #endregion
             }
             else if (piece.GetType() == typeof(Rey))
             {
+                #region movimientos especiales rey
                 if (GameState != Estado.Normal) // el rey no puede estar en jaque
                     return false;
 
@@ -573,21 +575,22 @@ namespace Aipa.Vista
                     return false;
 
                 Point _moveDirection = CurrentPlayer.Numero == 1 ? move.Direccion : new Point(move.Direccion.X * -1, move.Direccion.Y * -1);
-                Pieza _rock = null;
-                if (_moveDirection.X < 0) // enrrosque largo
-                    _rock = this.Pieces.FirstOrDefault(p => p.GetType() == typeof(Torre) && p.Ubicacion.X == 0 && p.Ubicacion.Y == piece.Ubicacion.Y);
-                else // enrrosque corto
-                    _rock = this.Pieces.FirstOrDefault(p => p.GetType() == typeof(Torre) && p.Ubicacion.X == 7 && p.Ubicacion.Y == piece.Ubicacion.Y);
-                if (_rock == null) // si no existe la torre se asume que fue eliminada o movida de su casillero original
-                    return false;
+                Pieza torre = null;
 
-                bool rookFirstMove = !ActionLog.Any(x => x.movimientos.Any(y => y.Pieza_.Equals(piece))); // debe ser el primer mov. de la torre
-                if (!rookFirstMove) // debe ser el primer mov. de la torre
+                if (_moveDirection.X < 0) // enrrosque largo
+                    torre = this.Pieces.FirstOrDefault(p => p.GetType() == typeof(Torre) && p.Ubicacion.X == 0 && p.Ubicacion.Y == piece.Ubicacion.Y);
+                else // enrrosque corto
+                    torre = this.Pieces.FirstOrDefault(p => p.GetType() == typeof(Torre) && p.Ubicacion.X == 7 && p.Ubicacion.Y == piece.Ubicacion.Y);
+                if (torre == null) // si no existe la torre se asume que fue eliminada o movida de su casillero original
+                    return false;
+                //any inspecciona todos todos los elementos
+                bool torreFirstMove = !ActionLog.Any(x => x.movimientos.Any(y => y.Pieza_.Equals(piece))); // debe ser el primer mov. de la torre
+                if (!torreFirstMove) // debe ser el primer mov. de la torre
                     return false;
 
                 int _moveX = _moveDirection.X < 0 ? -1 : 1;
                 Point _location = new Point(piece.Ubicacion.X + _moveX, piece.Ubicacion.Y);
-                while (_location != _rock.Ubicacion)
+                while (_location != torre.Ubicacion)
                 {
                     bool _existPiece = this.Pieces.Any(p => p.Ubicacion == _location);
                     if (_existPiece)
@@ -601,6 +604,7 @@ namespace Aipa.Vista
                 }
 
                 return true; // el enroque es valido
+                #endregion
             }
 
             return false;
@@ -666,7 +670,7 @@ namespace Aipa.Vista
         {
             if (piece.GetType() == typeof(Peon))
             {
-                #region Sprecial Move
+                #region movimiento especial
                 if (targetLocation.Y == (piece.Color == Player1.Color ? 0 : 7)) // el player uno corona la pieza en la fila superior y el player 2 en la fila inferior
                 {
                     Pieza _newPiece = null;

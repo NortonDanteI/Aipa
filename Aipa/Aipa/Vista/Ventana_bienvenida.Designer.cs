@@ -67,11 +67,11 @@
             // 
             this.bienvenida.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.bienvenida.AutoSize = true;
-            this.bienvenida.Font = new System.Drawing.Font("Monotype Corsiva", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bienvenida.Font = new System.Drawing.Font("Monotype Corsiva", 40.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bienvenida.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.bienvenida.Location = new System.Drawing.Point(710, 78);
+            this.bienvenida.Location = new System.Drawing.Point(693, 85);
             this.bienvenida.Name = "bienvenida";
-            this.bienvenida.Size = new System.Drawing.Size(436, 72);
+            this.bienvenida.Size = new System.Drawing.Size(496, 83);
             this.bienvenida.TabIndex = 2;
             this.bienvenida.Text = "Bienvenido a Aipa";
             // 
@@ -80,7 +80,7 @@
             this.circularProgressBar1.AnimationFunction = WinFormAnimation.KnownAnimationFunctions.Liner;
             this.circularProgressBar1.AnimationSpeed = 500;
             this.circularProgressBar1.BackColor = System.Drawing.Color.Transparent;
-            this.circularProgressBar1.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.circularProgressBar1.Font = new System.Drawing.Font("Monotype Corsiva", 28.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.circularProgressBar1.ForeColor = System.Drawing.Color.Black;
             this.circularProgressBar1.InnerColor = System.Drawing.SystemColors.ButtonHighlight;
             this.circularProgressBar1.InnerMargin = 2;
@@ -94,7 +94,7 @@
             this.circularProgressBar1.ProgressColor = System.Drawing.SystemColors.WindowText;
             this.circularProgressBar1.ProgressWidth = 20;
             this.circularProgressBar1.SecondaryFont = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.circularProgressBar1.Size = new System.Drawing.Size(180, 166);
+            this.circularProgressBar1.Size = new System.Drawing.Size(189, 181);
             this.circularProgressBar1.StartAngle = 270;
             this.circularProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.circularProgressBar1.SubscriptColor = System.Drawing.Color.Black;

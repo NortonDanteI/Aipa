@@ -26,10 +26,12 @@ namespace Aipa.Modelo
         /// Direccion en la cual se realiza el movimiento
         /// </summary>
         public Point Direccion { get; set; }
+
         /// <summary>
         /// Tipo de movimiento
         /// </summary>
         public Tipo_de_movimiento Tipo_de_mov { get; set; }
+
         /// <summary>
         /// Determina si el movimiento es lineal
         /// </summary>
