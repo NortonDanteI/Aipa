@@ -9,7 +9,7 @@ using System.Drawing;
 namespace Aipa.Modelo
 {
     /// <summary>
-    /// Informacion del tablero de juego
+    /// Informacion del tablero de juego, util para el resaltado del selector
     /// </summary>
     public class Tablero : Sprite
     {
@@ -23,8 +23,8 @@ namespace Aipa.Modelo
             for (int x = 0; x < 8; x++)
                 for (int y = 0; y < 8; y++)
                 {
-                    int _x = (x * 80) + 9 * (x + 1);
-                    int _y = (y * 70) + 5 * (y + 1);
+                    int _x = (x * 82) + 27;
+                    int _y = (y * 82) + 4;
 
                     Celdas[x, y] = new Celda_tablero()
                     {

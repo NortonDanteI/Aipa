@@ -29,7 +29,7 @@ namespace Aipa.Vista
             InitializeComponent();
             _gameTime = new Tiempo();
             _timer = new Timer();
-            _timer.Interval = 1000 / 30; // PFS (el intervalo no siempre se respeta en winforms)
+            _timer.Interval = 1000 / 30; // FPS (el intervalo no siempre se respeta en winforms)
             _timer.Tick += (sender, e) =>
             {
                 var _now = DateTime.Now;
@@ -59,38 +59,46 @@ namespace Aipa.Vista
 
         int posY = 0;
         int posX = 0;
+
         /// <summary>
         /// Recursos de imagenes a usar en el juego
         /// </summary>
         public Recursos Resources { get; set; }
+
         /// <summary>
         /// Tablero de juego
         /// </summary>
         private Tablero Board { get; set; }
+
         /// <summary>
         /// Lista de piezas de ajedrez
         /// </summary>
         private List<Pieza> Pieces { get; set; }
+
         /// <summary>
         /// Informacion del juegador 1
         /// </summary>
         public Jugador Player1 { get; set; }
+
         /// <summary>
         ///  Informacion del juegador 2
         /// </summary>
         public Jugador Player2 { get; set; }
+
         /// <summary>
         /// Jugador que tiene el turno actual
         /// </summary>
         public Jugador CurrentPlayer { get; set; }
+
         /// <summary>
         /// Registro de las acciones realizadas en el utlimo turno
         /// </summary>
         public List<Historial_acciones> ActionLog { get; set; }
+
         /// <summary>
         /// Estado del juego
         /// </summary>
-        public State GameState { get; set; }
+        public Estado GameState { get; set; }
         #endregion
 
         #region funcionalidades basicas
@@ -144,24 +152,26 @@ namespace Aipa.Vista
         }
         private void btnStart_Click(object sender, EventArgs e)
         {
+            _timer.Stop();
+            _timer.Start();
             Start_Match();
         }
+
         /// <summary>
         /// Evento que se desencadena al liberar el boton del mouse sobre el lienzo
         /// </summary>
         private void Ventana_juego_Canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            Point _mouseLocation = new Point(e.Location.X - 5, e.Location.Y - 5); // resto los bordes del tablero
-            Console.WriteLine(_mouseLocation.X + "|" + _mouseLocation.Y);
-            var cell_Location = new Point(_mouseLocation.X / 80, _mouseLocation.Y / 80); // cada celda tiene un tamaños de  100x100 + 5x5 de borde
-            Console.WriteLine(cell_Location.X +"|"+  cell_Location.Y);
+            Point _mouseLocation = new Point(e.Location.X - 27, e.Location.Y - 4); // resto los bordes del tablero        
+            var cell_Location = new Point(_mouseLocation.X / 82, _mouseLocation.Y / 82); // cada celda tiene un tamaños de  100x100 + 5x5 de borde
             // Obtengo la coordenada del tablero donde se realizo click
             if (!Move_Piece(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
                 Set_SelectedPiece(cell_Location); // si la pieza seleccionada no se puede mover a la celda destino, se intenta seleccionar otra pieza
         }
         #endregion
 
-        #region Methods
+        #region Metodos basicos
+
         /// <summary>
         /// Inicializa el juego cargando los recursos
         /// </summary>
@@ -187,7 +197,7 @@ namespace Aipa.Vista
                 Imagen_rey_negro = Load_Image($"{directory}/Rey_negro.png")
             };
         }
-        #region Methods
+
         /// <summary>
         /// Carga una imagen 
         /// </summary>
@@ -205,7 +215,6 @@ namespace Aipa.Vista
                 return null;
             }
         }
-        #endregion
 
         /// <summary>
         /// Inicia una nueva partida 
@@ -215,7 +224,7 @@ namespace Aipa.Vista
             this.ActionLog = new List<Historial_acciones>();
             this.Pieces = new List<Pieza>();
             this.Board = new Tablero(this.Resources.Imagen_tablero, this.Resources.Imagen_movimiento_resaltado);
-            this.GameState = State.Normal;
+            this.GameState = Estado.Normal;
 
             //Blancas
             Add_Piece(new Peon(this.Resources.Imagen_peon_blanco, UnColor.Blanco));
@@ -295,8 +304,9 @@ namespace Aipa.Vista
             lstPiecesPlayer2[15].Ubicacion = new Point(0, 0);
 
             Next_Turn(true);
-            base.Enabled = true;
+            //base.Enabled = true;
         }
+
         /// <summary>
         /// Obtiene la posicion de pantalla que posee la pieza
         /// </summary>
@@ -304,10 +314,11 @@ namespace Aipa.Vista
         /// <returns></returns>
         private Point Get_PiecePosition(Point location)
         {
-            int _x = (location.X * 78) + 6 * (location.X +1);
-            int _y = (location.Y * 78) + 4 * (location.Y +1);
+            int _x = (location.X * 82) + 27 ;
+            int _y = (location.Y * 82) + 4 ;
             return new Point(_x, _y);
         }
+
         /// <summary>
         /// Agrega una pieza al tablero
         /// </summary>
@@ -319,6 +330,7 @@ namespace Aipa.Vista
             if (log != null)
                 log.Pieza_añadida = piece;
         }
+
         /// <summary>
         /// Elimina una pieza del juego
         /// </summary>
@@ -329,13 +341,14 @@ namespace Aipa.Vista
             this.Pieces.Remove(piece);  // Elimina la pieza de la lista de piezas del tablero
             log.Pieza_removida.Add(piece);
         }
+
         /// <summary>
         /// Finaliza el turno actual
         /// </summary>
         /// <param name="firstTurn">Indica si es el primer turno</param>
         private void Next_Turn(bool firstTurn)
         {
-            this.GameState = State.Normal;
+            this.GameState = Estado.Normal;
             label_estado.Text = string.Empty;
             //lblMoves.Text = string.Empty;
 
@@ -351,22 +364,23 @@ namespace Aipa.Vista
             // valida si en la juegada anterior se dejo al rey en jaque
             if (isCheck)
             {
-                this.GameState = State.Check;
+                this.GameState = Estado.Jaque;
                 if (moves == 0) // si nos quedamos sin movimientos es jaque mate
-                    this.GameState = State.Checkmate;
+                    this.GameState = Estado.Jaquemate;
             }
             else
             {
                 if (moves == 0) // si nos quedamos sin movimientos y no es jaque, el juego queda en tabla
-                    this.GameState = State.Draw;
+                    this.GameState = Estado.Empate;
             }
 
             label_estado.Text = this.GameState.ToString();
-            if (GameState == State.Checkmate || GameState == State.Draw)
+            if (GameState == Estado.Jaquemate || GameState == Estado.Empate)
             {
-                MessageBox.Show(this.GameState.ToString(), "Chess", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(this.GameState.ToString(), "Aipa", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
         /// <summary>
         /// Selecciona una pieza del tablero
         /// </summary>
@@ -384,10 +398,11 @@ namespace Aipa.Vista
                 Array.ForEach(_selectedPiece.Movimientos_permitidos, loc => Board.Celdas[loc.X, loc.Y].Puede_moverse = true); // colorea las celdas habilitadas 
             }
         }
+        #endregion
 
-        //METODOS QUE OBTIENEN LAS CELDAS HABILITADAS
+        #region Metodos para obtener movimientos validos
         /// <summary>
-        /// Obtiene
+        /// Setea los movimientos para cada pieza
         /// </summary>
         private void Set_MovesLocations()
         {
@@ -493,6 +508,7 @@ namespace Aipa.Vista
             piece.Ubicacion = _originalLocation; // asigno la ubicacion original de la pieza
             return _result;
         }
+
         /// <summary>
         /// Obtiene las celdas a la cual puede desplazarce la pieza seleccionada utilizando un movimiento especial
         /// </summary>
@@ -503,7 +519,7 @@ namespace Aipa.Vista
         private bool Get_MovesLocations_Special(Pieza piece, Movimiento move, Pieza rivalPiece)
         {
             // CAMBIAR LOGICA
-            // retornar tru en cada validacion
+            // retornar true en cada validacion
 
             if (piece.GetType() == typeof(Peon))
             {
@@ -548,7 +564,7 @@ namespace Aipa.Vista
             }
             else if (piece.GetType() == typeof(Rey))
             {
-                if (GameState != State.Normal) // el rey no puede estar en jaque
+                if (GameState != Estado.Normal) // el rey no puede estar en jaque
                     return false;
 
                 //Enrrosque
@@ -589,8 +605,11 @@ namespace Aipa.Vista
 
             return false;
         }
+       
+        #endregion
 
-        //METODOS QUE DESPLAZAN LA FICHA SELECCIONADA
+        #region Metodos para dezplazar piezas
+
         /// <summary>
         /// Desplaza la pieza seleccionada a la celda indicada
         /// </summary>
@@ -636,6 +655,7 @@ namespace Aipa.Vista
 
             return false;
         }
+
         /// <summary>
         /// Ejecuta un movimiento especial de una pieza
         /// </summary>
@@ -700,6 +720,7 @@ namespace Aipa.Vista
                 }
             }
         }
+
         #endregion
 
         #region Update
@@ -727,11 +748,11 @@ namespace Aipa.Vista
         }
         #endregion
     }
-    public enum State
+    public enum Estado
     {
         Normal,
-        Check,
-        Checkmate,
-        Draw
+        Jaque,
+        Jaquemate,
+        Empate
     }
 }
