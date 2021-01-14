@@ -9,9 +9,11 @@ namespace Aipa.Modelo
 {
     public class Peon : Pieza
     {
+
         #region Constructor
         public Peon(Image image, UnColor color) : base(image, color)
         {
+            valor_pieza = 100;
             Movimientos = new Movimiento[]
             {
                 new Movimiento(0,-1, false, Tipo_de_movimiento.especial), // al frente solo puede mover, no atacar

@@ -12,6 +12,7 @@ namespace Aipa.Modelo
         #region Constructor
         public Torre(Image image, UnColor color) : base(image, color)
         {
+            valor_pieza = 525;
             Movimientos = new Movimiento[]
             {
                 new Movimiento(0,1),

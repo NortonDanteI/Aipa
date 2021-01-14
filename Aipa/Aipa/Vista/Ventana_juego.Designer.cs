@@ -29,6 +29,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            
+            #region Atributos iniciales
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ventana_juego));
             this.panel_contenedor = new System.Windows.Forms.Panel();
             this.panel_derecho = new System.Windows.Forms.Panel();
@@ -69,9 +71,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.boton_minimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boton_cerrar)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panel_contenedor
-            // 
+            #endregion
+
+            #region panel_contenedor
             this.panel_contenedor.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.panel_contenedor.Controls.Add(this.panel_derecho);
             this.panel_contenedor.Controls.Add(this.panel_izquierdo);
@@ -81,8 +83,9 @@
             this.panel_contenedor.Name = "panel_contenedor";
             this.panel_contenedor.Size = new System.Drawing.Size(1298, 1102);
             this.panel_contenedor.TabIndex = 0;
-            // 
-            // panel_derecho
+            #endregion
+
+            #region panel_derecho
             // 
             this.panel_derecho.Controls.Add(this.Canvas);
             this.panel_derecho.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -90,9 +93,9 @@
             this.panel_derecho.Name = "panel_derecho";
             this.panel_derecho.Size = new System.Drawing.Size(914, 1063);
             this.panel_derecho.TabIndex = 3;
-            // 
-            // Canvas
-            // 
+            #endregion
+
+            #region Canvas / Tablero dibujado
             this.Canvas.BackColor = System.Drawing.Color.White;
             this.Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Canvas.Image = ((System.Drawing.Image)(resources.GetObject("Canvas.Image")));
@@ -104,9 +107,9 @@
             this.Canvas.TabIndex = 1;
             this.Canvas.TabStop = false;
             this.Canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Ventana_juego_Canvas_MouseUp);
-            // 
-            // panel_izquierdo
-            // 
+            #endregion
+
+            #region panel_izquierdo
             this.panel_izquierdo.BackColor = System.Drawing.Color.LightGray;
             this.panel_izquierdo.Controls.Add(this.resetear);
             this.panel_izquierdo.Controls.Add(this.franja_negra3);
@@ -132,8 +135,8 @@
             // 
             this.resetear.BackColor = System.Drawing.Color.WhiteSmoke;
             this.resetear.FlatAppearance.BorderSize = 0;
-            this.resetear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Sienna;
-            this.resetear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Sienna;
+            this.resetear.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.resetear.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
             this.resetear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetear.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resetear.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -145,9 +148,9 @@
             this.resetear.Text = "Resetear";
             this.resetear.UseVisualStyleBackColor = false;
             this.resetear.Click += new System.EventHandler(this.btnStart_Click);
-            // 
-            // franja_negra3
-            // 
+            #endregion
+
+            #region franja_negra3
             this.franja_negra3.BackColor = System.Drawing.SystemColors.WindowText;
             this.franja_negra3.Location = new System.Drawing.Point(0, 227);
             this.franja_negra3.Name = "franja_negra3";
@@ -155,9 +158,9 @@
             this.franja_negra3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra3.TabIndex = 35;
             this.franja_negra3.TabStop = false;
-            // 
-            // emoticon_guia
-            // 
+            #endregion
+
+            #region emoticon_guia
             this.emoticon_guia.Image = ((System.Drawing.Image)(resources.GetObject("emoticon_guia.Image")));
             this.emoticon_guia.Location = new System.Drawing.Point(8, 227);
             this.emoticon_guia.Name = "emoticon_guia";
@@ -165,13 +168,13 @@
             this.emoticon_guia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.emoticon_guia.TabIndex = 34;
             this.emoticon_guia.TabStop = false;
-            // 
-            // boton_activar_consejos
-            // 
+            #endregion
+
+            #region boton_activar_consejos
             this.boton_activar_consejos.BackColor = System.Drawing.Color.WhiteSmoke;
             this.boton_activar_consejos.FlatAppearance.BorderSize = 0;
-            this.boton_activar_consejos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Sienna;
-            this.boton_activar_consejos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Sienna;
+            this.boton_activar_consejos.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.boton_activar_consejos.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
             this.boton_activar_consejos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.boton_activar_consejos.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boton_activar_consejos.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -182,10 +185,9 @@
             this.boton_activar_consejos.TabIndex = 33;
             this.boton_activar_consejos.Text = "Consejos";
             this.boton_activar_consejos.UseVisualStyleBackColor = false;
-            this.boton_activar_consejos.Click += new System.EventHandler(this.Boton_activar_consejos);
-            // 
-            // label_estado
-            // 
+            #endregion
+
+            #region label_estado
             this.label_estado.AutoSize = true;
             this.label_estado.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_estado.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -194,9 +196,9 @@
             this.label_estado.Size = new System.Drawing.Size(62, 29);
             this.label_estado.TabIndex = 32;
             this.label_estado.Text = "Jaque";
-            // 
-            // label_2
-            // 
+            #endregion
+
+            # region label_2
             this.label_2.AutoSize = true;
             this.label_2.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_2.ForeColor = System.Drawing.Color.Sienna;
@@ -206,9 +208,9 @@
             this.label_2.TabIndex = 31;
             this.label_2.Text = "Estado de la partida:";
             this.label_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // franja_negra2
-            // 
+            #endregion
+
+            # region franja_negra2
             this.franja_negra2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.franja_negra2.Location = new System.Drawing.Point(0, 136);
             this.franja_negra2.Name = "franja_negra2";
@@ -216,9 +218,9 @@
             this.franja_negra2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra2.TabIndex = 30;
             this.franja_negra2.TabStop = false;
-            // 
-            // label_recomendacion
-            // 
+            #endregion
+
+            # region label_recomendacion
             this.label_recomendacion.AutoSize = true;
             this.label_recomendacion.BackColor = System.Drawing.Color.LightGray;
             this.label_recomendacion.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -231,9 +233,9 @@
     " \r\nhacia la posición B.\r\n* Mover la pieza X en la posición A\r\nhacia la posición " +
     "B.";
             this.label_recomendacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label_jugador
-            // 
+            #endregion
+
+            # region label_jugador
             this.label_jugador.AutoSize = true;
             this.label_jugador.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_jugador.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -242,9 +244,9 @@
             this.label_jugador.Size = new System.Drawing.Size(82, 29);
             this.label_jugador.TabIndex = 26;
             this.label_jugador.Text = "Jugador";
-            // 
-            // label_1
-            // 
+            #endregion
+
+            # region label_1
             this.label_1.AutoSize = true;
             this.label_1.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_1.ForeColor = System.Drawing.Color.Sienna;
@@ -254,9 +256,9 @@
             this.label_1.TabIndex = 25;
             this.label_1.Text = "Turno de:";
             this.label_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // franja_negra4
-            // 
+            #endregion
+
+            # region franja_negra4
             this.franja_negra4.BackColor = System.Drawing.SystemColors.WindowText;
             this.franja_negra4.Location = new System.Drawing.Point(0, 467);
             this.franja_negra4.Name = "franja_negra4";
@@ -264,9 +266,9 @@
             this.franja_negra4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra4.TabIndex = 18;
             this.franja_negra4.TabStop = false;
-            // 
-            // franja_negra1
-            // 
+            #endregion
+
+            # region franja_negra1
             this.franja_negra1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.franja_negra1.Location = new System.Drawing.Point(0, 51);
             this.franja_negra1.Name = "franja_negra1";
@@ -274,9 +276,9 @@
             this.franja_negra1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra1.TabIndex = 14;
             this.franja_negra1.TabStop = false;
-            // 
-            // emoticon_manual
-            // 
+            #endregion
+
+            # region emoticon_manual
             this.emoticon_manual.Image = ((System.Drawing.Image)(resources.GetObject("emoticon_manual.Image")));
             this.emoticon_manual.Location = new System.Drawing.Point(8, 467);
             this.emoticon_manual.Name = "emoticon_manual";
@@ -284,13 +286,13 @@
             this.emoticon_manual.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.emoticon_manual.TabIndex = 13;
             this.emoticon_manual.TabStop = false;
-            // 
-            // boton_manual_usuario
-            // 
+            #endregion
+
+            # region boton_manual_usuario
             this.boton_manual_usuario.BackColor = System.Drawing.Color.WhiteSmoke;
             this.boton_manual_usuario.FlatAppearance.BorderSize = 0;
-            this.boton_manual_usuario.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Sienna;
-            this.boton_manual_usuario.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Sienna;
+            this.boton_manual_usuario.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.boton_manual_usuario.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
             this.boton_manual_usuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.boton_manual_usuario.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boton_manual_usuario.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -302,9 +304,9 @@
             this.boton_manual_usuario.Text = "Manual de usuario";
             this.boton_manual_usuario.UseVisualStyleBackColor = false;
             this.boton_manual_usuario.Click += new System.EventHandler(this.Boton_manual_usuario_click);
-            // 
-            // Barratitulo
-            // 
+            #endregion
+
+            # region Barratitulo
             this.Barratitulo.BackColor = System.Drawing.SystemColors.WindowText;
             this.Barratitulo.Controls.Add(this.boton_restaurar);
             this.Barratitulo.Controls.Add(this.boton_maximizar);
@@ -317,9 +319,9 @@
             this.Barratitulo.Size = new System.Drawing.Size(1298, 39);
             this.Barratitulo.TabIndex = 1;
             this.Barratitulo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Barratitulo_MouseMove);
-            // 
-            // boton_restaurar
-            // 
+            #endregion
+
+            # region boton_restaurar
             this.boton_restaurar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_restaurar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_restaurar.Image = ((System.Drawing.Image)(resources.GetObject("boton_restaurar.Image")));
@@ -332,9 +334,9 @@
             this.boton_restaurar.TabStop = false;
             this.boton_restaurar.Visible = false;
             this.boton_restaurar.Click += new System.EventHandler(this.Boton_restaurar_Click);
-            // 
-            // boton_maximizar
-            // 
+            #endregion
+
+            # region boton_maximizar
             this.boton_maximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_maximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_maximizar.Image = ((System.Drawing.Image)(resources.GetObject("boton_maximizar.Image")));
@@ -346,9 +348,9 @@
             this.boton_maximizar.TabIndex = 5;
             this.boton_maximizar.TabStop = false;
             this.boton_maximizar.Click += new System.EventHandler(this.Boton_maximizar_Click);
-            // 
-            // boton_minimizar
-            // 
+            #endregion
+
+            # region boton_minimizar
             this.boton_minimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_minimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_minimizar.Image = ((System.Drawing.Image)(resources.GetObject("boton_minimizar.Image")));
@@ -360,9 +362,9 @@
             this.boton_minimizar.TabIndex = 4;
             this.boton_minimizar.TabStop = false;
             this.boton_minimizar.Click += new System.EventHandler(this.Boton_minimizar_Click_1);
-            // 
-            // boton_cerrar
-            // 
+            #endregion
+
+            # region boton_cerrar
             this.boton_cerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_cerrar.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.boton_cerrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -376,9 +378,9 @@
             this.boton_cerrar.TabIndex = 2;
             this.boton_cerrar.TabStop = false;
             this.boton_cerrar.Click += new System.EventHandler(this.Boton_cerrar_Click);
-            // 
-            // Ventana_juego
-            // 
+            #endregion
+
+            # region Ventana_juego
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 1102);
@@ -406,6 +408,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.boton_minimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boton_cerrar)).EndInit();
             this.ResumeLayout(false);
+            #endregion
 
         }
 

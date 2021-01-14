@@ -13,12 +13,11 @@ namespace Aipa.Controlador
     public class Sprite
     {
         #region Constructor
-
         /// <summary>
         /// Instancia al Sprite a dibujar
         /// </summary>
         /// <param name="image">Imagen a dibujar</param>
-        /// <param name="Ubicacion">Posicion en pantalla donde se dibujara</param>
+        /// <param name="position">Posicion en pantalla donde se dibujara</param>
         public Sprite(Image image, Point Ubicacion)
         {
             this.Image = image;
@@ -29,17 +28,14 @@ namespace Aipa.Controlador
         #endregion
 
         #region Propiedades
-
         /// <summary>
         /// Imagen a dibujar
         /// </summary>
         public Image Image { get; set; }
-
         /// <summary>
         /// Posicion en pantalla donde se dibujara la imagen
         /// </summary>
         public Point Posicion { get; set; }
-
         /// <summary>
         /// Determina si se debe dibujar o no la imagen
         /// </summary>
@@ -50,6 +46,8 @@ namespace Aipa.Controlador
         /// <summary>
         /// Dibuja todos los sprites en pantalla
         /// </summary>
+        /// <param name="baseImage">Imagen base a donde se dibujara</param>
+        /// <param name="g">Clase con metodos de dibujado</param>
         public virtual void Draw(DrawHandler drawHandler)
         {
             if (this.Visible)

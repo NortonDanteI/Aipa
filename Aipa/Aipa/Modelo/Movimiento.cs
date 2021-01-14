@@ -45,8 +45,8 @@ namespace Aipa.Modelo
     /// </summary>
     public enum Tipo_de_movimiento
     {
-        normal = 1, // Movimiento y ataque a celda destino
-        especial = 2 // Movimiento que depende de la posicion de la piesa en el tablero
+        normal = 1,     // Movimiento y ataque a celda destino
+        especial = 2    // Movimiento que depende de la posicion de la piesa en el tablero
     }
     #endregion
 }

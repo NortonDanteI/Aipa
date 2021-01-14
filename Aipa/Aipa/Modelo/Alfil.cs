@@ -12,6 +12,7 @@ namespace Aipa.Modelo
         #region Constructor
         public Alfil(Image image, UnColor color) : base(image, color)
         {
+            valor_pieza = 350;
             Movimientos = new Movimiento[]
             {
                 new Movimiento(1,1),
