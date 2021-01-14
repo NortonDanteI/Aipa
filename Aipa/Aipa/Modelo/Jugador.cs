@@ -9,7 +9,7 @@ namespace Aipa.Modelo
     public class Jugador
     {
         /// <summary>
-        /// Instancia a un juegador
+        /// Instancia a un jugador
         /// </summary>
         /// <param name="color">Color de fichas a utilizar</param>
         /// <param name="tipo_jugador">Tipo de jugador</param>
