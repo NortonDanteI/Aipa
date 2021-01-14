@@ -22,8 +22,8 @@ namespace Aipa.Modelo
             get { return lstPiecesPlayer2; }
             set { lstPiecesPlayer2 = value.ToList(); }
         }
-        
-        public Agente() { }
+
+        public Agente(UnColor color, Tipo_de_jugador tipo_De_Jugador) : base(color, tipo_De_Jugador, 1) { }
 
         private Movimiento minimax()
         {

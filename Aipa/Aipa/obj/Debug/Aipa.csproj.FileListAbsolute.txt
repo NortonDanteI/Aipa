@@ -34,3 +34,4 @@ C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\bin\Debug\Aipa.exe.manif
 C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\bin\Debug\Aipa.application
 C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\obj\Debug\Aipa.exe.manifest
 C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\obj\Debug\Aipa.application
+B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_coronacion.resources
