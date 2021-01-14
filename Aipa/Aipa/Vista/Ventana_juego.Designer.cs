@@ -132,8 +132,8 @@
             // 
             this.resetear.BackColor = System.Drawing.Color.WhiteSmoke;
             this.resetear.FlatAppearance.BorderSize = 0;
-            this.resetear.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.resetear.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.resetear.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Sienna;
+            this.resetear.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Sienna;
             this.resetear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetear.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resetear.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -170,8 +170,8 @@
             // 
             this.boton_activar_consejos.BackColor = System.Drawing.Color.WhiteSmoke;
             this.boton_activar_consejos.FlatAppearance.BorderSize = 0;
-            this.boton_activar_consejos.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.boton_activar_consejos.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.boton_activar_consejos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Sienna;
+            this.boton_activar_consejos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Sienna;
             this.boton_activar_consejos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.boton_activar_consejos.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boton_activar_consejos.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -182,6 +182,7 @@
             this.boton_activar_consejos.TabIndex = 33;
             this.boton_activar_consejos.Text = "Consejos";
             this.boton_activar_consejos.UseVisualStyleBackColor = false;
+            this.boton_activar_consejos.Click += new System.EventHandler(this.Boton_activar_consejos);
             // 
             // label_estado
             // 
@@ -288,8 +289,8 @@
             // 
             this.boton_manual_usuario.BackColor = System.Drawing.Color.WhiteSmoke;
             this.boton_manual_usuario.FlatAppearance.BorderSize = 0;
-            this.boton_manual_usuario.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.boton_manual_usuario.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.boton_manual_usuario.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Sienna;
+            this.boton_manual_usuario.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Sienna;
             this.boton_manual_usuario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.boton_manual_usuario.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.boton_manual_usuario.ForeColor = System.Drawing.SystemColors.WindowText;

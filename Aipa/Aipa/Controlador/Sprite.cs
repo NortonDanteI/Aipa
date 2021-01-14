@@ -13,6 +13,7 @@ namespace Aipa.Controlador
     public class Sprite
     {
         #region Constructor
+
         /// <summary>
         /// Instancia al Sprite a dibujar
         /// </summary>
@@ -28,6 +29,7 @@ namespace Aipa.Controlador
         #endregion
 
         #region Propiedades
+
         /// <summary>
         /// Imagen a dibujar
         /// </summary>

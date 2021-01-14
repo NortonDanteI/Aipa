@@ -34,7 +34,7 @@ namespace Aipa.Controlador
         /// <summary>
         /// Clase con funciones de dibujado
         /// </summary>
-        private System.Drawing.Graphics graphics { get; set; }
+        private Graphics graphics { get; set; }
         #endregion
 
         #region Metodos

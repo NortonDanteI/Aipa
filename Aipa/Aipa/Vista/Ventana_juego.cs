@@ -100,7 +100,7 @@ namespace Aipa.Vista
         public Estado GameState { get; set; }
         #endregion
 
-        #region funcionalidades basicas
+        #region funcionalidades de eventos basicos
         private void Boton_cerrar_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Estas seguro que quieres salir", "Precaución", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
@@ -144,10 +144,15 @@ namespace Aipa.Vista
             this.Size = new Size(sw, sh);
             this.Location = new Point(lx, ly);
         }
+        private void Boton_activar_consejos(object sender, EventArgs e)
+        {
+            boton_activar_consejos.BackColor = System.Drawing.Color.Sienna;
+            emoticon_guia.BackColor = System.Drawing.Color.Sienna;
+        }
         private void Boton_manual_usuario_click(object sender, EventArgs e)
         {
-            boton_manual_usuario.BackColor = SystemColors.MenuHighlight;
-            emoticon_manual.BackColor = SystemColors.MenuHighlight;
+            boton_manual_usuario.BackColor = System.Drawing.Color.Sienna;
+            emoticon_manual.BackColor = System.Drawing.Color.Sienna;
         }
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -307,42 +312,6 @@ namespace Aipa.Vista
         }
 
         /// <summary>
-        /// Obtiene la posicion de pantalla que posee la pieza
-        /// </summary>
-        /// <param name="location">Coordenada dentro del tablero</param>
-        /// <returns></returns>
-        private Point Obtener_ubicacion_pieza(Point location)
-        {
-            int _x = (location.X * 82) + 27 ;
-            int _y = (location.Y * 82) + 4 ;
-            return new Point(_x, _y);
-        }
-
-        /// <summary>
-        /// Agrega una pieza al tablero
-        /// </summary>
-        /// <param name="piece">Pieza a agregar</param>
-        private void Añadir_pieza(Pieza piece, Historial_acciones log = null)
-        {
-      
-            piece.SelectedImage = this.Resources.Imagen_seleccion_resaltado; // asigna la imagen a mostrar en caso de ser seleccionada
-            this.Piezas.Add(piece);  // Agrega la pieza a la lista de piezas en el tablero
-            if (log != null)
-                log.Pieza_añadida = piece;
-        }
-
-        /// <summary>
-        /// Elimina una pieza del juego
-        /// </summary>
-        /// <param name="piece">Pieza a eliminar</param>
-        /// <param name="log">Log de movimiento realizado</param>
-        private void Remover_pieza(Pieza piece, Historial_acciones log)
-        {
-            this.Piezas.Remove(piece);  // Elimina la pieza de la lista de piezas del tablero
-            log.Pieza_removida.Add(piece);
-        }
-
-        /// <summary>
         /// Finaliza el turno actual
         /// </summary>
         /// <param name="firstTurn">Indica si es el primer turno</param>
@@ -359,9 +328,12 @@ namespace Aipa.Vista
             int moves = this.Piezas.Where(x => x.Color == Jugador_jugando.Color).Sum(x => x.Movimientos_permitidos.Count());
             //lblMoves.Text = moves.ToString();
 
+            //FirstOrDefault Devuelve un elemento si encuentra un elemento que cumple con la condición
             var king = this.Piezas.FirstOrDefault(x => x.Color == Jugador_jugando.Color && x.GetType() == typeof(Rey));
+            //Contains Devuelve un booleano si un elemento contiene un valor especifico en su secuencia
+            //Any Devuelve un booleano si algun elemento de la secuencia satisface la condicion
             var isCheck = this.Piezas.Any(x => x.Color != Jugador_jugando.Color && x.Movimientos_permitidos.Contains(king.Ubicacion));//Si alguno de los movimientos contiene la ubicacion del rey
-            // valida si en la juegada anterior se dejo al rey en jaque
+            // valida si en la jugada anterior se dejo al rey en jaque
             if (isCheck)
             {
                 this.GameState = Estado.Jaque;
@@ -380,6 +352,41 @@ namespace Aipa.Vista
                 MessageBox.Show(this.GameState.ToString(), "Aipa", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+      
+        /// <summary>
+        /// Obtiene la posicion de pantalla que posee la pieza
+        /// </summary>
+        /// <param name="location">Coordenada dentro del tablero</param>
+        /// <returns></returns>
+        private Point Obtener_ubicacion_pieza(Point location)
+        {
+            int _x = (location.X * 82) + 27 ;
+            int _y = (location.Y * 82) + 4 ;
+            return new Point(_x, _y);
+        }
+
+        /// <summary>
+        /// Agrega una pieza al tablero
+        /// </summary>
+        /// <param name="piece">Pieza a agregar</param>
+        private void Añadir_pieza(Pieza piece, Historial_acciones log = null)
+        {
+            piece.SelectedImage = this.Resources.Imagen_seleccion_resaltado; // asigna la imagen a mostrar en caso de ser seleccionada
+            this.Piezas.Add(piece);  // Agrega la pieza a la lista de piezas en el tablero
+            if (log != null)
+                log.Pieza_añadida = piece;
+        }
+
+        /// <summary>
+        /// Elimina una pieza del juego
+        /// </summary>
+        /// <param name="piece">Pieza a eliminar</param>
+        /// <param name="log">Log de movimiento realizado</param>
+        private void Remover_pieza(Pieza piece, Historial_acciones log)
+        {
+            this.Piezas.Remove(piece);  // Elimina la pieza de la lista de piezas del tablero
+            log.Pieza_removida.Add(piece);
+        }
 
         /// <summary>
         /// Selecciona una pieza del tablero
@@ -395,6 +402,7 @@ namespace Aipa.Vista
             if (_selectedPiece != null)
             {
                 _selectedPiece.Seleccionada = true; // se selecciona la ficha
+                //Array.ForEach permite realizar una accion determinada para cada elemento de un objeto arreglo
                 Array.ForEach(_selectedPiece.Movimientos_permitidos, loc => Board.Celdas[loc.X, loc.Y].Puede_moverse = true); // colorea las celdas habilitadas 
             }
         }
@@ -412,7 +420,7 @@ namespace Aipa.Vista
             // valida los movimientos disponibles que puede realizar el jugador actual
             this.Piezas.Where(x => x.Color == Jugador_jugando.Color).ToList().ForEach(p =>
             {
-                p.Movimientos_permitidos = p.Movimientos_permitidos.Where(loc => Ver_si_jaque(p, loc)).ToArray();
+                p.Movimientos_permitidos = p.Movimientos_permitidos.Where(loc => Validar_movimiento(p, loc)).ToArray();
                 // valida que el rey no quede en jaque al realizar el movimiento
             });
         }
@@ -449,7 +457,7 @@ namespace Aipa.Vista
 
                         if (x.Tipo_de_mov.HasFlag(Tipo_de_movimiento.especial)) // movimiento especial de pieza
                         {
-                            if (!Obtener_movimientos_especiales_posibles(piece, x, _targetPiece))
+                            if (!Validar_movimiento_especial(piece, x, _targetPiece))
                                 break; // "NO PERMITE MOVIMIENTO"
                         }
                         else
@@ -478,7 +486,7 @@ namespace Aipa.Vista
         /// <param name="piece">Pieza a desplazar</param>
         /// <param name="newLocation">Coordenada del tablero a validar</param>
         /// <returns></returns>
-        private bool Ver_si_jaque(Pieza piece, Point newLocation)
+        private bool Validar_movimiento(Pieza piece, Point newLocation)
         {
             Point _originalLocation = piece.Ubicacion; // posicion actual de la pieza
             piece.Ubicacion = newLocation; // asigna a la pieza la posicion nueva para analizar si el rey queda en jaque
@@ -493,10 +501,11 @@ namespace Aipa.Vista
 
             if (lstPiezas.Any()) // lista de piezas rival que atacan a la pieza seleccionada
             {
+                //Devuelve el primer elemento que cumple con la condicion
                 var king = this.Piezas.First(x => x.Color == piece.Color && x.GetType() == typeof(Rey));
 
                 // recalculo los movimientos habilitados de las piezas para determinar si alguna pone en jaque al rey
-                var lstBoardPiezas = this.Piezas.Where(x => !(x.Color != piece.Color && x.Ubicacion == newLocation)).ToList(); // obtiene todas las piezas del tabler ignorando la pieza que se asume fue eliminada al realizar el movimiento
+                var lstBoardPiezas = this.Piezas.Where(x => !(x.Color != piece.Color && x.Ubicacion == newLocation)).ToList(); // obtiene todas las piezas del tablero ignorando la pieza que se asume fue eliminada al realizar el movimiento
                 foreach (var p in lstPiezas)
                 {
                     var lstMoves = Obtener_movimientos_posibles(p, lstBoardPiezas); //  obtiene las ubicaciones de desplazamiento de cada una de las piezas del rival
@@ -519,7 +528,7 @@ namespace Aipa.Vista
         /// <param name="move">Movimiento a validar</param>
         /// <param name="rivalPiece">Pieza rival que se encuentra en la coordenada destino</param>
         /// <returns></returns>
-        private bool Obtener_movimientos_especiales_posibles(Pieza piece, Movimiento move, Pieza rivalPiece)
+        private bool Validar_movimiento_especial(Pieza piece, Movimiento move, Pieza rivalPiece)
         {
             if (piece.GetType() == typeof(Peon))
             {
@@ -628,7 +637,7 @@ namespace Aipa.Vista
             var selectedPiece = this.Piezas.FirstOrDefault(x => x.Seleccionada);
             if (selectedPiece != null)
             {
-                if (Board.Celdas[cell_Location.X, cell_Location.Y].Puede_moverse) // determina si la pieza seleccionada pueda moverse a la coordenada indicada
+                if (Board.Celdas[cell_Location.X, cell_Location.Y].Puede_moverse) // determina si la pieza seleccionada puede moverse a la coordenada indicada
                 {
                     var actionLog = new Historial_acciones();
                     actionLog.movimientos.Add(new Historial_movimiento
@@ -730,15 +739,15 @@ namespace Aipa.Vista
                 }
             }
         }
-
         #endregion
 
         #region Update
+
         /// <summary>
         /// Metodo que donde se escribe la logica del juego
         /// </summary>
         /// <param name="gameTime">informacion de tiempo</param>
-        protected void Update(Tiempo gameTime)
+        private void Update(Tiempo gameTime)
         {
             this.Piezas.ForEach(x => x.Posicion = Obtener_ubicacion_pieza(x.Ubicacion));
             // Actualiza la posicion en pantalla de cada pieza segun su coordenada en el tablero
@@ -747,6 +756,7 @@ namespace Aipa.Vista
         #endregion
 
         #region Draw
+
         /// <summary>
         /// Dibuja todos los sprites en pantalla
         /// </summary>

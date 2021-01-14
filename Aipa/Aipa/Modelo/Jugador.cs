@@ -12,7 +12,7 @@ namespace Aipa.Modelo
         /// Instancia a un juegador
         /// </summary>
         /// <param name="color">Color de fichas a utilizar</param>
-        /// <param name="type">Tipo de jugador</param>
+        /// <param name="tipo_jugador">Tipo de jugador</param>
         public Jugador(UnColor color, Tipo_de_jugador tipo_jugador, int numero)
         {
             this.Color = color;
@@ -24,10 +24,12 @@ namespace Aipa.Modelo
         /// Color de fichas que utiliza el jugador
         /// </summary>
         public UnColor Color { get; set; }
+
         /// <summary>
         /// Tipo de jugador
         /// </summary>
         public Tipo_de_jugador Tipo_jugador { get; set; }
+
         /// <summary>
         /// Numero de jugador
         /// </summary>
