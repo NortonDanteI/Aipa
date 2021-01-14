@@ -13,7 +13,6 @@ namespace Aipa.Modelo
         /// Posicion en pantalla de la celda
         /// </summary>
         public Point Posicion_en_tablero { get; set; }
-
         /// <summary>
         /// Determina si la ficha seleccionada puede moverse a esta celda
         /// </summary>

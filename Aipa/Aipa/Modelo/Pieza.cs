@@ -28,6 +28,11 @@ namespace Aipa.Modelo
         public UnColor Color { get; set; }
 
         /// <summary>
+        /// Valor de la pieza
+        /// </summary>
+        public int valor_pieza { get; set; }
+
+        /// <summary>
         /// Coordenada de la pieza en el tablero
         /// </summary>
         public Point Ubicacion { get; set; }

@@ -18,7 +18,7 @@ namespace Aipa.Controlador
             try
             {
                 Imagen_base = new Bitmap(width, height);
-                graphics = System.Drawing.Graphics.FromImage(Imagen_base);
+                graphics = Graphics.FromImage(Imagen_base);
             }
             catch { 
             }

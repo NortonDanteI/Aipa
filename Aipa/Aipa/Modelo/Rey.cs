@@ -12,6 +12,7 @@ namespace Aipa.Modelo
         #region Constructor
         public Rey(Image image, UnColor color) : base(image, color)
         {
+            valor_pieza = 20000;
             Movimientos = new Movimiento[]
             {
                 new Movimiento(-1,-1, false),
