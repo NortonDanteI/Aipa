@@ -9,25 +9,30 @@ namespace Aipa.Modelo
 {
     class Agente : Jugador
     {
-        public List<Pieza> lstPiecesPlayer1 = new List<Pieza>();
-        public List<Pieza> lstPiecesPlayer2 = new List<Pieza>();
-
-        public List<Pieza> LstPiecesPlayer1 
-        { 
-            get { return lstPiecesPlayer1; } 
-            set { lstPiecesPlayer1 = value.ToList(); } 
-        }
-        public List<Pieza> LstPiecesPlayer2
+        #region constructor
+        public Agente(UnColor color, Tipo_de_jugador tipo_jugador, int numero) : base(color, tipo_jugador, numero)
         {
-            get { return lstPiecesPlayer2; }
-            set { lstPiecesPlayer2 = value.ToList(); }
+
         }
+        #endregion
 
-        public Agente(UnColor color, Tipo_de_jugador tipo_De_Jugador) : base(color, tipo_De_Jugador, 1) { }
+        #region propiedades
 
-        private Movimiento minimax()
-        {
-            return new Movimiento(0, 0, true, Tipo_de_movimiento.normal);
+        private List<Pieza> piezas { get; set; }
+        #endregion
+
+        private void Decidir_movimiento() { 
+            //Consultar_piezas_del_tablero() lista de piezas
         }
     }
 }
+
+
+/*
+
+private Movimiento minimax()
+{
+    return new Movimiento(0, 0, true, Tipo_de_movimiento.normal);
+}
+
+*/
