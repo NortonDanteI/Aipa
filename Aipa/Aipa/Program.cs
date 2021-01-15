@@ -18,8 +18,8 @@ namespace Aipa
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
  
-            Ventana_bienvenida ventana_bienvenida = new Ventana_bienvenida();
-            ventana_bienvenida.ShowDialog();
+            //Ventana_bienvenida ventana_bienvenida = new Ventana_bienvenida();
+            //ventana_bienvenida.ShowDialog();
             Application.Run(new Ventana_juego());
         }
     }

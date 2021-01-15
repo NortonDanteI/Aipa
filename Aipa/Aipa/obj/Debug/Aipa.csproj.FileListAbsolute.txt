@@ -13,7 +13,6 @@ B:\Escritorio\Aipa\Aipa\Aipa\bin\Debug\CircularProgressBar.xml
 B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_bienvenida.resources
 B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.csproj.CopyComplete
 B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_juego.resources
-B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Selector.resources
 C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\bin\Debug\Aipa.exe.config
 C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\bin\Debug\Aipa.exe
 C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\bin\Debug\Aipa.pdb
@@ -35,3 +34,7 @@ C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\bin\Debug\Aipa.applicati
 C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\obj\Debug\Aipa.exe.manifest
 C:\Users\shino\source\repos\NortonDanteI\Aipa\Aipa\Aipa\obj\Debug\Aipa.application
 B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_coronacion.resources
+B:\Escritorio\Aipa\Aipa\Aipa\bin\Debug\Aipa.exe.manifest
+B:\Escritorio\Aipa\Aipa\Aipa\bin\Debug\Aipa.application
+B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.exe.manifest
+B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.application

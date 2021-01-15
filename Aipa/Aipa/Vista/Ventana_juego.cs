@@ -166,11 +166,29 @@ namespace Aipa.Vista
         /// </summary>
         private void Ventana_juego_Canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            Point _mouseLocation = new Point(e.Location.X - 27, e.Location.Y - 4); // resto los bordes del tablero        
-            var cell_Location = new Point(_mouseLocation.X / 82, _mouseLocation.Y / 82); // cada celda tiene un tamaños de  100x100 + 5x5 de borde
-            // Obtengo la coordenada del tablero donde se realizo click
-            if (!Mover_pieza(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
-                Set_pieza_seleccionada(cell_Location); // si la pieza seleccionada no se puede mover a la celda destino, se intenta seleccionar otra pieza
+            if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Humano)
+            {
+                Console.WriteLine("Estoy en humano");
+                Point _mouseLocation = new Point(e.Location.X - 27, e.Location.Y - 4); // resto los bordes del tablero        
+                var cell_Location = new Point(_mouseLocation.X / 82, _mouseLocation.Y / 82); // cada celda tiene un tamaños de  100x100 + 5x5 de borde
+
+                // Obtengo la coordenada del tablero donde se realizo click
+                if (!Mover_pieza(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
+                {
+                    Set_pieza_seleccionada(cell_Location); // si la pieza seleccionada no se puede mover a la celda destino, se intenta seleccionar otra pieza
+                }
+                else
+                {
+                    if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Agente)
+                    {
+                        Console.WriteLine("Estoy en AIPA");
+                        int dificultad = 2;
+                        Agente agente = new Agente(dificultad, Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero);
+                        agente.Obtener_movimiento_optimo(Piezas);
+                    }
+                }
+            }
+
         }
         #endregion
 
@@ -266,7 +284,9 @@ namespace Aipa.Vista
             Añadir_pieza(new Torre(this.Resources.Imagen_torre_negra, UnColor.Negro));
 
             Player1 = new Jugador(UnColor.Blanco, Tipo_de_jugador.Humano, 1);
-            Player2 = new Agente(UnColor.Negro, Tipo_de_jugador.Agente, 2);
+            Player2 = new Jugador(UnColor.Negro, Tipo_de_jugador.Agente, 2);
+            
+
             Jugador_jugando = Player1.Color == UnColor.Blanco ? Player1 : Player2; // inicia la partida el jugador que use las fichas blancas
 
             // Asigna las coordenadas de las piezas del jugador 1
@@ -308,7 +328,6 @@ namespace Aipa.Vista
             lstPiezasPlayer2[15].Ubicacion = new Point(0, 0);
 
             Siguiente_turno(true);
-            //base.Enabled = true;
         }
 
         /// <summary>
@@ -322,7 +341,10 @@ namespace Aipa.Vista
             //lblMoves.Text = string.Empty;
 
             if (!firstTurn)
+            {
                 Jugador_jugando = Jugador_jugando.Numero == 1 ? Player2 : Player1;
+            }
+
             Set_movimientos_posibles(); // recalcula los movimientos habilitados para cada una de las piezas
 
             int moves = this.Piezas.Where(x => x.Color == Jugador_jugando.Color).Sum(x => x.Movimientos_permitidos.Count());
@@ -330,6 +352,7 @@ namespace Aipa.Vista
 
             //FirstOrDefault Devuelve un elemento si encuentra un elemento que cumple con la condición
             var king = this.Piezas.FirstOrDefault(x => x.Color == Jugador_jugando.Color && x.GetType() == typeof(Rey));
+           
             //Contains Devuelve un booleano si un elemento contiene un valor especifico en su secuencia
             //Any Devuelve un booleano si algun elemento de la secuencia satisface la condicion
             var isCheck = this.Piezas.Any(x => x.Color != Jugador_jugando.Color && x.Movimientos_permitidos.Contains(king.Ubicacion));//Si alguno de los movimientos contiene la ubicacion del rey
@@ -516,7 +539,6 @@ namespace Aipa.Vista
                     }
                 }
             }
-
             piece.Ubicacion = _originalLocation; // asigno la ubicacion original de la pieza
             return _result;
         }
@@ -619,11 +641,9 @@ namespace Aipa.Vista
 
             return false;
         }
-
         #endregion
 
         #region Metodos para dezplazar piezas
-
         /// <summary>
         /// Desplaza la pieza seleccionada a la celda indicada
         /// </summary>
@@ -637,7 +657,8 @@ namespace Aipa.Vista
             var selectedPiece = this.Piezas.FirstOrDefault(x => x.Seleccionada);
             if (selectedPiece != null)
             {
-                if (Board.Celdas[cell_Location.X, cell_Location.Y].Puede_moverse) // determina si la pieza seleccionada puede moverse a la coordenada indicada
+                // determina si la pieza seleccionada puede moverse a la coordenada indicada
+                if (Board.Celdas[cell_Location.X, cell_Location.Y].Puede_moverse) 
                 {
                     var actionLog = new Historial_acciones();
                     actionLog.movimientos.Add(new Historial_movimiento

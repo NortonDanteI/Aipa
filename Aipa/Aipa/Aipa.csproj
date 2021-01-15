@@ -89,7 +89,6 @@
     <Compile Include="Modelo\Alfil.cs" />
     <Compile Include="Modelo\Caballo.cs" />
     <Compile Include="Modelo\Celda_tablero.cs" />
-    <Compile Include="Modelo\Puntuacion.cs" />
     <Compile Include="Modelo\Jugador.cs" />
     <Compile Include="Modelo\Movimiento.cs" />
     <Compile Include="Modelo\Peon.cs" />
@@ -137,7 +136,6 @@
     <EmbeddedResource Include="Vista\Ventana_juego.resx">
       <DependentUpon>Ventana_juego.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Aipa_TemporaryKey.pfx" />
     <None Include="Diagramas\Modelo_otros_DiagramasClase.cd" />
     <None Include="Diagramas\Vista_DiagramsClass.cd" />
     <None Include="Diagramas\Modelo_Piezas_DiagramasClass.cd" />
