@@ -28,7 +28,6 @@ namespace Aipa.Modelo
 
         private List<Pieza> Mis_piezas { get; set; }
         private List<Pieza> Piezas_rival { get; set; }   
-        private Array Tablero_matriz { get; set; }
 
         /// <summary>
         /// proundidad a la que va a llegar el agente
@@ -57,31 +56,14 @@ namespace Aipa.Modelo
             //Console.WriteLine("Profundidad:" + this.dificultad_+"\n");
             //Console.WriteLine("Tablero:");
 
-            //muestro tablero
-            for (int x = 0; x < 8; x++)
-            {
-                //Console.WriteLine("\n------------------------");
-                for (int y = 0; y < 8; y++)
-                {
-                    
-                    if (tablero[x, y] == null)
-                    {
-                    //    Console.Write("Vacio|");
-                    //    Console.WriteLine(x + "|" + y);
-                    }
-                    else {
-                    //    Console.Write(tablero[x, y].GetType()+"|");
-                    //    Console.WriteLine(x + "|" + y);
-                    }   
-                }
-            }
+            //imprimir_tablero(tablero)
 
             //Ya tenemos el tablero
             Funcion_eval(tablero);
             Funcion_min_max(tablero);
         }
 
-        private void Funcion_eval(Pieza[,] tablero)
+        private float Funcion_eval(Pieza[,] tablero)
         {
             int puntaje_negra=0;
             int puntaje_blanca=0;
@@ -107,6 +89,7 @@ namespace Aipa.Modelo
             Console.WriteLine("Puntaje piezas negras: " + puntaje_negra);
             Console.WriteLine("Puntaje piezas blancas: " + puntaje_blanca);
             Console.WriteLine("Puntaje nodo: "+ (puntaje_negra - puntaje_blanca));
+            return (puntaje_negra-puntaje_blanca);
 
         }
 
@@ -131,9 +114,10 @@ namespace Aipa.Modelo
                             Console.WriteLine("LA PIEZITA: " + piezita.GetType());
                             Console.WriteLine("UNA ACCION: "+accion);
                             
-                            resultado = Modificar_tablero(inicial, piezita, accion); 
-                            /*
+                            resultado = Modificar_tablero(inicial, piezita, accion);
+                            
                             utilidad = Valor_min(resultado); 
+                            /*
                             if (utilidad > mejor_utilidad)
                             {
                                 mejor_accion = accion;
@@ -150,11 +134,11 @@ namespace Aipa.Modelo
         private float Valor_min(Pieza[,] nuevo_tablero) {      
             float utilidad=0;
             profundidad++;
-            /*
-            if (Es_jaque(nuevo_tablero) || profundidad==dificultad_) {
+            
+            if (Es_terminal(nuevo_tablero) || profundidad==dificultad_) {
                 return Funcion_eval(nuevo_tablero);
             }
-            */
+            
             float menor_valor = 100000000000000;
             /*
             for accion in nuevo_tablero { //por cada pieza hacer una accion
@@ -195,13 +179,143 @@ namespace Aipa.Modelo
 
         private Pieza[,] Modificar_tablero(Pieza[,] inicial, Pieza piezita, Point accion) {
             //buscar piezita en inicial
+            inicial[piezita.Ubicacion.X, piezita.Ubicacion.Y] = null;
+            piezita.Ubicacion = new Point(accion.X, accion.Y);
+            inicial[accion.X, accion.Y] = piezita;
+            
 
-            foreach (var una_pieza in inicial) { 
-                if(una_pieza == piezita){
-                    Console.WriteLine("SOS BOLUDO");
+            //recalcular movs
+            //Recalcular(inicial);
+            imprimir_console(inicial);
+
+            return inicial;
+        }
+        private Pieza[,] Recalcular(Pieza[,] un_tablero) {
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    //recalcular para peon
+                    if (un_tablero[x, y].GetType() == typeof(Peon)) { 
+
+                    }
                 }
             }
-            return inicial;
+            return un_tablero;
+        }
+        private void imprimir_tablero(Pieza[,] tablerito) {
+            //muestro tablero
+            for (int x = 0; x < 8; x++)
+            {
+                Console.WriteLine("\n------------------------");
+                for (int y = 0; y < 8; y++)
+                {
+
+                    if (tablerito[x, y] == null)
+                    {
+                        Console.Write("Vacio|");
+                        Console.WriteLine(x + "|" + y);
+                    }
+                    else
+                    {
+                        Console.Write(tablerito[x, y].GetType()+"|");
+                        Console.WriteLine(x + "|" + y);
+                    }
+                }
+            }
+        }
+
+        private Boolean Es_terminal(Pieza[,] nuevo_tablero) {
+            /*
+            var lstPiezas = nuevo_tablero.Where(x =>
+                x.Color != piece.Color &&
+                x.Ubicacion != newLocation
+            ).ToList();// obtiene las piezas rivales para analizar si alguna deja en jaque al rey
+            */
+            return true;
+        }
+
+        private void imprimir_console(Pieza[,] tablero)
+        {
+            int i = -1;
+            string tipo_pieza = "none";
+            string color_pieza = "none";
+            foreach (Pieza pieza in tablero)
+            {
+                i++;
+                if (i % 8 == 0)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" ---------------------------------");
+                    Console.Write((8 - (i / 8)));
+                }
+
+                //string tipo_pieza = pieza.GetType().Name.ToString();
+                if (pieza != null)
+                {
+                    tipo_pieza = (pieza.GetType().Name).ToString();
+                    color_pieza = pieza.Color.ToString();
+                }
+                else tipo_pieza = "none";
+                string str;
+
+                switch (tipo_pieza)
+                {
+                    case "Peon":
+                        {
+                            str = "| " + "P ";
+                            break;
+                        }
+                    case "Caballo":
+                        {
+                            str = "| " + "N ";
+                            break;
+                        }
+                    case "Alfil":
+                        {
+                            str = "| " + "B ";
+                            break;
+                        }
+                    case "Torre":
+                        {
+                            str = "| " + "R ";
+                            break;
+                        }
+
+                    case "Reina":
+                        {
+                            str = "| " + "Q ";
+                            break;
+                        }
+
+                    case "Rey":
+                        {
+                            str = "| " + "K ";
+                            break;
+                        }
+                    default:
+                        {
+                            str = "| " + "  ";
+                            break;
+                        }
+                }
+
+                if (color_pieza == "Negro")
+                {
+                    str = str.ToLower();
+                }
+
+                Console.Write(str);
+
+                if (i % 8 == 7)
+                {
+                    Console.Write("|");
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(" ---------------------------------");
+            Console.WriteLine("   A   B   C   D   E   F   G   H");
         }
     }
 }
