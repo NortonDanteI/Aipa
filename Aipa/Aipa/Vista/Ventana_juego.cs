@@ -181,7 +181,7 @@ namespace Aipa.Vista
                 {
                     if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Agente)
                     {
-                        Console.WriteLine("Estoy en AIPA");
+                        Console.WriteLine("Estoy en AIPA \n");
                         int dificultad = 2;
                         Agente agente = new Agente(dificultad, Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero);
                         agente.Obtener_movimiento_optimo(Piezas);
