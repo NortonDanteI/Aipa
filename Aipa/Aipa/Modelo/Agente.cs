@@ -71,7 +71,7 @@ namespace Aipa.Modelo
 
         private List<Pieza> Array_to_List(Pieza[,] piezas)
         {
-            List<Pieza> salida=null ;
+            List<Pieza> salida= new List<Pieza>() ;
             foreach (Pieza p in piezas)
             {
                 if (p != null)
@@ -103,9 +103,9 @@ namespace Aipa.Modelo
                 }
             }
 
-            Console.WriteLine("Puntaje piezas negras: " + puntaje_negra);
-            Console.WriteLine("Puntaje piezas blancas: " + puntaje_blanca);
-            Console.WriteLine("Puntaje nodo: "+ (puntaje_negra - puntaje_blanca));
+           // Console.WriteLine("Puntaje piezas negras: " + puntaje_negra);
+//            Console.WriteLine("Puntaje piezas blancas: " + puntaje_blanca);
+            //Console.WriteLine("Puntaje nodo: "+ (puntaje_negra - puntaje_blanca));
             return (puntaje_negra-puntaje_blanca);
 
         }
@@ -134,10 +134,15 @@ namespace Aipa.Modelo
                                 pieza_aux = new Peon(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+
                                 break;
                             }
                         case "Caballo":
@@ -145,10 +150,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Caballo(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         case "Alfil":
@@ -156,10 +165,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Alfil(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         case "Torre":
@@ -167,10 +180,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Torre(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         case "Reina":
@@ -178,10 +195,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Reina(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         case "Rey":
@@ -189,10 +210,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Rey(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         default:
@@ -255,10 +280,15 @@ namespace Aipa.Modelo
                                 pieza_aux = new Peon(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos            = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos           , pieza_aux.Movimientos           , piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+
                                 break;
                             }
                         case "Caballo":
@@ -266,10 +296,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Caballo(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         case "Alfil":
@@ -277,10 +311,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Alfil(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         case "Torre":
@@ -288,10 +326,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Torre(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         case "Reina":
@@ -299,10 +341,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Reina(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         case "Rey":
@@ -310,10 +356,14 @@ namespace Aipa.Modelo
                                 pieza_aux = new Rey(piezita.Image, piezita.Color);
                                 pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                                 pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                                pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                                pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                                Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                                Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
                                 break;
                             }
                         default:
@@ -351,7 +401,7 @@ namespace Aipa.Modelo
 
         private float Valor_max(Pieza[,] _tablero)
         {
-            Console.WriteLine("\t MAX FUNCTION ");
+            //Console.WriteLine("\t MAX FUNCTION ");
             float utilidad = 0;
             Pieza[,] tablero_inicial_max = new Pieza[8,8];
             Array.Copy(_tablero, tablero_inicial_max, 64);
@@ -370,84 +420,108 @@ namespace Aipa.Modelo
 
             foreach (Pieza piezita in tablero_inicial_max)
             {
-                Pieza pieza_aux = null;
-                switch ((piezita.GetType().Name).ToString())
-                {
-                    case "Peon":
-                        {
-                            pieza_aux = new Peon(piezita.Image, piezita.Color);
-                            pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
-                            pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                            pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                            pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                            Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                            Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
-                            break;
-                        }
-                    case "Caballo":
-                        {
-                            pieza_aux = new Caballo(piezita.Image, piezita.Color);
-                            pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
-                            pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                            pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                            pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                            Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                            Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
-                            break;
-                        }
-                    case "Alfil":
-                        {
-                            pieza_aux = new Alfil(piezita.Image, piezita.Color);
-                            pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
-                            pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                            pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                            pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                            Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
-                            Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                            break;
-                        }
-                    case "Torre":
-                        {
-                            pieza_aux = new Torre(piezita.Image, piezita.Color);
-                            pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
-                            pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                            pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                            pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                            Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                            Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
-                            break;
-                        }
-                    case "Reina":
-                        {
-                            pieza_aux = new Reina(piezita.Image, piezita.Color);
-                            pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
-                            pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                            pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                            pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                            Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                            Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
-                            break;
-                        }
-                    case "Rey":
-                        {
-                            pieza_aux = new Rey(piezita.Image, piezita.Color);
-                            pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
-                            pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                            pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                            pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                            Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                            Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
-                            break;
-                        }
-                    default:
-                        {
-                            break;
-                        }
-                }
-
-
                 if (piezita != null)
                 {
+                    Pieza pieza_aux = null;
+                    switch ((piezita.GetType().Name).ToString()) 
+                    {
+                        case "Peon":
+                            {
+                                pieza_aux = new Peon(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+
+                                break;
+                            }
+                        case "Caballo":
+                            {
+                                pieza_aux = new Caballo(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Alfil":
+                            {
+                                pieza_aux = new Alfil(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Torre":
+                            {
+                                pieza_aux = new Torre(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Reina":
+                            {
+                                pieza_aux = new Reina(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Rey":
+                            {
+                                pieza_aux = new Rey(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+
                     if (piezita.Color == jugador_actual.Color)
                     {
                         Point[] acciones = piezita.Movimientos_permitidos;
@@ -475,7 +549,13 @@ namespace Aipa.Modelo
         private Pieza[,] Modificar_tablero(Pieza[,] _tablero, Pieza piezita, Point accion) {
             //buscar piezita en inicial
             Pieza[,] tablero_mod = new Pieza[8, 8];
-            Array.Copy(_tablero, tablero_mod, 64); // NOTA. EL TABLERO HAY QUE CLONARO PARTE POR PARTE.
+            Array.Copy(_tablero, tablero_mod, 64);
+            /*
+             * EL TABLERO HAY QUE CLONARO PARTE POR PARTE.
+             * _tablero no se está modificando (vista)
+             * _tablero vista se modifica igual que mod en cuanto a movimientos
+             * Me parece que copia las Piezas pero mantiene puntero de sub estructuras/atributos (movimientos)
+             */
 
             Pieza pieza_aux = null;
             switch ((piezita.GetType().Name).ToString())
@@ -485,10 +565,15 @@ namespace Aipa.Modelo
                         pieza_aux = new Peon(piezita.Image, piezita.Color);
                         pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                         pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                        pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                        pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                        Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                        Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                        Movimiento [] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                        Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                        pieza_aux.Movimientos = movimientos_aux;
+
+                        Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                        Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                        pieza_aux.Movimientos_permitidos = permitidos_aux;
+
                         break;
                     }
                 case "Caballo":
@@ -496,10 +581,14 @@ namespace Aipa.Modelo
                         pieza_aux = new Caballo(piezita.Image, piezita.Color);
                         pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                         pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                        pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                        pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                        Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                        Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                        Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                        Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                        pieza_aux.Movimientos = movimientos_aux;
+
+                        Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                        Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                        pieza_aux.Movimientos_permitidos = permitidos_aux;
                         break;
                     }
                 case "Alfil":
@@ -507,10 +596,14 @@ namespace Aipa.Modelo
                         pieza_aux = new Alfil(piezita.Image, piezita.Color);
                         pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                         pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                        pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                        pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                        Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
-                        Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
+
+                        Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                        Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                        pieza_aux.Movimientos = movimientos_aux;
+
+                        Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                        Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                        pieza_aux.Movimientos_permitidos = permitidos_aux;
                         break;
                     }
                 case "Torre":
@@ -518,10 +611,14 @@ namespace Aipa.Modelo
                         pieza_aux = new Torre(piezita.Image, piezita.Color);
                         pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                         pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                        pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                        pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                        Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                        Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                        Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                        Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                        pieza_aux.Movimientos = movimientos_aux;
+
+                        Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                        Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                        pieza_aux.Movimientos_permitidos = permitidos_aux;
                         break;
                     }
                 case "Reina":
@@ -529,10 +626,14 @@ namespace Aipa.Modelo
                         pieza_aux = new Reina(piezita.Image, piezita.Color);
                         pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                         pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                        pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                        pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                        Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                        Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                        Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                        Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                        pieza_aux.Movimientos = movimientos_aux;
+
+                        Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                        Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                        pieza_aux.Movimientos_permitidos = permitidos_aux;
                         break;
                     }
                 case "Rey":
@@ -540,10 +641,14 @@ namespace Aipa.Modelo
                         pieza_aux = new Rey(piezita.Image, piezita.Color);
                         pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                         pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
-                        pieza_aux.Movimientos = new Movimiento[piezita.Movimientos.Length];
-                        pieza_aux.Movimientos_permitidos = new Point[piezita.Movimientos_permitidos.Length];
-                        Array.Copy(piezita.Movimientos_permitidos, pieza_aux.Movimientos_permitidos, piezita.Movimientos_permitidos.Length);
-                        Array.Copy(piezita.Movimientos, pieza_aux.Movimientos, piezita.Movimientos.Length);
+
+                        Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                        Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                        pieza_aux.Movimientos = movimientos_aux;
+
+                        Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                        Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                        pieza_aux.Movimientos_permitidos = permitidos_aux;
                         break;
                     }
                 default:
@@ -552,11 +657,12 @@ namespace Aipa.Modelo
                     }
             }
 
+
             tablero_mod[piezita.Ubicacion.X, piezita.Ubicacion.Y] = null;
             pieza_aux.Ubicacion = accion;
             tablero_mod[accion.X, accion.Y] = pieza_aux;
             //recalcular movs validos
-            tablero_mod = Recalcular(tablero_mod);
+            tablero_mod = Recalcular(tablero_mod); // SE RECALCULA PARA AMBOS. SALIDA Y ENTRADA
             imprimir_console(tablero_mod);
 
             return tablero_mod;
@@ -564,12 +670,112 @@ namespace Aipa.Modelo
 
         private Pieza[,] Recalcular(Pieza[,] un_tablero) {
             List<Pieza> lst_tablero = new List<Pieza>();
+            Pieza pieza_aux= null;
 
             foreach (Pieza p in un_tablero) 
             {
                 if (p != null)
                 {
-                    lst_tablero.Add(p);
+                    switch ((p.GetType().Name).ToString())
+                    {
+                        case "Peon":
+                            {
+                                pieza_aux = new Peon(p.Image, p.Color);
+                                pieza_aux.Ubicacion = new Point(p.Ubicacion.X, p.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(p.Posicion.X, p.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[p.Movimientos.Length];
+                                Array.Copy(p.Movimientos, movimientos_aux, p.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[p.Movimientos_permitidos.Length];
+                                Array.Copy(p.Movimientos_permitidos, permitidos_aux, p.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+
+                                break;
+                            }
+                        case "Caballo":
+                            {
+                                pieza_aux = new Caballo(p.Image, p.Color);
+                                pieza_aux.Ubicacion = new Point(p.Ubicacion.X, p.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(p.Posicion.X, p.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[p.Movimientos.Length];
+                                Array.Copy(p.Movimientos, movimientos_aux, p.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[p.Movimientos_permitidos.Length];
+                                Array.Copy(p.Movimientos_permitidos, permitidos_aux, p.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Alfil":
+                            {
+                                pieza_aux = new Alfil(p.Image, p.Color);
+                                pieza_aux.Ubicacion = new Point(p.Ubicacion.X, p.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(p.Posicion.X, p.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[p.Movimientos.Length];
+                                Array.Copy(p.Movimientos, movimientos_aux, p.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[p.Movimientos_permitidos.Length];
+                                Array.Copy(p.Movimientos_permitidos, permitidos_aux, p.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Torre":
+                            {
+                                pieza_aux = new Torre(p.Image, p.Color);
+                                pieza_aux.Ubicacion = new Point(p.Ubicacion.X, p.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(p.Posicion.X, p.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[p.Movimientos.Length];
+                                Array.Copy(p.Movimientos, movimientos_aux, p.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[p.Movimientos_permitidos.Length];
+                                Array.Copy(p.Movimientos_permitidos, permitidos_aux, p.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Reina":
+                            {
+                                pieza_aux = new Reina(p.Image, p.Color);
+                                pieza_aux.Ubicacion = new Point(p.Ubicacion.X, p.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(p.Posicion.X, p.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[p.Movimientos.Length];
+                                Array.Copy(p.Movimientos, movimientos_aux, p.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[p.Movimientos_permitidos.Length];
+                                Array.Copy(p.Movimientos_permitidos, permitidos_aux, p.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Rey":
+                            {
+                                pieza_aux = new Rey(p.Image, p.Color);
+                                pieza_aux.Ubicacion = new Point(p.Ubicacion.X, p.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(p.Posicion.X, p.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[p.Movimientos.Length];
+                                Array.Copy(p.Movimientos, movimientos_aux, p.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[p.Movimientos_permitidos.Length];
+                                Array.Copy(p.Movimientos_permitidos, permitidos_aux, p.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+
+                    lst_tablero.Add(pieza_aux);
                 }
             }
             lst_tablero = Set_movimientos_posibles(lst_tablero);
@@ -580,7 +786,7 @@ namespace Aipa.Modelo
                 salida[pi.Ubicacion.X, pi.Ubicacion.Y] = pi;
             }
 
-            return un_tablero;
+            return salida;
         }
 
         private Boolean Es_terminal(Pieza[,] nuevo_tablero) {
