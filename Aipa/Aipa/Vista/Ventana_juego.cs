@@ -163,7 +163,7 @@ namespace Aipa.Vista
 
         /// <summary>
         /// Evento que se desencadena al liberar el boton del mouse sobre el lienzo
-        /// </summary>
+        /// </summary>  
         private void Ventana_juego_Canvas_MouseUp(object sender, MouseEventArgs e)
         {
             if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Humano)
@@ -184,7 +184,8 @@ namespace Aipa.Vista
                         Console.WriteLine("Estoy en AIPA \n");
                         int dificultad = 2;
                         Agente agente = new Agente(dificultad, Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero);
-                        agente.Obtener_movimiento_optimo(Piezas);
+
+                        this.Piezas = agente.Obtener_movimiento_optimo(Piezas);
                     }
                 }
             }
