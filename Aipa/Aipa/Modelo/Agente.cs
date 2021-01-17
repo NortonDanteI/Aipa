@@ -33,6 +33,7 @@ namespace Aipa.Modelo
         private List<Pieza> Mis_piezas { get; set; }
         private List<Pieza> Piezas_rival { get; set; }
         private Jugador jugador_actual { get; set; }
+        public Point cell_location { get; set; }
 
         /// <summary>
         /// proundidad a la que va a llegar el agente
@@ -115,9 +116,10 @@ namespace Aipa.Modelo
 
         private Pieza[,] Funcion_min_max(Pieza[,] tablero_entrada) {
             Console.WriteLine("\t MIN-MAX FUNCTION ");
-            Pieza[,] tablero_inicial_minimax = new Pieza[8,8];
+            Pieza[,] tablero_inicial_minimax = new Pieza[8, 8];
+            Pieza[,] mejor_piezas = new Pieza[8, 8];
+            Pieza[,] tablero_resultado = new Pieza[8, 8];
             Array.Copy(tablero_entrada, tablero_inicial_minimax, 64);
-            Pieza[,] tablero_resultado,  mejor_piezas = null;
             jugador_actual = new Jugador(UnColor.Negro, Tipo_de_jugador.Agente, 2);
 
             Point mejor_accion = new Point(-1,-1); 
@@ -125,7 +127,6 @@ namespace Aipa.Modelo
             float utilidad = 0;
             Pieza mejor_pieza_movida = null;
             profundidad = 0;
-            Historial_acciones action_log;
 
             //sacar las piezas del jugador
             foreach (Pieza piezita in tablero_inicial_minimax)
@@ -266,8 +267,10 @@ namespace Aipa.Modelo
             });
             this.actionLog.Add(actionLog);
             #endregion
+            mejor_piezas[mejor_accion.X, mejor_accion.Y].Seleccionada = true;
+            this.cell_location = mejor_accion;
 
-            return mejor_piezas;    
+            return mejor_piezas;
         }
 
         private float Valor_min(Pieza[,] _tablero)
@@ -419,7 +422,7 @@ namespace Aipa.Modelo
             profundidad--;
             return mejor_utilidad;
         }
-
+        
         private float Valor_max(Pieza[,] _tablero)
         {
             //Console.WriteLine("\t MAX FUNCTION ");

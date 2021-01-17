@@ -186,18 +186,14 @@ namespace Aipa.Vista
                         
                         this.Piezas = agente.Obtener_movimiento_optimo(Piezas);
                         this.ActionLog = agente.actionLog;
+                        cell_Location = agente.cell_location;
 
-                        Jugador_jugando = Player1;
 
                         foreach (Pieza aux in this.Piezas)
                         {
                             aux.SelectedImage = this.Resources.Imagen_seleccion_resaltado;
                         }
-
-                        if (!Mover_pieza(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
-                        {
-                            Set_pieza_seleccionada(cell_Location); // si la pieza seleccionada no se puede mover a la celda destino, se intenta seleccionar otra pieza
-                        }
+                        Siguiente_turno(false);
 
                     }
                 }
