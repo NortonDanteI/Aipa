@@ -14,12 +14,10 @@ namespace Aipa.Controlador
         /// Pieza que realizo el movimiento
         /// </summary>
         public Pieza Pieza_ { get; set; }
-
         /// <summary>
         /// Coordenada en el tablero a donde estaba la pieza antes del movimiento
         /// </summary>
         public Point Ubicacion_original { get; set; }
-
         /// <summary>
         /// Coordenada del tablero donde donde se desplazo la pieza
         /// </summary>

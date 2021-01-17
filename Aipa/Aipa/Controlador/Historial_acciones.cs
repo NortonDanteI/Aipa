@@ -19,12 +19,10 @@ namespace Aipa.Controlador
         /// Lista de movimientos realizados en el turno
         /// </summary>
         public List<Historial_movimiento> movimientos { get; set; }
-
         /// <summary>
         /// Pieza eliminada en el turno
         /// </summary>
         public List<Pieza> Pieza_removida { get; set; }
-
         /// <summary>
         /// Pieza agregada en el turno (Coronacion de peon)
         /// </summary>
