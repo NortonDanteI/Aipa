@@ -80,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controlador\Estado.cs" />
     <Compile Include="Modelo\Agente.cs" />
     <Compile Include="Controlador\DrawHandler.cs" />
     <Compile Include="Controlador\Historial_acciones.cs" />

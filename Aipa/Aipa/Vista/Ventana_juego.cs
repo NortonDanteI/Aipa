@@ -171,7 +171,7 @@ namespace Aipa.Vista
                 Console.WriteLine("Estoy en humano");
                 Point _mouseLocation = new Point(e.Location.X - 27, e.Location.Y - 4); // resto los bordes del tablero        
                 var cell_Location = new Point(_mouseLocation.X / 82, _mouseLocation.Y / 82); // cada celda tiene un tamaños de  100x100 + 5x5 de borde
-
+                Console.WriteLine("El humano se movio a esta celda"+cell_Location);
                 // Obtengo la coordenada del tablero donde se realizo click
                 if (!Mover_pieza(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
                 {
@@ -183,8 +183,15 @@ namespace Aipa.Vista
                     {
                         Console.WriteLine("Estoy en AIPA \n");
                         int dificultad = 2;
-                        Agente agente = new Agente(dificultad, Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero);
-                        agente.Obtener_movimiento_optimo(Piezas);
+                        Agente agente = new Agente(GameState,ActionLog,Piezas,dificultad, Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero);
+                        //conjunto de piezas + nuevo punto.
+                        //this.Piezas = agente.
+                        cell_Location = agente.Obtener_movimiento_optimo();
+                        /*
+                        if (!Mover_pieza(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
+                        {
+                            Set_pieza_seleccionada(cell_Location); // si la pieza seleccionada no se puede mover a la celda destino, se intenta seleccionar otra pieza
+                        }*/
                     }
                 }
             }
@@ -789,12 +796,5 @@ namespace Aipa.Vista
             this.Piezas.ForEach(x => x.Draw(drawHandler));
         }
         #endregion
-    }
-    public enum Estado
-    {
-        Normal,
-        Jaque,
-        Jaquemate,
-        Empate
     }
 }
