@@ -65,6 +65,7 @@ namespace Aipa.Modelo
         /// <param name="drawHandler">controlador de dibujado</param>
         public override void Draw(DrawHandler drawHandler)
         {
+
             if (this.Seleccionada)
                 drawHandler.Draw(this.SelectedImage, this.Posicion);
 

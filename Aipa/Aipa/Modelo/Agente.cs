@@ -20,14 +20,16 @@ namespace Aipa.Modelo
         /// <param name="color">Color de las piezas del agente</param>
         /// <param name="tipo_jugador">Tipo de jugador</param>
         /// <param name="numero">Numero del jugador</param>
-        public Agente(int dificultad, UnColor color, Tipo_de_jugador tipo_jugador, int numero) : base(color, tipo_jugador, numero)
+        public Agente(int dificultad, UnColor color, Tipo_de_jugador tipo_jugador, int numero, List<Historial_acciones> actionLog, Estado GameState) : base(color, tipo_jugador, numero)
         {
+            this.actionLog = actionLog;
             this.dificultad_ = dificultad;
+            this.GameState = GameState;
         }
         #endregion
 
         #region propiedades
-
+        public List<Historial_acciones> actionLog {get;set;}
         private List<Pieza> Mis_piezas { get; set; }
         private List<Pieza> Piezas_rival { get; set; }
         private Jugador jugador_actual { get; set; }
@@ -37,6 +39,7 @@ namespace Aipa.Modelo
         /// </summary>
         private int dificultad_ { get; set; }
         private int profundidad { get; set; }
+        private Estado GameState { get; set; }
         #endregion
 
         public List<Pieza> Obtener_movimiento_optimo(List<Pieza> Piezas) {
@@ -118,9 +121,11 @@ namespace Aipa.Modelo
             jugador_actual = new Jugador(UnColor.Negro, Tipo_de_jugador.Agente, 2);
 
             Point mejor_accion = new Point(-1,-1); 
-            float mejor_utilidad = -1;
-            float utilidad;
+            float mejor_utilidad = -10000000000;
+            float utilidad = 0;
+            Pieza mejor_pieza_movida = null;
             profundidad = 0;
+            Historial_acciones action_log;
 
             //sacar las piezas del jugador
             foreach (Pieza piezita in tablero_inicial_minimax)
@@ -234,26 +239,42 @@ namespace Aipa.Modelo
                             Console.WriteLine("MAX nivel: " + profundidad);
                             tablero_resultado = Modificar_tablero(tablero_inicial_minimax, pieza_aux, accion_aux);
                             utilidad = Valor_min(tablero_resultado);
+
                             jugador_actual.Color = UnColor.Negro;
                             jugador_actual.Numero = 2;
                             jugador_actual.Tipo_jugador = Tipo_de_jugador.Agente;
-                            if (utilidad > mejor_utilidad)
-                            {
+
+                            if (utilidad > mejor_utilidad) { 
+                                mejor_utilidad = utilidad;
+                                mejor_pieza_movida = piezita;
                                 mejor_piezas = tablero_resultado;
                                 mejor_accion = accion;
-                                mejor_utilidad = utilidad;
                             }
+                            this.actionLog.RemoveAt(this.actionLog.Count() - 1);
                         }
                     }
                 }
             }
+
+            #region insertar al actionlog
+            var actionLog = new Historial_acciones();
+            actionLog.movimientos.Add(new Historial_movimiento
+            {
+                Pieza_ = mejor_pieza_movida,
+                Ubicacion_original = mejor_pieza_movida.Ubicacion,
+                Ubicacion_nueva = mejor_accion
+            });
+            this.actionLog.Add(actionLog);
+            #endregion
+
             return mejor_piezas;    
         }
 
         private float Valor_min(Pieza[,] _tablero)
         {
             Console.WriteLine("\t MIN FUNCTION ");
-            float utilidad=0;
+            float mejor_utilidad = 1000000000;
+            float utilidad = 0;
             Pieza[,] tablero_inicial_min = new Pieza[8, 8];
             Array.Copy(_tablero, tablero_inicial_min, 64);
             Pieza[,] tablero_resultado = new Pieza[8,8];
@@ -266,7 +287,6 @@ namespace Aipa.Modelo
                 profundidad--;
                 return Funcion_eval(tablero_inicial_min);
             }            
-            float menor_valor = 100000000000000;
 
             foreach (Pieza piezita in _tablero)
             {
@@ -381,14 +401,15 @@ namespace Aipa.Modelo
                             Console.WriteLine("MIN nivel: " + profundidad);
                             tablero_resultado = Modificar_tablero(tablero_inicial_min, pieza_aux, accion_aux);
                             utilidad = Valor_max(tablero_resultado);
+                            this.actionLog.RemoveAt(this.actionLog.Count() - 1);
 
                             jugador_actual.Color = UnColor.Blanco;
                             jugador_actual.Numero = 1;
                             jugador_actual.Tipo_jugador = Tipo_de_jugador.Humano;
 
-                            if (utilidad < menor_valor)
+                            if (utilidad < mejor_utilidad)
                             {
-                                menor_valor = utilidad;
+                                mejor_utilidad = utilidad;
                             }
                         }
 
@@ -396,12 +417,13 @@ namespace Aipa.Modelo
                 }
             }
             profundidad--;
-            return menor_valor;
+            return mejor_utilidad;
         }
 
         private float Valor_max(Pieza[,] _tablero)
         {
             //Console.WriteLine("\t MAX FUNCTION ");
+            float mejor_utilidad = -100000000000;
             float utilidad = 0;
             Pieza[,] tablero_inicial_max = new Pieza[8,8];
             Array.Copy(_tablero, tablero_inicial_max, 64);
@@ -416,7 +438,6 @@ namespace Aipa.Modelo
                 profundidad--;
                 return Funcion_eval(tablero_inicial_max);
             }
-            float mayor_valor = 100000000000000;
 
             foreach (Pieza piezita in tablero_inicial_max)
             {
@@ -531,31 +552,28 @@ namespace Aipa.Modelo
                             Console.WriteLine("MAX nivel: " + profundidad);
                             tablero_resultado = Modificar_tablero(tablero_inicial_max, pieza_aux, accion_aux);
                             utilidad = Valor_min(tablero_resultado);
+                            this.actionLog.RemoveAt(this.actionLog.Count() - 1);
 
                             jugador_actual.Color = UnColor.Negro;
                             jugador_actual.Numero = 2;
                             jugador_actual.Tipo_jugador = Tipo_de_jugador.Agente;
 
-                            if (utilidad > mayor_valor)
-                                mayor_valor = utilidad;
+                            if (utilidad > mejor_utilidad)
+                                mejor_utilidad = utilidad;
                         }
                     }
                 }
             }
             profundidad--;
-            return mayor_valor;
+            return mejor_utilidad;
         }
+
+
 
         private Pieza[,] Modificar_tablero(Pieza[,] _tablero, Pieza piezita, Point accion) {
             //buscar piezita en inicial
             Pieza[,] tablero_mod = new Pieza[8, 8];
             Array.Copy(_tablero, tablero_mod, 64);
-            /*
-             * EL TABLERO HAY QUE CLONARO PARTE POR PARTE.
-             * _tablero no se está modificando (vista)
-             * _tablero vista se modifica igual que mod en cuanto a movimientos
-             * Me parece que copia las Piezas pero mantiene puntero de sub estructuras/atributos (movimientos)
-             */
 
             Pieza pieza_aux = null;
             switch ((piezita.GetType().Name).ToString())
@@ -565,6 +583,7 @@ namespace Aipa.Modelo
                         pieza_aux = new Peon(piezita.Image, piezita.Color);
                         pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
                         pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+                        //pieza_aux.Seleccionada = 
 
                         Movimiento [] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
                         Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
@@ -661,9 +680,22 @@ namespace Aipa.Modelo
             tablero_mod[piezita.Ubicacion.X, piezita.Ubicacion.Y] = null;
             pieza_aux.Ubicacion = accion;
             tablero_mod[accion.X, accion.Y] = pieza_aux;
+            
+            #region insertar al actionlog
+            var actionLog = new Historial_acciones();
+            actionLog.movimientos.Add(new Historial_movimiento
+            {
+                Pieza_ = pieza_aux,
+                Ubicacion_original = pieza_aux.Ubicacion,
+                Ubicacion_nueva = accion
+            });
+            this.actionLog.Add(actionLog);
+
+            #endregion
+
             //recalcular movs validos
             tablero_mod = Recalcular(tablero_mod); // SE RECALCULA PARA AMBOS. SALIDA Y ENTRADA
-            imprimir_console(tablero_mod);
+            //imprimir_console(tablero_mod);
 
             return tablero_mod;
         }
@@ -780,6 +812,28 @@ namespace Aipa.Modelo
             }
             lst_tablero = Set_movimientos_posibles(lst_tablero);
 
+            int moves = lst_tablero.Where(x => x.Color == jugador_actual.Color).Sum(x => x.Movimientos_permitidos.Count());
+            //lblMoves.Text = moves.ToString();
+
+            //FirstOrDefault Devuelve un elemento si encuentra un elemento que cumple con la condición
+            var king = lst_tablero.FirstOrDefault(x => x.Color == jugador_actual.Color && x.GetType() == typeof(Rey));
+
+            //Contains Devuelve un booleano si un elemento contiene un valor especifico en su secuencia
+            //Any Devuelve un booleano si algun elemento de la secuencia satisface la condicion
+            var isCheck = lst_tablero.Any(x => x.Color != jugador_actual.Color && x.Movimientos_permitidos.Contains(king.Ubicacion));//Si alguno de los movimientos contiene la ubicacion del rey
+            // valida si en la jugada anterior se dejo al rey en jaque
+            if (isCheck)
+            {
+                this.GameState = Estado.Jaque;
+                if (moves == 0) // si nos quedamos sin movimientos es jaque mate
+                    this.GameState = Estado.Jaquemate;
+            }
+            else
+            {
+                if (moves == 0) // si nos quedamos sin movimientos y no es jaque, el juego queda en empate
+                    this.GameState = Estado.Empate;
+            }
+
             Pieza[,] salida = new Pieza [8,8];
             foreach (Pieza pi in lst_tablero)
             {
@@ -788,6 +842,8 @@ namespace Aipa.Modelo
 
             return salida;
         }
+
+
 
         private Boolean Es_terminal(Pieza[,] nuevo_tablero) {
             /*
@@ -891,8 +947,7 @@ namespace Aipa.Modelo
             // valida los movimientos disponibles que puede realizar el jugador actual
             piezas.Where(x => x.Color == jugador_actual.Color).ToList().ForEach(p =>
             {
-
-                p.Movimientos_permitidos = p.Movimientos_permitidos.Where(loc => Validar_movimiento(piezas, p, loc, jugador_actual.Color)).ToArray();
+                p.Movimientos_permitidos = p.Movimientos_permitidos.Where(loc => Validar_movimiento(piezas, p, loc)).ToArray();
                 // valida que el rey no quede en jaque al realizar el movimiento
             });
             return piezas;
@@ -973,23 +1028,22 @@ namespace Aipa.Modelo
 
                     return _condicion1 && _condicion2 && _condicion3;
                 }
-                /*
                 if ((move.Direccion.X == -1 || move.Direccion.X == 1) && move.Direccion.Y == -1) // ataque a pieza rival en diagonal
                 {
                     //last entrega el ultimo elemento de la lista
-                    var lastAction = ActionLog.LastOrDefault();
+                    var lastAction = actionLog.LastOrDefault();
                     if (rivalPiece == null && lastAction != null) // COMER AL PASO
                     {
                         var Last_Move = lastAction.movimientos.Last();
                         // El peon rival debe estar en la misma fila que la pieza a mover, en una columna adyacente y debe haberce desplazado en el ultimo turno juegado 2 casilleros
-                        if (color_jugador == UnColor.Blanco && piece.Ubicacion.Y == 3)  // el peon se desplaza hica arriba
+                        if (jugador_actual.Color == UnColor.Blanco && piece.Ubicacion.Y == 3)  // el peon se desplaza hica arriba
                         {
                             //first devuelve el primer elemento que cumple la condicion especificada
                             var rival = piezas.FirstOrDefault(p => p.Color != piece.Color && p.Ubicacion == new Point(piece.Ubicacion.X + move.Direccion.X, piece.Ubicacion.Y));
                             if (rival != null && Last_Move.Pieza_.Equals(rival) && (Last_Move.Ubicacion_nueva.Y - Last_Move.Ubicacion_original.Y) == 2)
                                 return true; // Habilita comer al paso
                         }
-                        if (color_jugador == UnColor.Negro && piece.Ubicacion.Y == 4) // // el peon se desplaza hica abajo
+                        if (jugador_actual.Color == UnColor.Negro && piece.Ubicacion.Y == 4) // // el peon se desplaza hica abajo
                         {
                             var rival = piezas.FirstOrDefault(p => p.Color != piece.Color && p.Ubicacion == new Point(piece.Ubicacion.X - move.Direccion.X, piece.Ubicacion.Y));
                             if (rival != null && Last_Move.Pieza_.Equals(rival) && (Last_Move.Ubicacion_nueva.Y - Last_Move.Ubicacion_original.Y) == -2)
@@ -999,9 +1053,10 @@ namespace Aipa.Modelo
 
                     if (rivalPiece != null && rivalPiece.Color != piece.Color)
                         return true; // el movimiento se habilita solo si hay un rival en la posicion destino
-                }*/
+                }
                 #endregion
-            }/*
+            }
+            
             else if (piece.GetType() == typeof(Rey))
             {
                 #region movimientos especiales rey
@@ -1009,11 +1064,11 @@ namespace Aipa.Modelo
                     return false;
 
                 //Enrrosque
-                bool kingFirstMove = !ActionLog.Any(x => x.movimientos.Any(y => y.Pieza_.Equals(piece))); // debe ser el primer mov. del rey
+                bool kingFirstMove = !actionLog.Any(x => x.movimientos.Any(y => y.Pieza_.Equals(piece))); // debe ser el primer mov. del rey
                 if (!kingFirstMove)
                     return false;
 
-                Point _moveDirection = color_jugador == UnColor.Blanco ? move.Direccion : new Point(move.Direccion.X * -1, move.Direccion.Y * -1);
+                Point _moveDirection = jugador_actual.Numero == 1 ? move.Direccion : new Point(move.Direccion.X * -1, move.Direccion.Y * -1);
                 Pieza torre = null;
 
                 if (_moveDirection.X < 0) // enrrosque largo
@@ -1023,7 +1078,7 @@ namespace Aipa.Modelo
                 if (torre == null) // si no existe la torre se asume que fue eliminada o movida de su casillero original
                     return false;
                 //any inspecciona todos todos los elementos
-                bool torreFirstMove = !ActionLog.Any(x => x.movimientos.Any(y => y.Pieza_.Equals(piece))); // debe ser el primer mov. de la torre
+                bool torreFirstMove = !actionLog.Any(x => x.movimientos.Any(y => y.Pieza_.Equals(piece))); // debe ser el primer mov. de la torre
                 if (!torreFirstMove) // debe ser el primer mov. de la torre
                     return false;
 
@@ -1045,11 +1100,10 @@ namespace Aipa.Modelo
                 return true; // el enroque es valido
                 #endregion
             }
-            */
             return false;
         }
 
-        private bool Validar_movimiento(List<Pieza> piezas, Pieza piece, Point newLocation, UnColor color_jugador_actual)
+        private bool Validar_movimiento(List<Pieza> piezas, Pieza piece, Point newLocation)
         {
             Point _originalLocation = piece.Ubicacion; // posicion actual de la pieza
             piece.Ubicacion = newLocation; // asigna a la pieza la posicion nueva para analizar si el rey queda en jaque
@@ -1066,6 +1120,7 @@ namespace Aipa.Modelo
             {
                 //Devuelve el primer elemento que cumple con la condicion
                 var king = piezas.First(x => x.Color == piece.Color && x.GetType() == typeof(Rey));
+                Console.WriteLine(king.Ubicacion);
 
                 // recalculo los movimientos habilitados de las piezas para determinar si alguna pone en jaque al rey
                 var lstBoardPiezas = piezas.Where(x => !(x.Color != piece.Color && x.Ubicacion == newLocation)).ToList(); // obtiene todas las piezas del tablero ignorando la pieza que se asume fue eliminada al realizar el movimiento

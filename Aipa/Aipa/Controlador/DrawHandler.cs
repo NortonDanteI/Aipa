@@ -20,8 +20,7 @@ namespace Aipa.Controlador
                 Imagen_base = new Bitmap(width, height);
                 graphics = Graphics.FromImage(Imagen_base);
             }
-            catch { 
-            }
+            catch { }
         }
         #endregion
 
@@ -44,8 +43,7 @@ namespace Aipa.Controlador
             {
                 graphics.Dispose();
                 Imagen_base = null;
-            }
-                
+            }                
         }
 
         /// <summary>
