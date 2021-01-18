@@ -33,7 +33,7 @@ namespace Aipa.Modelo
         public List<Historial_acciones> ActionLog_ { get; set; }
         private Jugador Jugador_actual_ { get; set; }
         public Point Cell_location { get; set; }
-        public Pieza Pieza_a_mover{ get; set; }
+        public Pieza Pieza_a_mover { get; set; }
         private int Dificultad_ { get; set; }
         private int Profundidad { get; set; }
         private Estado GameState { get; set; }
@@ -51,26 +51,26 @@ namespace Aipa.Modelo
             {
                 tablero[piezita.Ubicacion.X, piezita.Ubicacion.Y] = piezita;
             }
-            
+
             (mejor_pieza, mejor_accion, utilidad_final) = Valor_max(tablero, -9900000, 9900000);
             this.Pieza_a_mover = mejor_pieza;
             this.Cell_location = mejor_accion;
-            Console.WriteLine("UTILIDAD FINAL: "+utilidad_final);
+            Console.WriteLine("UTILIDAD FINAL: " + utilidad_final);
         }
 
-        private (Pieza, Point,float) Valor_max(Pieza[,] _tablero,float Alfa,float Beta)
+        private (Pieza, Point, float) Valor_max(Pieza[,] _tablero, float Alfa, float Beta)
         {
 
             if (GameState == Estado.Jaque || Profundidad >= Dificultad_)
             {
                 Pieza p = null;
-                Point a = new Point(99,99);
+                Point a = new Point(99, 99);
                 float v = Funcion_eval(_tablero);
                 Profundidad--;
                 GameState = Estado.Normal;
 
                 //Console.WriteLine("Alcanzo Profundidad");
-                return (p,a,v);
+                return (p, a, v);
 
                 #region respaldo recuperacion variables
                 /*
@@ -82,7 +82,7 @@ namespace Aipa.Modelo
             }
 
             float mayor_valor = -1000000;
-            Point mejor_accion = new Point(-100,-100);
+            Point mejor_accion = new Point(-100, -100);
             Point accion_;
             Pieza mejor_pieza = null;
             Pieza[,] tablero_inicial_max = new Pieza[8, 8];
@@ -92,7 +92,7 @@ namespace Aipa.Modelo
             Jugador_actual_.Color = UnColor.Negro;
             Jugador_actual_.Numero = 2;
             Jugador_actual_.Tipo_jugador = Tipo_de_jugador.Agente;
-            Profundidad++;          
+            Profundidad++;
 
             foreach (Pieza piezita in tablero_inicial_max)
             {
@@ -106,8 +106,8 @@ namespace Aipa.Modelo
                             Point accion_aux = accion;// new Point(accion.X, accion.Y);
                             Console.WriteLine("MAX nivel: " + Profundidad);
                             Array.Copy(
-                                Modificar_tablero(tablero_inicial_max, piezita, accion_aux), 
-                                tablero_resultado, 
+                                Modificar_tablero(tablero_inicial_max, piezita, accion_aux),
+                                tablero_resultado,
                                 64);
 
 
@@ -116,7 +116,7 @@ namespace Aipa.Modelo
                             (piezita_, accion_, utilidad) = Valor_min(tablero_resultado, Alfa, Beta);
                             if (piezita_ == null)
                             {
-                                accion_ = accion_aux; 
+                                accion_ = accion_aux;
                                 piezita_ = piezita;
                             }
 
@@ -220,17 +220,20 @@ namespace Aipa.Modelo
                             Jugador_actual_.Tipo_jugador = Tipo_de_jugador.Humano;
                             #endregion
 
-                            if (utilidad < menor_valor) {
+                            if (utilidad < menor_valor)
+                            {
                                 Console.WriteLine("Mejor utilidad blancas:" + utilidad);
                                 menor_valor = utilidad;
                                 mejor_accion = accion_;
                             }
-                            if (menor_valor <= Alfa) {
+                            if (menor_valor <= Alfa)
+                            {
                                 Console.WriteLine("\t Corto la rama");
                                 Profundidad--;
                                 return (mejor_pieza, mejor_accion, menor_valor);
                             }
-                            if (menor_valor > Beta) {
+                            if (menor_valor > Beta)
+                            {
                                 Beta = menor_valor;
                             }
                         }
@@ -238,19 +241,22 @@ namespace Aipa.Modelo
                 }
             }
             Profundidad--;
-            return (mejor_pieza,mejor_accion, menor_valor);
+            return (mejor_pieza, mejor_accion, menor_valor);
         }
-    
+
         private float Funcion_eval(Pieza[,] tablero)
         {
             int puntaje_negra = 0;
             int puntaje_blanca = 0;
-            if (GameState == Estado.Jaque || GameState == Estado.Jaquemate ) {
-                if (Jugador_actual_.Color == UnColor.Negro) {
+            if (GameState == Estado.Jaque || GameState == Estado.Jaquemate)
+            {
+                if (Jugador_actual_.Color == UnColor.Negro)
+                {
                     //Console.WriteLine("es jaque -20k en negras");
-                    puntaje_negra = -20000; 
+                    puntaje_negra = -20000;
                 }
-                else if(Jugador_actual_.Color == UnColor.Blanco){
+                else if (Jugador_actual_.Color == UnColor.Blanco)
+                {
                     //Console.WriteLine("es jaque -20k en blancas");
                     puntaje_blanca = -20000;
                 }
@@ -545,10 +551,10 @@ namespace Aipa.Modelo
             lst_tablero = Set_movimientos_posibles(lst_tablero);
 
             int moves = lst_tablero.Where(x => x.Color == Jugador_actual_.Color).Sum(x => x.Movimientos_permitidos.Count());
-           
+
             //FirstOrDefault Devuelve un elemento si encuentra un elemento que cumple con la condición
             var king = lst_tablero.FirstOrDefault(x => x.Color == Jugador_actual_.Color && x.GetType() == typeof(Rey));
-   
+
             //Contains Devuelve un booleano si un elemento contiene un valor especifico en su secuencia
             //Any Devuelve un booleano si algun elemento de la secuencia satisface la condicion
             var isCheck = lst_tablero.Any(x => x.Color != Jugador_actual_.Color && x.Movimientos_permitidos.Contains(king.Ubicacion));//Si alguno de los movimientos contiene la ubicacion del rey                                                                                                                                   // valida si en la jugada anterior se dejo al rey en jaque
