@@ -52,10 +52,10 @@ namespace Aipa.Modelo
                 tablero[piezita.Ubicacion.X, piezita.Ubicacion.Y] = piezita;
             }
             
-            (mejor_pieza, mejor_accion, utilidad_final) = Valor_max(tablero, -1000000, 1000000);
+            (mejor_pieza, mejor_accion, utilidad_final) = Valor_max(tablero, -9900000, 9900000);
             this.Pieza_a_mover = mejor_pieza;
             this.Cell_location = mejor_accion;
-            Console.WriteLine(utilidad_final);
+            Console.WriteLine("UTILIDAD FINAL: "+utilidad_final);
         }
 
         private (Pieza, Point,float) Valor_max(Pieza[,] _tablero,float Alfa,float Beta)
@@ -63,17 +63,25 @@ namespace Aipa.Modelo
 
             if (GameState == Estado.Jaque || Profundidad >= Dificultad_)
             {
-                Console.WriteLine("Alcanzo Profundidad");
+                Pieza p = null;
+                Point a = new Point(99,99);
+                float v = Funcion_eval(_tablero);
                 Profundidad--;
-                float valor = Funcion_eval(_tablero);
                 GameState = Estado.Normal;
 
+                //Console.WriteLine("Alcanzo Profundidad");
+                return (p,a,v);
+
+                #region respaldo recuperacion variables
+                /*
                 Pieza pieza_null = null;
                 Point punto_null = new Point(-100,-100);
                 return (pieza_null, punto_null, valor);
+                */
+                #endregion
             }
 
-            float mayor_valor = -100000000000;
+            float mayor_valor = -1000000;
             Point mejor_accion = new Point(-100,-100);
             Point accion_;
             Pieza mejor_pieza = null;
@@ -97,12 +105,21 @@ namespace Aipa.Modelo
                         {
                             Point accion_aux = accion;// new Point(accion.X, accion.Y);
                             Console.WriteLine("MAX nivel: " + Profundidad);
-                            Array.Copy(Modificar_tablero(tablero_inicial_max, piezita, accion_aux), tablero_resultado, 64);
+                            Array.Copy(
+                                Modificar_tablero(tablero_inicial_max, piezita, accion_aux), 
+                                tablero_resultado, 
+                                64);
 
 
                             float utilidad;
                             Pieza piezita_;
                             (piezita_, accion_, utilidad) = Valor_min(tablero_resultado, Alfa, Beta);
+                            if (piezita_ == null)
+                            {
+                                accion_ = accion_aux; 
+                                piezita_ = piezita;
+                            }
+
                             this.ActionLog_.RemoveAt(this.ActionLog_.Count() - 1);
 
                             #region cambiar jugador
@@ -117,8 +134,11 @@ namespace Aipa.Modelo
                                 mejor_accion = accion_;
                                 mejor_pieza = piezita_;
                             }
+
                             if (mayor_valor >= Beta)
                             {
+                                Console.WriteLine("\t Corto la rama");
+                                Profundidad--;
                                 return (mejor_pieza, mejor_accion, mayor_valor);
                             }
                             if (mayor_valor > Alfa)
@@ -136,23 +156,34 @@ namespace Aipa.Modelo
         {
             if (GameState == Estado.Jaque || Profundidad >= Dificultad_)
             {
+                Pieza p = null;
+                Point a = new Point(99, 99);
+                float v = Funcion_eval(_tablero);
                 Profundidad--;
-                float valor = Funcion_eval(_tablero);
                 GameState = Estado.Normal;
+
+                Console.WriteLine("Alcanzo Profundidad");
+                #region respaldo atributos minimax
+                /*
+                float valor = Funcion_eval(_tablero);
 
                 Pieza pieza_null = null;
                 Point punto_null = new Point(-100,-100);
 
                 return (pieza_null,punto_null,valor);
+                */
+                #endregion
             }
 
-            float menor_valor = 100000000000;
+            float menor_valor = 1000000;
             Point mejor_accion = new Point(-100, -100);
             Point accion_;
             Pieza mejor_pieza = null;
             Pieza[,] tablero_inicial_min = new Pieza[8, 8];
             Array.Copy(_tablero, tablero_inicial_min, 64);
             Pieza[,] tablero_resultado = new Pieza[8, 8];
+            float utilidad;
+            Pieza pieza_;
 
             Jugador_actual_.Color = UnColor.Blanco;
             Jugador_actual_.Numero = 1;
@@ -173,10 +204,14 @@ namespace Aipa.Modelo
                             Console.WriteLine("Min nivel: " + Profundidad);
                             Array.Copy(Modificar_tablero(tablero_inicial_min, piezita, accion_aux), tablero_resultado, 64);
 
-
-                            float utilidad;
-                            Pieza pieza_;
                             (pieza_, accion_, utilidad) = Valor_max(tablero_resultado, Alfa, Beta);
+                            if (pieza_ == null)
+                            {
+                                accion_ = accion_aux;
+                                pieza_ = piezita;
+                            }
+
+
                             this.ActionLog_.RemoveAt(this.ActionLog_.Count() - 1);
 
                             #region cambiar jugador
@@ -186,11 +221,13 @@ namespace Aipa.Modelo
                             #endregion
 
                             if (utilidad < menor_valor) {
-                                Console.WriteLine("Mejor utilidad para las blancas deberia ser :" + utilidad);
+                                Console.WriteLine("Mejor utilidad blancas:" + utilidad);
                                 menor_valor = utilidad;
                                 mejor_accion = accion_;
                             }
                             if (menor_valor <= Alfa) {
+                                Console.WriteLine("\t Corto la rama");
+                                Profundidad--;
                                 return (mejor_pieza, mejor_accion, menor_valor);
                             }
                             if (menor_valor > Beta) {
@@ -210,11 +247,11 @@ namespace Aipa.Modelo
             int puntaje_blanca = 0;
             if (GameState == Estado.Jaque || GameState == Estado.Jaquemate ) {
                 if (Jugador_actual_.Color == UnColor.Negro) {
-                    Console.WriteLine("es jaque -20k en negras");
+                    //Console.WriteLine("es jaque -20k en negras");
                     puntaje_negra = -20000; 
                 }
                 else if(Jugador_actual_.Color == UnColor.Blanco){
-                    Console.WriteLine("es jaque -20k en blancas");
+                    //Console.WriteLine("es jaque -20k en blancas");
                     puntaje_blanca = -20000;
                 }
             }
@@ -518,7 +555,7 @@ namespace Aipa.Modelo
 
             if (isCheck)
             {
-                Console.WriteLine("ENTROOOOOOOOOOOOOOOOOO");
+                Console.WriteLine("\n\tENTROOOOOOOOOOOOOOOOOO AL CHECK");
                 this.GameState = Estado.Jaque;
                 if (moves == 0) // si nos quedamos sin movimientos es jaque mate
                     this.GameState = Estado.Jaquemate;
