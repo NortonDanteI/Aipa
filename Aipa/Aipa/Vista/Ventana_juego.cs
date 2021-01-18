@@ -30,8 +30,10 @@ namespace Aipa.Vista
         {        
             InitializeComponent();
             _gameTime = new Tiempo();
-            _timer = new Timer();
-            _timer.Interval = 1000 / 30; // FPS (el intervalo no siempre se respeta en winforms)
+            _timer = new Timer
+            {
+                Interval = 1000 / 30 // FPS (el intervalo no siempre se respeta en winforms)
+            };
             _timer.Tick += (sender, e) =>
             {
                 var _now = DateTime.Now;
@@ -157,7 +159,7 @@ namespace Aipa.Vista
             boton_manual_usuario.BackColor = System.Drawing.Color.Sienna;
             emoticon_manual.BackColor = System.Drawing.Color.Sienna;
         }
-        private void btnStart_Click(object sender, EventArgs e)
+        private void BtnStart_Click(object sender, EventArgs e)
         {
             _timer.Stop();
             _timer.Start();
@@ -195,14 +197,14 @@ namespace Aipa.Vista
 
                     if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Agente)
                     {
-                        int dificultad = 3;
-                        Agente agente = new Agente(dificultad, Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero, ActionLog, GameState);
+                        int dificultad = 4;
+                        Agente agente = new Agente(dificultad, Jugador_jugando, ActionLog, GameState);
                         //obtengo optimo
-                        agente.Obtener_movimiento_optimo(this.Piezas);
+                        agente.Alfa_Beta(this.Piezas);
                         //donde quiero mover la pieza
-                        var cell_Locationn = agente.cell_location;
+                        var cell_Locationn = agente.Cell_location;
                         //seteo tablero
-                        val.Set_pieza_seleccionada(agente.pieza_a_mover.Ubicacion);
+                        val.Set_pieza_seleccionada(agente.Pieza_a_mover.Ubicacion);
                         //muevo la pieza
                         if (val.Mover_pieza(cell_Locationn)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
                         {
@@ -230,7 +232,7 @@ namespace Aipa.Vista
         /// </summary>
         private void Initialize()
         {
-            string directory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "imagenes");
+            _ = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "imagenes");
             this.Resources = val.Resources;
         }
 

@@ -147,7 +147,7 @@
             this.resetear.TabIndex = 36;
             this.resetear.Text = "Resetear";
             this.resetear.UseVisualStyleBackColor = false;
-            this.resetear.Click += new System.EventHandler(this.btnStart_Click);
+            this.resetear.Click += new System.EventHandler(this.BtnStart_Click);
             #endregion
 
             #region franja_negra3

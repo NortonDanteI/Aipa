@@ -16,7 +16,7 @@ namespace Aipa
         /// </summary>
         [STAThread]
         static void Main()
-        {    
+        {
             //Ventana_bienvenida ventana_bienvenida = new Ventana_bienvenida();
             //ventana_bienvenida.ShowDialog();
             Application.Run(new Ventana_juego());
