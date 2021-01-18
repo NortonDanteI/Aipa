@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Aipa.Vista;
+using Aipa.Controlador;
+using Aipa.Modelo;
 
 namespace Aipa
 {
@@ -14,10 +16,7 @@ namespace Aipa
         /// </summary>
         [STAThread]
         static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
- 
+        {    
             //Ventana_bienvenida ventana_bienvenida = new Ventana_bienvenida();
             //ventana_bienvenida.ShowDialog();
             Application.Run(new Ventana_juego());
