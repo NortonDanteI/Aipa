@@ -58,7 +58,7 @@ namespace Aipa.Modelo
             (mejor_pieza, mejor_accion, utilidad_final) = Valor_max(tablero, -9900000, 9900000);
             this.Pieza_a_mover = mejor_pieza;
             this.Cell_location = mejor_accion;
-            Console.WriteLine("UTILIDAD FINAL: " + utilidad_final);
+            //Console.WriteLine("UTILIDAD FINAL: " + utilidad_final);
         }
 
         private (Pieza, Point, float) Valor_max(Pieza[,] _tablero, float Alfa, float Beta)
@@ -86,17 +86,7 @@ namespace Aipa.Modelo
                 float v = Funcion_eval(_tablero);
                 Profundidad--;
                 GameState = Estado.Normal;
-
-                //Console.WriteLine("Alcanzo Profundidad");
                 return (p, a, v);
-
-                #region respaldo recuperacion variables
-                /*
-                Pieza pieza_null = null;
-                Point punto_null = new Point(-100,-100);
-                return (pieza_null, punto_null, valor);
-                */
-                #endregion
             }
 
             foreach (Pieza piezita in tablero_inicial_max)
@@ -211,15 +201,15 @@ namespace Aipa.Modelo
                         {
                             Point accion_aux = accion;// new Point(accion.X, accion.Y);
                             Console.WriteLine("MAX nivel: " + Profundidad);
-                            Array.Copy(
-                                        Modificar_tablero(tablero_inicial_max, pieza_aux, accion_aux),
-                                        tablero_resultado,
-                                        64
-                                    );
+
+                            Array.Copy(Modificar_tablero(tablero_inicial_max, pieza_aux, accion_aux),tablero_resultado,64);
+                            //imprimir_console(tablero_inicial_max);
 
                             float utilidad;
                             Pieza piezita_;
                             (piezita_, accion_, utilidad) = Valor_min(tablero_resultado, Alfa, Beta);
+                            //imprimir_console(tablero_resultado);
+                            
                             if (piezita_ == null)
                             {
                                 accion_ = accion_aux;
@@ -242,7 +232,7 @@ namespace Aipa.Modelo
                             }
                             if (mayor_valor >= Beta)
                             {
-                                Console.WriteLine("\t Corto la rama");
+                                //Console.WriteLine("\t Corto la rama");
                                 Profundidad--;
                                 return (mejor_pieza, mejor_accion, mayor_valor);
                             }
@@ -287,8 +277,7 @@ namespace Aipa.Modelo
                 float v = Funcion_eval(_tablero);
                 Profundidad--;
                 GameState = Estado.Normal;
-
-                Console.WriteLine("Alcanzo Profundidad");
+                return (p, a, v);
             }
 
             foreach (Pieza piezita in _tablero)
@@ -421,13 +410,13 @@ namespace Aipa.Modelo
 
                             if (utilidad < menor_valor)
                             {
-                                Console.WriteLine("Mejor utilidad blancas: " + utilidad);
+                                //Console.WriteLine("Mejor utilidad blancas: " + utilidad);
                                 menor_valor = utilidad;
                                 mejor_accion = accion_;
                             }
                             if (menor_valor <= Alfa) 
                             {
-                                Console.WriteLine("\t Corto la rama");
+                                //Console.WriteLine("\t Corto la rama");
                                 Profundidad--;
                                 return (mejor_pieza, mejor_accion, menor_valor);
                             }// Cambio de sentido
@@ -600,6 +589,7 @@ namespace Aipa.Modelo
                     }
             }
 
+
             tablero_mod[piezita.Ubicacion.X, piezita.Ubicacion.Y] = null;
             pieza_aux.Ubicacion = accion;
             tablero_mod[accion.X, accion.Y] = pieza_aux;
@@ -617,13 +607,14 @@ namespace Aipa.Modelo
             #endregion
 
             //recalcular movs validos
-            tablero_mod = Recalcular(tablero_mod); // SE RECALCULA PARA AMBOS. SALIDA Y ENTRADA
-            imprimir_console(tablero_mod);
+//            Set_pieza_seleccionada(piezita,accion);
+            tablero_mod = Recalcular(tablero_mod, (piezita.Ubicacion), accion); // SE RECALCULA PARA AMBOS. SALIDA Y ENTRADA
+            //imprimir_console(tablero_mod);
 
             return tablero_mod;
         }
 
-        private Pieza[,] Recalcular(Pieza[,] un_tablero)
+        private Pieza[,] Recalcular(Pieza[,] un_tablero, Point i_ubicacion, Point o_ubicacion)
         {
             List<Pieza> lst_tablero = new List<Pieza>();
             Pieza pieza_aux = null;
@@ -746,6 +737,22 @@ namespace Aipa.Modelo
                     lst_tablero.Add(pieza_aux);
                 }
             }
+            /*
+            Tablero_manipulable val = new Tablero_manipulable();
+
+            val.Jugador_jugando = Jugador_actual_;
+            val.ActionLog       = ActionLog_;
+            val.GameState       = GameState;
+            val.Piezas          = lst_tablero;
+
+            val.Set_pieza_seleccionada(i_ubicacion); 
+            if (val.Mover_pieza(o_ubicacion)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
+            {
+                Jugador_actual_ = val.Jugador_jugando;
+                ActionLog_      = val.ActionLog;
+                GameState       = val.GameState;
+                lst_tablero     = val.Piezas;
+            }*/
 
             lst_tablero = Set_movimientos_posibles(lst_tablero);
 
@@ -758,19 +765,20 @@ namespace Aipa.Modelo
             //Any Devuelve un booleano si algun elemento de la secuencia satisface la condicion
             var isCheck = lst_tablero.Any(x => x.Color != Jugador_actual_.Color && x.Movimientos_permitidos.Contains(king.Ubicacion));//Si alguno de los movimientos contiene la ubicacion del rey                                                                                                                                   // valida si en la jugada anterior se dejo al rey en jaque
 
-            if (isCheck)
+            if (isCheck) 
             {
-                Console.WriteLine("\n\tENTROOOOOOOOOOOOOOOOOO AL CHECK");
+                //Console.WriteLine("\n\tENTROOOOOOOOOOOOOOOOOO AL CHECK");
                 this.GameState = Estado.Jaque;
-                if (moves == 0) // si nos quedamos sin movimientos es jaque mate
+                if (moves == 0)
+                { // si nos quedamos sin movimientos es jaque mate
                     this.GameState = Estado.Jaquemate;
+                }
             }
-            else
+            else 
             {
                 if (moves == 0) // si nos quedamos sin movimientos y no es jaque, el juego queda en empate
                     this.GameState = Estado.Empate;
             }
-
             Pieza[,] salida = new Pieza[8, 8];
             foreach (Pieza pi in lst_tablero)
             {
@@ -778,11 +786,24 @@ namespace Aipa.Modelo
             }
             return salida;
         }
+        /*
+        public void Set_pieza_seleccionada(Point cell_Location)
+        {
+            Board.Desmarcar_celdas();
+            this.Piezas.ForEach(x => x.Seleccionada = false); // deselecciono todas las fichas
+            Pieza _selectedPiece = this.Piezas.FirstOrDefault(x => x.Ubicacion == cell_Location && x.Color == Jugador_jugando.Color);
+            // busco una ficha para la coordenada donde se hizo click, solo si es del color correspondiente al jugador que tiene el turno
 
+            if (_selectedPiece != null)
+            {
+                _selectedPiece.Seleccionada = true; // se selecciona la ficha
+                //Array.ForEach permite realizar una accion determinada para cada elemento de un objeto arreglo
+                Array.ForEach(_selectedPiece.Movimientos_permitidos, loc => Board.Celdas[loc.X, loc.Y].Puede_moverse = true); // colorea las celdas habilitadas 
+            }
+        }*/
         #endregion
-        
-        #region validacion de movimientos
 
+        #region validacion de movimientos
 
         private List<Pieza> Set_movimientos_posibles(List<Pieza> piezas)
         {
@@ -851,8 +872,7 @@ namespace Aipa.Modelo
             return lstAvailableCell.ToArray();
         }
 
-        public bool Validar_movimiento_especial(List<Pieza> piezas, Pieza piece, Movimiento move, Pieza rivalPiece
-                                                /*, List<Historial_acciones> ActionLog_, Estado GameState */)
+        public bool Validar_movimiento_especial(List<Pieza> piezas, Pieza piece, Movimiento move, Pieza rivalPiece)
         {
             if (piece.GetType() == typeof(Peon))
             {
