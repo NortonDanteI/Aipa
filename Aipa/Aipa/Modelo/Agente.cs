@@ -294,7 +294,7 @@ namespace Aipa.Modelo
                 return (p, a, v);
             }
 
-            foreach (Pieza piezita in _tablero)
+            foreach (Pieza piezita in tablero_inicial_min)
             {
                 if (piezita != null)
                 {

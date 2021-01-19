@@ -119,6 +119,12 @@
     <Compile Include="Vista\Ventana_juego.Designer.cs">
       <DependentUpon>Ventana_juego.cs</DependentUpon>
     </Compile>
+    <Compile Include="Vista\Ventana_manual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vista\Ventana_manual.Designer.cs">
+      <DependentUpon>Ventana_manual.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -136,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Vista\Ventana_juego.resx">
       <DependentUpon>Ventana_juego.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vista\Ventana_manual.resx">
+      <DependentUpon>Ventana_manual.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Diagramas\Modelo_otros_DiagramasClase.cd" />
     <None Include="Diagramas\Vista_DiagramsClass.cd" />

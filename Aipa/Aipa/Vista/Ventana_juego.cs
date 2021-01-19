@@ -149,15 +149,11 @@ namespace Aipa.Vista
             this.Size = new Size(sw, sh);
             this.Location = new Point(lx, ly);
         }
-        private void Boton_activar_consejos(object sender, EventArgs e)
-        {
-            boton_activar_consejos.BackColor = System.Drawing.Color.Sienna;
-            emoticon_guia.BackColor = System.Drawing.Color.Sienna;
-        }
         private void Boton_manual_usuario_click(object sender, EventArgs e)
         {
-            boton_manual_usuario.BackColor = System.Drawing.Color.Sienna;
-            emoticon_manual.BackColor = System.Drawing.Color.Sienna;
+
+            Ventana_manual Formulario = new Ventana_manual();
+            Formulario.Show();
         }
         private void BtnStart_Click(object sender, EventArgs e)
         {
@@ -178,6 +174,7 @@ namespace Aipa.Vista
             {
                 if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Humano)
                 {
+                    Console.WriteLine("QUE SUCEDE");
                     Point _mouseLocation = new Point(e.Location.X - 27, e.Location.Y - 4); // resto los bordes del tablero        
                     var cell_Location = new Point(_mouseLocation.X / 82, _mouseLocation.Y / 82); // cada celda tiene un tamaños de  100x100 + 5x5 de borde                                                                                          
                     if (!val.Mover_pieza(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
@@ -197,6 +194,7 @@ namespace Aipa.Vista
 
                     if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Agente)
                     {
+                        Console.WriteLine("QUE SUCEDE");
                         int dificultad = 2;
                         Agente agente = new Agente(dificultad, Jugador_jugando, ActionLog, GameState, Board);
                         //obtengo optimo
@@ -280,9 +278,17 @@ namespace Aipa.Vista
             agenteAyuda.Alfa_Beta(this.Piezas);
             //donde quiero mover la pieza
             var ubicacion = agenteAyuda.Cell_location;
+            //pieza me sirve para su ubicacion
             Pieza pasar = agenteAyuda.Pieza_a_mover;
-            label_recomendacion.Text = ("Se recomienda mover pieza " + pasar.GetType().Name + "\r\n Desde " + pasar.Ubicacion + " Hacia" + ubicacion).ToString();
 
+            //Point modificado = new Point((pasar.Ubicacion.X+1), (8-pasar.Ubicacion.Y));
+            //Point target = new Point((ubicacion.X+1),(8-ubicacion.Y));
+
+            label_recomendacion.Text = ("Se recomienda mover pieza " + pasar.GetType().Name + "\r\n Desde " + pasar.Ubicacion + " Hacia" + ubicacion).ToString();
+           
+            Jugador_jugando.Color = UnColor.Blanco;
+            Jugador_jugando.Numero = 1;
+            Jugador_jugando.Tipo_jugador = Tipo_de_jugador.Humano;
         }
 
 
