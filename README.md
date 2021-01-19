@@ -37,5 +37,5 @@
 - Software II (enfoque calidad)
 
 **Lenguje de programación:**
-- C#.
+- C#
 
