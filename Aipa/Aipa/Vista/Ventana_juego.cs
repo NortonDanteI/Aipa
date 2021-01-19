@@ -197,7 +197,7 @@ namespace Aipa.Vista
 
                     if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Agente)
                     {
-                        int dificultad = 2;
+                        int dificultad = 4;
                         Agente agente = new Agente(dificultad, Jugador_jugando, ActionLog, GameState, Board);
                         //obtengo optimo
                         label1.Visible = true;

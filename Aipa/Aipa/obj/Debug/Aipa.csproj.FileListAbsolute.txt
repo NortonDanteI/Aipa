@@ -58,3 +58,22 @@ C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.applicat
 C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.csproj.CopyComplete
 C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.exe
 C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.pdb
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\bin\Debug\Aipa.exe.config
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\bin\Debug\Aipa.exe.manifest
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\bin\Debug\Aipa.application
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\bin\Debug\Aipa.exe
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\bin\Debug\Aipa.pdb
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\bin\Debug\CircularProgressBar.dll
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\bin\Debug\WinFormAnimation.dll
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\bin\Debug\CircularProgressBar.xml
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.csprojAssemblyReference.cache
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.Properties.Resources.resources
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_coronacion.resources
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_bienvenida.resources
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_juego.resources
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.csproj.GenerateResource.cache
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.exe.manifest
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.application
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.csproj.CopyComplete
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.exe
+D:\Vins\Proyectos Prog\Aipa\Aipa\Aipa\obj\Debug\Aipa.pdb
