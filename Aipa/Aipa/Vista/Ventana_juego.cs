@@ -281,8 +281,31 @@ namespace Aipa.Vista
             //donde quiero mover la pieza
             var ubicacion = agenteAyuda.Cell_location;
             Pieza pasar = agenteAyuda.Pieza_a_mover;
-            label_recomendacion.Text = ("Se recomienda mover pieza " + pasar.GetType().Name + "\r\n Desde " + pasar.Ubicacion + " Hacia" + ubicacion).ToString();
 
+            string desde = numero_a_coordenada((pasar.Ubicacion.X + 1), 8 - pasar.Ubicacion.Y);
+            string hacia = numero_a_coordenada((ubicacion.X + 1), 8 - ubicacion.Y);
+
+
+            label_recomendacion.Text = ("Se recomienda mover: " + pasar.GetType().Name +" "+pasar.Color + "\r\n Desde: [" + desde + "] \r\nHacia: [" + hacia+"]").ToString();
+             
+        }
+
+        public String numero_a_coordenada(int x, int y)
+        {
+            String salida = "";
+
+            switch (x)
+            {
+                case 1: salida += "A"; break;
+                case 2: salida += "B"; break;
+                case 3: salida += "C"; break;
+                case 4: salida += "D"; break;
+                case 5: salida += "E"; break;
+                case 6: salida += "F"; break;
+                case 7: salida += "G"; break;
+                case 8: salida += "H"; break;
+            }
+            return salida + "" + y;
         }
 
 
