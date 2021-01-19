@@ -59,6 +59,7 @@ namespace Aipa.Modelo
                 tablero[piezita.Ubicacion.X, piezita.Ubicacion.Y] = piezita;
             }
 
+            
             if (Jugador_actual_.Color == UnColor.Negro)
             {
                 Console.WriteLine("SOY NIGGA");
