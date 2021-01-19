@@ -20,8 +20,9 @@ namespace Aipa.Modelo
         /// <param name="color">Color de las piezas del agente</param>
         /// <param name="tipo_jugador">Tipo de jugador</param>
         /// <param name="numero">Numero del jugador</param>
-        public Agente(int dificultad, Jugador Jugador_jugando, List<Historial_acciones> ActionLog_, Estado GameState) : base(Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero)
+        public Agente(int dificultad, Jugador Jugador_jugando, List<Historial_acciones> ActionLog_, Estado GameState, Tablero Board) : base(Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero)
         {
+            this.Board = Board;
             this.ActionLog_ = ActionLog_;
             this.Dificultad_ = dificultad;
             this.GameState = GameState;
@@ -30,10 +31,13 @@ namespace Aipa.Modelo
         #endregion
 
         #region propiedades
+
+        private Tablero Board { get; set; }
+        public List <Pieza> lista_piezas { get; set; }
         public List<Historial_acciones> ActionLog_ { get; set; }
         private Jugador Jugador_actual_ { get; set; }
         public Point Cell_location { get; set; }
-        public Pieza Pieza_a_mover{ get; set; }
+        public Pieza Pieza_a_mover { get; set; }
         private int Dificultad_ { get; set; }
         private int Profundidad { get; set; }
         private Estado GameState { get; set; }
@@ -42,67 +46,189 @@ namespace Aipa.Modelo
         #region Alfa_Beta
         public void Alfa_Beta(List<Pieza> Piezas)
         {
+            #region Atributos del método
             Pieza mejor_pieza;
             Point mejor_accion;
             float utilidad_final;
+            Profundidad = 0;
             Pieza[,] tablero = new Pieza[8, 8];
+            #endregion
 
             foreach (var piezita in Piezas)
             {
                 tablero[piezita.Ubicacion.X, piezita.Ubicacion.Y] = piezita;
             }
-            
-            (mejor_pieza, mejor_accion, utilidad_final) = Valor_max(tablero, -1000000, 1000000);
+
+            if (Jugador_actual_.Color == UnColor.Negro)
+            {
+                Console.WriteLine("SOY NIGGA");
+                (mejor_pieza, mejor_accion, utilidad_final) = Valor_max(tablero, -9900000, 9900000);
+            }
+            else {
+                Console.WriteLine("SOY BLANCA");
+                (mejor_pieza, mejor_accion, utilidad_final) = Valor_min(tablero, -9900000, 9900000);
+            }
             this.Pieza_a_mover = mejor_pieza;
             this.Cell_location = mejor_accion;
-            Console.WriteLine(utilidad_final);
+            //Console.WriteLine("UTILIDAD FINAL: " + utilidad_final);
         }
 
-        private (Pieza, Point,float) Valor_max(Pieza[,] _tablero,float Alfa,float Beta)
+        private (Pieza, Point, float) Valor_max(Pieza[,] _tablero, float Alfa, float Beta)
         {
-
-            if (GameState == Estado.Jaque || Profundidad >= Dificultad_)
-            {
-                Console.WriteLine("Alcanzo Profundidad");
-                Profundidad--;
-                float valor = Funcion_eval(_tablero);
-                GameState = Estado.Normal;
-
-                Pieza pieza_null = null;
-                Point punto_null = new Point(-100,-100);
-                return (pieza_null, punto_null, valor);
-            }
-
-            float mayor_valor = -100000000000;
-            Point mejor_accion = new Point(-100,-100);
+            #region propiedades del método
+            float mayor_valor = -1000000;
+            Point mejor_accion = new Point(-100, -100);
             Point accion_;
             Pieza mejor_pieza = null;
             Pieza[,] tablero_inicial_max = new Pieza[8, 8];
             Array.Copy(_tablero, tablero_inicial_max, 64);
             Pieza[,] tablero_resultado = new Pieza[8, 8];
+            float utilidad;
+            Pieza piezita_;
+            Profundidad++;
 
+            #region cambiar jugador
             Jugador_actual_.Color = UnColor.Negro;
             Jugador_actual_.Numero = 2;
             Jugador_actual_.Tipo_jugador = Tipo_de_jugador.Agente;
-            Profundidad++;          
+            #endregion
+            #endregion
+
+            if (GameState == Estado.Jaquemate || Profundidad >= Dificultad_)
+            {
+                Pieza p = null;
+                Point a = new Point(99, 99);
+                float v = Funcion_eval(_tablero);
+                Profundidad--;
+                GameState = Estado.Normal;
+                return (p, a, v);
+            }
 
             foreach (Pieza piezita in tablero_inicial_max)
             {
                 if (piezita != null)
                 {
+                    Pieza pieza_aux = null;
+                    switch ((piezita.GetType().Name).ToString())
+                    {
+                        case "Peon":
+                            {
+                                pieza_aux = new Peon(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+                                //pieza_aux.Seleccionada = 
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+
+                                break;
+                            }
+                        case "Caballo":
+                            {
+                                pieza_aux = new Caballo(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Alfil":
+                            {
+                                pieza_aux = new Alfil(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Torre":
+                            {
+                                pieza_aux = new Torre(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Reina":
+                            {
+                                pieza_aux = new Reina(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Rey":
+                            {
+                                pieza_aux = new Rey(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+
                     if (piezita.Color == Jugador_actual_.Color)
                     {
                         Point[] acciones = piezita.Movimientos_permitidos;
                         foreach (Point accion in acciones)
                         {
                             Point accion_aux = accion;// new Point(accion.X, accion.Y);
-                            Console.WriteLine("MAX nivel: " + Profundidad);
-                            Array.Copy(Modificar_tablero(tablero_inicial_max, piezita, accion_aux), tablero_resultado, 64);
+                            //Console.WriteLine("MAX nivel: " + Profundidad);
 
-
-                            float utilidad;
-                            Pieza piezita_;
+                            Array.Copy(Modificar_tablero(tablero_inicial_max, pieza_aux, accion_aux),tablero_resultado,64);
+                            //imprimir_console(tablero_inicial_max);
+                 
                             (piezita_, accion_, utilidad) = Valor_min(tablero_resultado, Alfa, Beta);
+                            //imprimir_console(tablero_resultado);
+                            
+                            if (piezita_ == null)
+                            {
+                                accion_ = accion_aux;
+                                piezita_= piezita;
+                            }
+
                             this.ActionLog_.RemoveAt(this.ActionLog_.Count() - 1);
 
                             #region cambiar jugador
@@ -117,8 +243,10 @@ namespace Aipa.Modelo
                                 mejor_accion = accion_;
                                 mejor_pieza = piezita_;
                             }
-                            if (mayor_valor >= Beta)
+                            if (mayor_valor >=   Beta)
                             {
+                                //Console.WriteLine("\t Corto la rama");
+                                Profundidad--;
                                 return (mejor_pieza, mejor_accion, mayor_valor);
                             }
                             if (mayor_valor > Alfa)
@@ -132,68 +260,181 @@ namespace Aipa.Modelo
             Profundidad--;
             return (mejor_pieza, mejor_accion, mayor_valor);
         }
+
         private (Pieza, Point, float) Valor_min(Pieza[,] _tablero, float Alfa, float Beta)
         {
-            if (GameState == Estado.Jaque || Profundidad >= Dificultad_)
-            {
-                Profundidad--;
-                float valor = Funcion_eval(_tablero);
-                GameState = Estado.Normal;
-
-                Pieza pieza_null = null;
-                Point punto_null = new Point(-100,-100);
-
-                return (pieza_null,punto_null,valor);
-            }
-
-            float menor_valor = 100000000000;
+            #region atributos del método
+            float menor_valor = 1000000;
             Point mejor_accion = new Point(-100, -100);
             Point accion_;
             Pieza mejor_pieza = null;
             Pieza[,] tablero_inicial_min = new Pieza[8, 8];
             Array.Copy(_tablero, tablero_inicial_min, 64);
             Pieza[,] tablero_resultado = new Pieza[8, 8];
+            float utilidad;
+            Pieza pieza_;
+            Profundidad++;
 
+            #region cambiar jugador
             Jugador_actual_.Color = UnColor.Blanco;
             Jugador_actual_.Numero = 1;
             Jugador_actual_.Tipo_jugador = Tipo_de_jugador.Humano;
-            Profundidad++;
+            #endregion
+
+            #endregion
+
+            if (GameState == Estado.Jaquemate || Profundidad >= Dificultad_)
+            {
+                Pieza p = null;
+                Point a = new Point(99, 99);
+                float v = Funcion_eval(_tablero);
+                Profundidad--;
+                GameState = Estado.Normal;
+                return (p, a, v);
+            }
 
             foreach (Pieza piezita in _tablero)
             {
                 if (piezita != null)
                 {
+                    Pieza pieza_aux = null;
+                    switch ((piezita.GetType().Name).ToString())
+                    {
+                        case "Peon":
+                            {
+                                pieza_aux = new Peon(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+                                //pieza_aux.Seleccionada = 
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+
+                                break;
+                            }
+                        case "Caballo":
+                            {
+                                pieza_aux = new Caballo(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Alfil":
+                            {
+                                pieza_aux = new Alfil(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Torre":
+                            {
+                                pieza_aux = new Torre(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Reina":
+                            {
+                                pieza_aux = new Reina(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        case "Rey":
+                            {
+                                pieza_aux = new Rey(piezita.Image, piezita.Color);
+                                pieza_aux.Ubicacion = new Point(piezita.Ubicacion.X, piezita.Ubicacion.Y);
+                                pieza_aux.Posicion = new Point(piezita.Posicion.X, piezita.Posicion.Y);
+
+                                Movimiento[] movimientos_aux = new Movimiento[piezita.Movimientos.Length];
+                                Array.Copy(piezita.Movimientos, movimientos_aux, piezita.Movimientos.Length);
+                                pieza_aux.Movimientos = movimientos_aux;
+
+                                Point[] permitidos_aux = new Point[piezita.Movimientos_permitidos.Length];
+                                Array.Copy(piezita.Movimientos_permitidos, permitidos_aux, piezita.Movimientos_permitidos.Length);
+                                pieza_aux.Movimientos_permitidos = permitidos_aux;
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+
                     if (piezita.Color == Jugador_actual_.Color)
                     {
                         Point[] acciones = piezita.Movimientos_permitidos;
                         foreach (Point accion in acciones)
                         {
+                            Point accion_aux = accion ;
+                            //Console.WriteLine("Min nivel: " + Profundidad);
+                            Array.Copy(Modificar_tablero(tablero_inicial_min, pieza_aux, accion_aux), tablero_resultado, 64);
 
-                            Point accion_aux = accion;// new Point(accion.X, accion.Y);
-                            Console.WriteLine("Min nivel: " + Profundidad);
-                            Array.Copy(Modificar_tablero(tablero_inicial_min, piezita, accion_aux), tablero_resultado, 64);
-
-
-                            float utilidad;
-                            Pieza pieza_;
                             (pieza_, accion_, utilidad) = Valor_max(tablero_resultado, Alfa, Beta);
-                            this.ActionLog_.RemoveAt(this.ActionLog_.Count() - 1);
+                            if (pieza_ == null)
+                            {
+                                accion_ = accion_aux;
+                                pieza_ = piezita;
+                            }
 
+                            this.ActionLog_.RemoveAt(this.ActionLog_.Count() - 1);
                             #region cambiar jugador
                             Jugador_actual_.Color = UnColor.Blanco;
                             Jugador_actual_.Numero = 1;
                             Jugador_actual_.Tipo_jugador = Tipo_de_jugador.Humano;
                             #endregion
 
-                            if (utilidad < menor_valor) {
-                                Console.WriteLine("Mejor utilidad para las blancas deberia ser :" + utilidad);
+                            if (utilidad < menor_valor)
+                            {                         
+                                mejor_pieza = pieza_;
                                 menor_valor = utilidad;
                                 mejor_accion = accion_;
                             }
-                            if (menor_valor <= Alfa) {
+                            if (menor_valor <= Alfa) 
+                            {
+                                //Console.WriteLine("\t Corto la rama");
+                                Profundidad--;
                                 return (mejor_pieza, mejor_accion, menor_valor);
-                            }
-                            if (menor_valor > Beta) {
+                            }// Cambio de sentido
+                            if (menor_valor > Beta) 
+                            {
                                 Beta = menor_valor;
                             }
                         }
@@ -201,21 +442,41 @@ namespace Aipa.Modelo
                 }
             }
             Profundidad--;
-            return (mejor_pieza,mejor_accion, menor_valor);
+            return (mejor_pieza, mejor_accion, menor_valor);
         }
-    
+
         private float Funcion_eval(Pieza[,] tablero)
         {
+            #region atributos del método
             int puntaje_negra = 0;
             int puntaje_blanca = 0;
-            if (GameState == Estado.Jaque || GameState == Estado.Jaquemate ) {
-                if (Jugador_actual_.Color == UnColor.Negro) {
-                    Console.WriteLine("es jaque -20k en negras");
-                    puntaje_negra = -20000; 
+            int cobertura_rey_blanco = 0;
+            int cobertura_rey_negro = 0;
+            Pieza rey_negro = null, rey_blanco = null;
+            #endregion
+
+            if (GameState == Estado.Jaquemate || GameState == Estado.Jaque)
+            {
+                if (Jugador_actual_.Color == UnColor.Negro)
+                {
+                    //Console.WriteLine("es jaque -20k en negras");
+                    puntaje_negra += -200000;
                 }
-                else if(Jugador_actual_.Color == UnColor.Blanco){
-                    Console.WriteLine("es jaque -20k en blancas");
-                    puntaje_blanca = -20000;
+                else if (Jugador_actual_.Color == UnColor.Blanco)
+                {
+                    //Console.WriteLine("es jaque -20k en blancas");
+                    puntaje_blanca += -200000;
+                }
+            }
+
+            foreach (Pieza caca in tablero)
+            {
+                if (caca != null && caca.GetType().Name == "Rey")
+                {
+                    if (caca.Color == UnColor.Negro)
+                        rey_negro = caca;
+                    else
+                        rey_blanco = caca;
                 }
             }
 
@@ -225,10 +486,41 @@ namespace Aipa.Modelo
                 {
                     if (tablero[x, y] != null)
                     {
-                        if (tablero[x, y].Color == base.Color)
-                            puntaje_negra += tablero[x, y].valor_pieza;
+                        if (tablero[x, y].Color == UnColor.Negro)
+                        {
+                            foreach (Point punto in tablero[x, y].Movimientos_permitidos)
+                            {
+                                if (rey_negro.Ubicacion == punto)
+                                {
+                                    cobertura_rey_negro += 10;
+                                }
+                            }
+
+                            puntaje_negra += (tablero[x, y].valor_pieza)
+                                + (tablero[x, y].Movimientos_permitidos.Length * 10)
+                                + cobertura_rey_negro;
+
+                            cobertura_rey_negro = 0;
+                        }
                         else
-                            puntaje_blanca += tablero[x, y].valor_pieza;
+                        {
+                            foreach (Point punto in tablero[x, y].Movimientos_permitidos)
+                            {
+                                foreach (Point punto2 in tablero[x, y].Movimientos_permitidos)
+                                {
+                                    if (rey_blanco.Ubicacion == punto2)
+                                    {
+                                        cobertura_rey_blanco += 10;
+                                    }
+                                }
+                            }
+
+                            puntaje_blanca += tablero[x, y].valor_pieza
+                                + (tablero[x, y].Movimientos_permitidos.Length * 10)
+                                + cobertura_rey_blanco;
+
+                                cobertura_rey_blanco = 0;
+                        }
                     }
                 }
             }
@@ -358,6 +650,7 @@ namespace Aipa.Modelo
                     }
             }
 
+
             tablero_mod[piezita.Ubicacion.X, piezita.Ubicacion.Y] = null;
             pieza_aux.Ubicacion = accion;
             tablero_mod[accion.X, accion.Y] = pieza_aux;
@@ -375,13 +668,15 @@ namespace Aipa.Modelo
             #endregion
 
             //recalcular movs validos
-            tablero_mod = Recalcular(tablero_mod); // SE RECALCULA PARA AMBOS. SALIDA Y ENTRADA
+            this.lista_piezas = Array_to_List(_tablero);
+            Set_pieza_seleccionada(pieza_aux.Ubicacion);
+            tablero_mod = Recalcular(tablero_mod, (piezita.Ubicacion), accion); // SE RECALCULA PARA AMBOS. SALIDA Y ENTRADA
             //imprimir_console(tablero_mod);
 
             return tablero_mod;
         }
 
-        private Pieza[,] Recalcular(Pieza[,] un_tablero)
+        private Pieza[,] Recalcular(Pieza[,] un_tablero, Point i_ubicacion, Point o_ubicacion)
         {
             List<Pieza> lst_tablero = new List<Pieza>();
             Pieza pieza_aux = null;
@@ -500,47 +795,60 @@ namespace Aipa.Modelo
                                 break;
                             }
                     }
-
                     lst_tablero.Add(pieza_aux);
                 }
             }
 
             lst_tablero = Set_movimientos_posibles(lst_tablero);
-
             int moves = lst_tablero.Where(x => x.Color == Jugador_actual_.Color).Sum(x => x.Movimientos_permitidos.Count());
-           
+
             //FirstOrDefault Devuelve un elemento si encuentra un elemento que cumple con la condición
             var king = lst_tablero.FirstOrDefault(x => x.Color == Jugador_actual_.Color && x.GetType() == typeof(Rey));
-   
+
             //Contains Devuelve un booleano si un elemento contiene un valor especifico en su secuencia
             //Any Devuelve un booleano si algun elemento de la secuencia satisface la condicion
             var isCheck = lst_tablero.Any(x => x.Color != Jugador_actual_.Color && x.Movimientos_permitidos.Contains(king.Ubicacion));//Si alguno de los movimientos contiene la ubicacion del rey                                                                                                                                   // valida si en la jugada anterior se dejo al rey en jaque
 
-            if (isCheck)
+            if (isCheck) 
             {
-                Console.WriteLine("ENTROOOOOOOOOOOOOOOOOO");
+                //Console.WriteLine("\n\tENTROOOOOOOOOOOOOOOOOO AL CHECK");
                 this.GameState = Estado.Jaque;
-                if (moves == 0) // si nos quedamos sin movimientos es jaque mate
+                if (moves == 0)
+                { // si nos quedamos sin movimientos es jaque mate
                     this.GameState = Estado.Jaquemate;
+                }
             }
-            else
+            else 
             {
                 if (moves == 0) // si nos quedamos sin movimientos y no es jaque, el juego queda en empate
                     this.GameState = Estado.Empate;
             }
-
             Pieza[,] salida = new Pieza[8, 8];
             foreach (Pieza pi in lst_tablero)
             {
                 salida[pi.Ubicacion.X, pi.Ubicacion.Y] = pi;
             }
-
             return salida;
         }
 
-        #endregion
-        #region validacion de movimientos
+        
+        public void Set_pieza_seleccionada(Point cell_Location)
+        {
+            this.Board.Desmarcar_celdas();
+            lista_piezas.ForEach(x => x.Seleccionada = false); // deselecciono todas las fichas
+            Pieza _selectedPiece = lista_piezas.FirstOrDefault(x => x.Ubicacion == cell_Location && x.Color == Jugador_actual_.Color);
+            // busco una ficha para la coordenada donde se hizo click, solo si es del color correspondiente al jugador que tiene el turno
 
+            if (_selectedPiece != null)
+            {
+                _selectedPiece.Seleccionada = true; // se selecciona la ficha
+                //Array.ForEach permite realizar una accion determinada para cada elemento de un objeto arreglo
+                Array.ForEach(_selectedPiece.Movimientos_permitidos, loc => Board.Celdas[loc.X, loc.Y].Puede_moverse = true); // colorea las celdas habilitadas 
+            }
+        }
+        #endregion
+
+        #region validacion de movimientos
 
         private List<Pieza> Set_movimientos_posibles(List<Pieza> piezas)
         {
@@ -609,8 +917,7 @@ namespace Aipa.Modelo
             return lstAvailableCell.ToArray();
         }
 
-        public bool Validar_movimiento_especial(List<Pieza> piezas, Pieza piece, Movimiento move, Pieza rivalPiece
-                                                /*, List<Historial_acciones> ActionLog_, Estado GameState */)
+        public bool Validar_movimiento_especial(List<Pieza> piezas, Pieza piece, Movimiento move, Pieza rivalPiece)
         {
             if (piece.GetType() == typeof(Peon))
             {
@@ -740,5 +1047,100 @@ namespace Aipa.Modelo
         }
 
         #endregion
+
+        private void imprimir_console(Pieza[,] tablero)
+        {
+            int i = 65;
+            string tipo_pieza = "none";
+            string color_pieza = "none";
+            Console.Write("\n   0   1   2   3   4   5   6   7");
+            foreach (Pieza pieza in tablero)
+            {
+                i--;
+                if (i % 8 == 0)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(" ---------------------------------");
+                    Console.Write((8 - (i / 8)));
+                }
+
+                //string tipo_pieza = pieza.GetType().Name.ToString();
+                if (pieza != null)
+                {
+                    tipo_pieza = (pieza.GetType().Name).ToString();
+                    color_pieza = pieza.Color.ToString();
+                }
+                else tipo_pieza = "none";
+                string str;
+
+                switch (tipo_pieza)
+                {
+                    case "Peon":
+                        {
+                            str = "| " + "P ";
+                            break;
+                        }
+                    case "Caballo":
+                        {
+                            str = "| " + "N ";
+                            break;
+                        }
+                    case "Alfil":
+                        {
+                            str = "| " + "B ";
+                            break;
+                        }
+                    case "Torre":
+                        {
+                            str = "| " + "R ";
+                            break;
+                        }
+
+                    case "Reina":
+                        {
+                            str = "| " + "Q ";
+                            break;
+                        }
+
+                    case "Rey":
+                        {
+                            str = "| " + "K ";
+                            break;
+                        }
+                    default:
+                        {
+                            str = "| " + "  ";
+                            break;
+                        }
+                }
+
+                if (color_pieza == "Negro")
+                {
+                    str = str.ToLower();
+                }
+
+                Console.Write(str);
+
+                if (i % 8 == 1)
+                {
+                    Console.Write("|");
+                }
+            }
+
+            Console.WriteLine();
+            Console.WriteLine(" ---------------------------------");
+            Console.WriteLine("   0   1   2   3   4   5   6   7");
+            Console.WriteLine("   A   B   C   D   E   F   G   H");
+        }
+        private List<Pieza> Array_to_List(Pieza[,] piezas)
+        {
+            List<Pieza> salida = new List<Pieza>();
+            foreach (Pieza p in piezas)
+            {
+                if (p != null)
+                    salida.Add(p);
+            }
+            return salida;
+        }
     }
 }

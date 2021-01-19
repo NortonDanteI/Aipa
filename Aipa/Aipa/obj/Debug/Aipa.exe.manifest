@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Aipa.exe" size="454624">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Aipa.exe" size="460256">
       <assemblyIdentity name="Aipa" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>XG2t9RzW+VOogujJJnlC7liwnWe4arXxLieDT7tcVbc=</dsig:DigestValue>
+        <dsig:DigestValue>4C+2XHe1fG1V7QMvb4xZmBd4fArDknxwNW1YiohOYCs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

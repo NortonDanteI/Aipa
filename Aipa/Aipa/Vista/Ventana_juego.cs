@@ -197,24 +197,37 @@ namespace Aipa.Vista
 
                     if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Agente)
                     {
-                        int dificultad = 4;
-                        Agente agente = new Agente(dificultad, Jugador_jugando, ActionLog, GameState);
+                        int dificultad = 2;
+                        Agente agente = new Agente(dificultad, Jugador_jugando, ActionLog, GameState, Board);
                         //obtengo optimo
+                        label1.Visible = true;
+                        Refresh();
                         agente.Alfa_Beta(this.Piezas);
+                        label1.Visible = false;
+                        Refresh();
+
                         //donde quiero mover la pieza
                         var cell_Locationn = agente.Cell_location;
                         //seteo tablero
-                        val.Set_pieza_seleccionada(agente.Pieza_a_mover.Ubicacion);
-                        //muevo la pieza
-                        if (val.Mover_pieza(cell_Locationn)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
+                        if (agente.Pieza_a_mover != null)
                         {
-                            this.Board = val.Board;
-                            this.Piezas = val.Piezas;
-                            this.Player1 = val.Player1;
-                            this.Player2 = val.Player2;
-                            this.Jugador_jugando = val.Jugador_jugando;
-                            this.ActionLog = val.ActionLog;
-                            this.GameState = val.GameState;
+                            val.Set_pieza_seleccionada(agente.Pieza_a_mover.Ubicacion);
+                            //muevo la pieza
+                            if (val.Mover_pieza(cell_Locationn)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
+                            {
+                                this.Board = val.Board;
+                                this.Piezas = val.Piezas;
+                                this.Player1 = val.Player1;
+                                this.Player2 = val.Player2;
+                                this.Jugador_jugando = val.Jugador_jugando;
+                                this.ActionLog = val.ActionLog;
+                                this.GameState = val.GameState;
+                            }
+                        }
+                        else
+                        {
+                            val = new Tablero_manipulable();
+                            Comenzar_juego();
                         }
                     }
                 }
@@ -249,7 +262,6 @@ namespace Aipa.Vista
             this.Player1 = val.Player1;
             this.Player2 = val.Player2;
             Siguiente_turno();
-            
         }
 
         private void Siguiente_turno()
@@ -259,6 +271,20 @@ namespace Aipa.Vista
             this.GameState = val.GameState;           
             label_estado.Text = this.GameState.ToString();
         }
+
+        private void boton_activar_consejos_Click(object sender, EventArgs e)
+        {
+            int ayuda = 3;
+            Agente agenteAyuda = new Agente(ayuda, Jugador_jugando, ActionLog, GameState, Board);
+            //obtengo optimo
+            agenteAyuda.Alfa_Beta(this.Piezas);
+            //donde quiero mover la pieza
+            var ubicacion = agenteAyuda.Cell_location;
+            Pieza pasar = agenteAyuda.Pieza_a_mover;
+            label_recomendacion.Text = ("Se recomienda mover pieza " + pasar.GetType().Name + "\r\n Desde " + pasar.Ubicacion + " Hacia" + ubicacion).ToString();
+
+        }
+
 
         /// <summary>
         /// Metodo que donde se escribe la logica del juego

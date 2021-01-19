@@ -29,8 +29,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            
-            #region Atributos iniciales
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Ventana_juego));
             this.panel_contenedor = new System.Windows.Forms.Panel();
             this.panel_derecho = new System.Windows.Forms.Panel();
@@ -55,6 +53,7 @@
             this.boton_maximizar = new System.Windows.Forms.PictureBox();
             this.boton_minimizar = new System.Windows.Forms.PictureBox();
             this.boton_cerrar = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel_contenedor.SuspendLayout();
             this.panel_derecho.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Canvas)).BeginInit();
@@ -71,9 +70,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.boton_minimizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boton_cerrar)).BeginInit();
             this.SuspendLayout();
-            #endregion
-
-            #region panel_contenedor
+            // 
+            // panel_contenedor
+            // 
             this.panel_contenedor.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.panel_contenedor.Controls.Add(this.panel_derecho);
             this.panel_contenedor.Controls.Add(this.panel_izquierdo);
@@ -83,9 +82,8 @@
             this.panel_contenedor.Name = "panel_contenedor";
             this.panel_contenedor.Size = new System.Drawing.Size(1298, 1102);
             this.panel_contenedor.TabIndex = 0;
-            #endregion
-
-            #region panel_derecho
+            // 
+            // panel_derecho
             // 
             this.panel_derecho.Controls.Add(this.Canvas);
             this.panel_derecho.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -93,9 +91,9 @@
             this.panel_derecho.Name = "panel_derecho";
             this.panel_derecho.Size = new System.Drawing.Size(914, 1063);
             this.panel_derecho.TabIndex = 3;
-            #endregion
-
-            #region Canvas / Tablero dibujado
+            // 
+            // Canvas
+            // 
             this.Canvas.BackColor = System.Drawing.Color.White;
             this.Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Canvas.Image = ((System.Drawing.Image)(resources.GetObject("Canvas.Image")));
@@ -107,10 +105,11 @@
             this.Canvas.TabIndex = 1;
             this.Canvas.TabStop = false;
             this.Canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Ventana_juego_Canvas_MouseUp);
-            #endregion
-
-            #region panel_izquierdo
+            // 
+            // panel_izquierdo
+            // 
             this.panel_izquierdo.BackColor = System.Drawing.Color.LightGray;
+            this.panel_izquierdo.Controls.Add(this.label1);
             this.panel_izquierdo.Controls.Add(this.resetear);
             this.panel_izquierdo.Controls.Add(this.franja_negra3);
             this.panel_izquierdo.Controls.Add(this.emoticon_guia);
@@ -148,9 +147,9 @@
             this.resetear.Text = "Resetear";
             this.resetear.UseVisualStyleBackColor = false;
             this.resetear.Click += new System.EventHandler(this.BtnStart_Click);
-            #endregion
-
-            #region franja_negra3
+            // 
+            // franja_negra3
+            // 
             this.franja_negra3.BackColor = System.Drawing.SystemColors.WindowText;
             this.franja_negra3.Location = new System.Drawing.Point(0, 227);
             this.franja_negra3.Name = "franja_negra3";
@@ -158,9 +157,9 @@
             this.franja_negra3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra3.TabIndex = 35;
             this.franja_negra3.TabStop = false;
-            #endregion
-
-            #region emoticon_guia
+            // 
+            // emoticon_guia
+            // 
             this.emoticon_guia.Image = ((System.Drawing.Image)(resources.GetObject("emoticon_guia.Image")));
             this.emoticon_guia.Location = new System.Drawing.Point(8, 227);
             this.emoticon_guia.Name = "emoticon_guia";
@@ -168,9 +167,9 @@
             this.emoticon_guia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.emoticon_guia.TabIndex = 34;
             this.emoticon_guia.TabStop = false;
-            #endregion
-
-            #region boton_activar_consejos
+            // 
+            // boton_activar_consejos
+            // 
             this.boton_activar_consejos.BackColor = System.Drawing.Color.WhiteSmoke;
             this.boton_activar_consejos.FlatAppearance.BorderSize = 0;
             this.boton_activar_consejos.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
@@ -185,9 +184,10 @@
             this.boton_activar_consejos.TabIndex = 33;
             this.boton_activar_consejos.Text = "Consejos";
             this.boton_activar_consejos.UseVisualStyleBackColor = false;
-            #endregion
-
-            #region label_estado
+            this.boton_activar_consejos.Click += new System.EventHandler(this.boton_activar_consejos_Click);
+            // 
+            // label_estado
+            // 
             this.label_estado.AutoSize = true;
             this.label_estado.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_estado.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -196,9 +196,9 @@
             this.label_estado.Size = new System.Drawing.Size(62, 29);
             this.label_estado.TabIndex = 32;
             this.label_estado.Text = "Jaque";
-            #endregion
-
-            # region label_2
+            // 
+            // label_2
+            // 
             this.label_2.AutoSize = true;
             this.label_2.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_2.ForeColor = System.Drawing.Color.Sienna;
@@ -208,9 +208,9 @@
             this.label_2.TabIndex = 31;
             this.label_2.Text = "Estado de la partida:";
             this.label_2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            #endregion
-
-            # region franja_negra2
+            // 
+            // franja_negra2
+            // 
             this.franja_negra2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.franja_negra2.Location = new System.Drawing.Point(0, 136);
             this.franja_negra2.Name = "franja_negra2";
@@ -218,9 +218,9 @@
             this.franja_negra2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra2.TabIndex = 30;
             this.franja_negra2.TabStop = false;
-            #endregion
-
-            # region label_recomendacion
+            // 
+            // label_recomendacion
+            // 
             this.label_recomendacion.AutoSize = true;
             this.label_recomendacion.BackColor = System.Drawing.Color.LightGray;
             this.label_recomendacion.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -233,9 +233,9 @@
     " \r\nhacia la posición B.\r\n* Mover la pieza X en la posición A\r\nhacia la posición " +
     "B.";
             this.label_recomendacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            #endregion
-
-            # region label_jugador
+            // 
+            // label_jugador
+            // 
             this.label_jugador.AutoSize = true;
             this.label_jugador.Font = new System.Drawing.Font("Monotype Corsiva", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_jugador.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -244,9 +244,9 @@
             this.label_jugador.Size = new System.Drawing.Size(82, 29);
             this.label_jugador.TabIndex = 26;
             this.label_jugador.Text = "Jugador";
-            #endregion
-
-            # region label_1
+            // 
+            // label_1
+            // 
             this.label_1.AutoSize = true;
             this.label_1.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_1.ForeColor = System.Drawing.Color.Sienna;
@@ -256,9 +256,9 @@
             this.label_1.TabIndex = 25;
             this.label_1.Text = "Turno de:";
             this.label_1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            #endregion
-
-            # region franja_negra4
+            // 
+            // franja_negra4
+            // 
             this.franja_negra4.BackColor = System.Drawing.SystemColors.WindowText;
             this.franja_negra4.Location = new System.Drawing.Point(0, 467);
             this.franja_negra4.Name = "franja_negra4";
@@ -266,9 +266,9 @@
             this.franja_negra4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra4.TabIndex = 18;
             this.franja_negra4.TabStop = false;
-            #endregion
-
-            # region franja_negra1
+            // 
+            // franja_negra1
+            // 
             this.franja_negra1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.franja_negra1.Location = new System.Drawing.Point(0, 51);
             this.franja_negra1.Name = "franja_negra1";
@@ -276,9 +276,9 @@
             this.franja_negra1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.franja_negra1.TabIndex = 14;
             this.franja_negra1.TabStop = false;
-            #endregion
-
-            # region emoticon_manual
+            // 
+            // emoticon_manual
+            // 
             this.emoticon_manual.Image = ((System.Drawing.Image)(resources.GetObject("emoticon_manual.Image")));
             this.emoticon_manual.Location = new System.Drawing.Point(8, 467);
             this.emoticon_manual.Name = "emoticon_manual";
@@ -286,9 +286,9 @@
             this.emoticon_manual.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.emoticon_manual.TabIndex = 13;
             this.emoticon_manual.TabStop = false;
-            #endregion
-
-            # region boton_manual_usuario
+            // 
+            // boton_manual_usuario
+            // 
             this.boton_manual_usuario.BackColor = System.Drawing.Color.WhiteSmoke;
             this.boton_manual_usuario.FlatAppearance.BorderSize = 0;
             this.boton_manual_usuario.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.MenuHighlight;
@@ -304,9 +304,9 @@
             this.boton_manual_usuario.Text = "Manual de usuario";
             this.boton_manual_usuario.UseVisualStyleBackColor = false;
             this.boton_manual_usuario.Click += new System.EventHandler(this.Boton_manual_usuario_click);
-            #endregion
-
-            # region Barratitulo
+            // 
+            // Barratitulo
+            // 
             this.Barratitulo.BackColor = System.Drawing.SystemColors.WindowText;
             this.Barratitulo.Controls.Add(this.boton_restaurar);
             this.Barratitulo.Controls.Add(this.boton_maximizar);
@@ -319,9 +319,9 @@
             this.Barratitulo.Size = new System.Drawing.Size(1298, 39);
             this.Barratitulo.TabIndex = 1;
             this.Barratitulo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Barratitulo_MouseMove);
-            #endregion
-
-            # region boton_restaurar
+            // 
+            // boton_restaurar
+            // 
             this.boton_restaurar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_restaurar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_restaurar.Image = ((System.Drawing.Image)(resources.GetObject("boton_restaurar.Image")));
@@ -334,9 +334,9 @@
             this.boton_restaurar.TabStop = false;
             this.boton_restaurar.Visible = false;
             this.boton_restaurar.Click += new System.EventHandler(this.Boton_restaurar_Click);
-            #endregion
-
-            # region boton_maximizar
+            // 
+            // boton_maximizar
+            // 
             this.boton_maximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_maximizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_maximizar.Image = ((System.Drawing.Image)(resources.GetObject("boton_maximizar.Image")));
@@ -348,9 +348,9 @@
             this.boton_maximizar.TabIndex = 5;
             this.boton_maximizar.TabStop = false;
             this.boton_maximizar.Click += new System.EventHandler(this.Boton_maximizar_Click);
-            #endregion
-
-            # region boton_minimizar
+            // 
+            // boton_minimizar
+            // 
             this.boton_minimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_minimizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.boton_minimizar.Image = ((System.Drawing.Image)(resources.GetObject("boton_minimizar.Image")));
@@ -362,9 +362,9 @@
             this.boton_minimizar.TabIndex = 4;
             this.boton_minimizar.TabStop = false;
             this.boton_minimizar.Click += new System.EventHandler(this.Boton_minimizar_Click_1);
-            #endregion
-
-            # region boton_cerrar
+            // 
+            // boton_cerrar
+            // 
             this.boton_cerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.boton_cerrar.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.boton_cerrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -378,9 +378,22 @@
             this.boton_cerrar.TabIndex = 2;
             this.boton_cerrar.TabStop = false;
             this.boton_cerrar.Click += new System.EventHandler(this.Boton_cerrar_Click);
-            #endregion
-
-            # region Ventana_juego
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Monotype Corsiva", 15F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Sienna;
+            this.label1.Location = new System.Drawing.Point(131, 610);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(118, 29);
+            this.label1.TabIndex = 37;
+            this.label1.Text = "Cargando..";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Visible = false;
+            // 
+            // Ventana_juego
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1298, 1102);
@@ -408,7 +421,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.boton_minimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boton_cerrar)).EndInit();
             this.ResumeLayout(false);
-            #endregion
 
         }
 
@@ -437,5 +449,6 @@
         private System.Windows.Forms.Label label_2;
         private System.Windows.Forms.PictureBox franja_negra2;
         private System.Windows.Forms.Button resetear;
+        private System.Windows.Forms.Label label1;
     }
 }
