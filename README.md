@@ -33,6 +33,9 @@
 **Software utilizados:** 
 - Visual Studio 2019
 
+**Asignatura:** 
+- Software II (enfoque calidad)
+
 **Lenguje de programación:**
 - C#.
 
