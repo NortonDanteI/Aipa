@@ -238,9 +238,10 @@ namespace Aipa.Modelo
 
                             if (utilidad > mayor_valor)
                             {
+                                if (Profundidad<=1)
+                                    mejor_pieza = piezita_;
                                 mayor_valor = utilidad;
                                 mejor_accion = accion_;
-                                mejor_pieza = piezita_;
                             }
                             if (mayor_valor >=   Beta)
                             {
@@ -421,8 +422,9 @@ namespace Aipa.Modelo
                             #endregion
 
                             if (utilidad < menor_valor)
-                            {                         
-                                mejor_pieza = pieza_;
+                            {
+                                if (Profundidad <= 1)
+                                    mejor_pieza = pieza_;
                                 menor_valor = utilidad;
                                 mejor_accion = accion_;
                             }
