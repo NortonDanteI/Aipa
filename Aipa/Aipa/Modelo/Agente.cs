@@ -20,8 +20,9 @@ namespace Aipa.Modelo
         /// <param name="color">Color de las piezas del agente</param>
         /// <param name="tipo_jugador">Tipo de jugador</param>
         /// <param name="numero">Numero del jugador</param>
-        public Agente(int dificultad, Jugador Jugador_jugando, List<Historial_acciones> ActionLog_, Estado GameState) : base(Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero)
+        public Agente(int dificultad, Jugador Jugador_jugando, List<Historial_acciones> ActionLog_, Estado GameState, Tablero Board) : base(Jugador_jugando.Color, Jugador_jugando.Tipo_jugador, Jugador_jugando.Numero)
         {
+            this.Board = Board;
             this.ActionLog_ = ActionLog_;
             this.Dificultad_ = dificultad;
             this.GameState = GameState;
@@ -30,6 +31,9 @@ namespace Aipa.Modelo
         #endregion
 
         #region propiedades
+
+        private Tablero Board { get; set; }
+        public List <Pieza> lista_piezas { get; set; }
         public List<Historial_acciones> ActionLog_ { get; set; }
         private Jugador Jugador_actual_ { get; set; }
         public Point Cell_location { get; set; }
@@ -79,7 +83,7 @@ namespace Aipa.Modelo
             #endregion
             #endregion
 
-            if (GameState == Estado.Jaque || Profundidad >= Dificultad_)
+            if (GameState == Estado.Jaquemate || Profundidad >= Dificultad_)
             {
                 Pieza p = null;
                 Point a = new Point(99, 99);
@@ -200,7 +204,7 @@ namespace Aipa.Modelo
                         foreach (Point accion in acciones)
                         {
                             Point accion_aux = accion;// new Point(accion.X, accion.Y);
-                            Console.WriteLine("MAX nivel: " + Profundidad);
+                            //Console.WriteLine("MAX nivel: " + Profundidad);
 
                             Array.Copy(Modificar_tablero(tablero_inicial_max, pieza_aux, accion_aux),tablero_resultado,64);
                             //imprimir_console(tablero_inicial_max);
@@ -230,7 +234,7 @@ namespace Aipa.Modelo
                                 mejor_accion = accion_;
                                 mejor_pieza = piezita_;
                             }
-                            if (mayor_valor >= Beta)
+                            if (mayor_valor >=   Beta)
                             {
                                 //Console.WriteLine("\t Corto la rama");
                                 Profundidad--;
@@ -270,7 +274,7 @@ namespace Aipa.Modelo
 
             #endregion
 
-            if (GameState == Estado.Jaque || Profundidad >= Dificultad_)
+            if (GameState == Estado.Jaquemate || Profundidad >= Dificultad_)
             {
                 Pieza p = null;
                 Point a = new Point(99, 99);
@@ -391,7 +395,7 @@ namespace Aipa.Modelo
                         foreach (Point accion in acciones)
                         {
                             Point accion_aux = accion ;
-                            Console.WriteLine("Min nivel: " + Profundidad);
+                            //Console.WriteLine("Min nivel: " + Profundidad);
                             Array.Copy(Modificar_tablero(tablero_inicial_min, pieza_aux, accion_aux), tablero_resultado, 64);
 
                             (pieza_, accion_, utilidad) = Valor_max(tablero_resultado, Alfa, Beta);
@@ -434,19 +438,36 @@ namespace Aipa.Modelo
 
         private float Funcion_eval(Pieza[,] tablero)
         {
+            #region atributos del método
             int puntaje_negra = 0;
             int puntaje_blanca = 0;
-            if (GameState == Estado.Jaque || GameState == Estado.Jaquemate)
+            int cobertura_rey_blanco = 0;
+            int cobertura_rey_negro = 0;
+            Pieza rey_negro = null, rey_blanco = null;
+            #endregion
+
+            if (GameState == Estado.Jaquemate || GameState == Estado.Jaque)
             {
                 if (Jugador_actual_.Color == UnColor.Negro)
                 {
                     //Console.WriteLine("es jaque -20k en negras");
-                    puntaje_negra = -20000;
+                    puntaje_negra += -200000;
                 }
                 else if (Jugador_actual_.Color == UnColor.Blanco)
                 {
                     //Console.WriteLine("es jaque -20k en blancas");
-                    puntaje_blanca = -20000;
+                    puntaje_blanca += -200000;
+                }
+            }
+
+            foreach (Pieza caca in tablero)
+            {
+                if (caca != null && caca.GetType().Name == "Rey")
+                {
+                    if (caca.Color == UnColor.Negro)
+                        rey_negro = caca;
+                    else
+                        rey_blanco = caca;
                 }
             }
 
@@ -456,10 +477,41 @@ namespace Aipa.Modelo
                 {
                     if (tablero[x, y] != null)
                     {
-                        if (tablero[x, y].Color == base.Color)
-                            puntaje_negra += tablero[x, y].valor_pieza;
+                        if (tablero[x, y].Color == UnColor.Negro)
+                        {
+                            foreach (Point punto in tablero[x, y].Movimientos_permitidos)
+                            {
+                                if (rey_negro.Ubicacion == punto)
+                                {
+                                    cobertura_rey_negro += 10;
+                                }
+                            }
+
+                            puntaje_negra += (tablero[x, y].valor_pieza)
+                                + (tablero[x, y].Movimientos_permitidos.Length * 10)
+                                + cobertura_rey_negro;
+
+                            cobertura_rey_negro = 0;
+                        }
                         else
-                            puntaje_blanca += tablero[x, y].valor_pieza;
+                        {
+                            foreach (Point punto in tablero[x, y].Movimientos_permitidos)
+                            {
+                                foreach (Point punto2 in tablero[x, y].Movimientos_permitidos)
+                                {
+                                    if (rey_blanco.Ubicacion == punto2)
+                                    {
+                                        cobertura_rey_blanco += 10;
+                                    }
+                                }
+                            }
+
+                            puntaje_blanca += tablero[x, y].valor_pieza
+                                + (tablero[x, y].Movimientos_permitidos.Length * 10)
+                                + cobertura_rey_blanco;
+
+                                cobertura_rey_blanco = 0;
+                        }
                     }
                 }
             }
@@ -607,7 +659,8 @@ namespace Aipa.Modelo
             #endregion
 
             //recalcular movs validos
-//            Set_pieza_seleccionada(piezita,accion);
+            this.lista_piezas = Array_to_List(_tablero);
+            Set_pieza_seleccionada(pieza_aux.Ubicacion);
             tablero_mod = Recalcular(tablero_mod, (piezita.Ubicacion), accion); // SE RECALCULA PARA AMBOS. SALIDA Y ENTRADA
             //imprimir_console(tablero_mod);
 
@@ -733,29 +786,11 @@ namespace Aipa.Modelo
                                 break;
                             }
                     }
-
                     lst_tablero.Add(pieza_aux);
                 }
             }
-            /*
-            Tablero_manipulable val = new Tablero_manipulable();
-
-            val.Jugador_jugando = Jugador_actual_;
-            val.ActionLog       = ActionLog_;
-            val.GameState       = GameState;
-            val.Piezas          = lst_tablero;
-
-            val.Set_pieza_seleccionada(i_ubicacion); 
-            if (val.Mover_pieza(o_ubicacion)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
-            {
-                Jugador_actual_ = val.Jugador_jugando;
-                ActionLog_      = val.ActionLog;
-                GameState       = val.GameState;
-                lst_tablero     = val.Piezas;
-            }*/
 
             lst_tablero = Set_movimientos_posibles(lst_tablero);
-
             int moves = lst_tablero.Where(x => x.Color == Jugador_actual_.Color).Sum(x => x.Movimientos_permitidos.Count());
 
             //FirstOrDefault Devuelve un elemento si encuentra un elemento que cumple con la condición
@@ -786,12 +821,13 @@ namespace Aipa.Modelo
             }
             return salida;
         }
-        /*
+
+        
         public void Set_pieza_seleccionada(Point cell_Location)
         {
-            Board.Desmarcar_celdas();
-            this.Piezas.ForEach(x => x.Seleccionada = false); // deselecciono todas las fichas
-            Pieza _selectedPiece = this.Piezas.FirstOrDefault(x => x.Ubicacion == cell_Location && x.Color == Jugador_jugando.Color);
+            this.Board.Desmarcar_celdas();
+            lista_piezas.ForEach(x => x.Seleccionada = false); // deselecciono todas las fichas
+            Pieza _selectedPiece = lista_piezas.FirstOrDefault(x => x.Ubicacion == cell_Location && x.Color == Jugador_actual_.Color);
             // busco una ficha para la coordenada donde se hizo click, solo si es del color correspondiente al jugador que tiene el turno
 
             if (_selectedPiece != null)
@@ -800,7 +836,7 @@ namespace Aipa.Modelo
                 //Array.ForEach permite realizar una accion determinada para cada elemento de un objeto arreglo
                 Array.ForEach(_selectedPiece.Movimientos_permitidos, loc => Board.Celdas[loc.X, loc.Y].Puede_moverse = true); // colorea las celdas habilitadas 
             }
-        }*/
+        }
         #endregion
 
         #region validacion de movimientos
@@ -1086,6 +1122,16 @@ namespace Aipa.Modelo
             Console.WriteLine(" ---------------------------------");
             Console.WriteLine("   0   1   2   3   4   5   6   7");
             Console.WriteLine("   A   B   C   D   E   F   G   H");
+        }
+        private List<Pieza> Array_to_List(Pieza[,] piezas)
+        {
+            List<Pieza> salida = new List<Pieza>();
+            foreach (Pieza p in piezas)
+            {
+                if (p != null)
+                    salida.Add(p);
+            }
+            return salida;
         }
     }
 }

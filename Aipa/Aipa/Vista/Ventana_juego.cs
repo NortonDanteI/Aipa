@@ -197,24 +197,32 @@ namespace Aipa.Vista
 
                     if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Agente)
                     {
-                        int dificultad = 4;
-                        Agente agente = new Agente(dificultad, Jugador_jugando, ActionLog, GameState);
+                        int dificultad = 3;
+                        Agente agente = new Agente(dificultad, Jugador_jugando, ActionLog, GameState, Board);
                         //obtengo optimo
                         agente.Alfa_Beta(this.Piezas);
                         //donde quiero mover la pieza
                         var cell_Locationn = agente.Cell_location;
                         //seteo tablero
-                        val.Set_pieza_seleccionada(agente.Pieza_a_mover.Ubicacion);
-                        //muevo la pieza
-                        if (val.Mover_pieza(cell_Locationn)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
+                        if (agente.Pieza_a_mover != null)
                         {
-                            this.Board = val.Board;
-                            this.Piezas = val.Piezas;
-                            this.Player1 = val.Player1;
-                            this.Player2 = val.Player2;
-                            this.Jugador_jugando = val.Jugador_jugando;
-                            this.ActionLog = val.ActionLog;
-                            this.GameState = val.GameState;
+                            val.Set_pieza_seleccionada(agente.Pieza_a_mover.Ubicacion);
+                            //muevo la pieza
+                            if (val.Mover_pieza(cell_Locationn)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
+                            {
+                                this.Board = val.Board;
+                                this.Piezas = val.Piezas;
+                                this.Player1 = val.Player1;
+                                this.Player2 = val.Player2;
+                                this.Jugador_jugando = val.Jugador_jugando;
+                                this.ActionLog = val.ActionLog;
+                                this.GameState = val.GameState;
+                            }
+                        }
+                        else
+                        {
+                            val = new Tablero_manipulable();
+                            Comenzar_juego();
                         }
                     }
                 }
