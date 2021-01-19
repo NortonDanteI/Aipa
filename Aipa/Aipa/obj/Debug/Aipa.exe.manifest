@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Aipa.exe" size="567264">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Aipa.exe" size="570336">
       <assemblyIdentity name="Aipa" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>w+QpBhpqs+tocqobf0sk/S/xy0vn6HxnkzG6X9rrgzE=</dsig:DigestValue>
+        <dsig:DigestValue>+cxdaIcQ0rvwR43SQnAvbjOgWAji5g2D3TD9RtV9dFI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -84,6 +84,42 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
       <dsig:DigestValue>X+GtgC9o18R9u9jmAWK6iKuu0WLaXTgchdPkk1MRli4=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Diagramas\Controlador_DiagramasClase.png" size="39444">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ZL+vd5NiDfAxbfeeC6p30gkPlZGbgSX2RvCURuQVCoY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Diagramas\Modelo_otros_DiagramasClase.png" size="49489">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>cI1SYlLonF47+sPFIBJelzRC2gdkoOlOKAdLhK/7y8g=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Diagramas\Modelo_Piezas_DiagramasClass.png" size="24955">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>YbqFBc6sb8ffF2vijbclQDhEqfDCgQ9AjBDT4P9E4Wk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Diagramas\Vista_DiagramsClass.png" size="92994">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>dUA21kSDxSqe3Kc2Hq+kNibRKPjZpXESeb1cfL05LdI=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

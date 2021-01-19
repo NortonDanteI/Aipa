@@ -174,7 +174,6 @@ namespace Aipa.Vista
             {
                 if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Humano)
                 {
-                    Console.WriteLine("QUE SUCEDE");
                     Point _mouseLocation = new Point(e.Location.X - 27, e.Location.Y - 4); // resto los bordes del tablero        
                     var cell_Location = new Point(_mouseLocation.X / 82, _mouseLocation.Y / 82); // cada celda tiene un tamaños de  100x100 + 5x5 de borde                                                                                          
                     if (!val.Mover_pieza(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
@@ -194,8 +193,7 @@ namespace Aipa.Vista
 
                     if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Agente)
                     {
-                        Console.WriteLine("QUE SUCEDE");
-                        int dificultad = 2;
+                        int dificultad = 3;
                         Agente agente = new Agente(dificultad, Jugador_jugando, ActionLog, GameState, Board);
                         //obtengo optimo
                         label1.Visible = true;
@@ -241,6 +239,26 @@ namespace Aipa.Vista
         /// <summary>
         /// Inicializa el juego cargando los recursos
         /// </summary>
+        /// 
+
+        public String numero_a_coordenada(int x, int y)
+        {
+            String salida = "";
+
+            switch (x)
+            {
+                case 1: salida += "A"; break;
+                case 2: salida += "B"; break;
+                case 3: salida += "C"; break;
+                case 4: salida += "D"; break;
+                case 5: salida += "E"; break;
+                case 6: salida += "F"; break;
+                case 7: salida += "G"; break;
+                case 8: salida += "H"; break;
+            }
+            return salida + "" + y;
+        }
+
         private void Initialize()
         {
             _ = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "imagenes");
@@ -275,16 +293,25 @@ namespace Aipa.Vista
             int ayuda = 3;
             Agente agenteAyuda = new Agente(ayuda, Jugador_jugando, ActionLog, GameState, Board);
             //obtengo optimo
+            label1.Visible = true;
+            Refresh();
+
+
             agenteAyuda.Alfa_Beta(this.Piezas);
             //donde quiero mover la pieza
             var ubicacion = agenteAyuda.Cell_location;
             //pieza me sirve para su ubicacion
             Pieza pasar = agenteAyuda.Pieza_a_mover;
 
+            label1.Visible = false;
+            Refresh();
             //Point modificado = new Point((pasar.Ubicacion.X+1), (8-pasar.Ubicacion.Y));
             //Point target = new Point((ubicacion.X+1),(8-ubicacion.Y));
 
-            label_recomendacion.Text = ("Se recomienda mover pieza " + pasar.GetType().Name + "\r\n Desde " + pasar.Ubicacion + " Hacia" + ubicacion).ToString();
+            string desde = numero_a_coordenada((pasar.Ubicacion.X + 1), 8 - pasar.Ubicacion.Y);
+            string hacia = numero_a_coordenada((ubicacion.X + 1), 8 - ubicacion.Y);
+
+            label_recomendacion.Text = ("Se recomienda mover pieza " + pasar.GetType().Name + "\r\n Desde " + desde + " Hacia" + hacia).ToString();
            
             Jugador_jugando.Color = UnColor.Blanco;
             Jugador_jugando.Numero = 1;

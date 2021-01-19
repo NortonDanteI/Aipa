@@ -62,11 +62,9 @@ namespace Aipa.Modelo
             
             if (Jugador_actual_.Color == UnColor.Negro)
             {
-                Console.WriteLine("SOY NIGGA");
                 (mejor_pieza, mejor_accion, utilidad_final) = Valor_max(tablero, -9900000, 9900000);
             }
             else {
-                Console.WriteLine("SOY BLANCA");
                 (mejor_pieza, mejor_accion, utilidad_final) = Valor_min(tablero, -9900000, 9900000);
             }
             this.Pieza_a_mover = mejor_pieza;
@@ -240,9 +238,10 @@ namespace Aipa.Modelo
 
                             if (utilidad > mayor_valor)
                             {
+                                if (Profundidad<=1)
+                                    mejor_pieza = piezita_;
                                 mayor_valor = utilidad;
                                 mejor_accion = accion_;
-                                mejor_pieza = piezita_;
                             }
                             if (mayor_valor >=   Beta)
                             {
@@ -423,8 +422,9 @@ namespace Aipa.Modelo
                             #endregion
 
                             if (utilidad < menor_valor)
-                            {                         
-                                mejor_pieza = pieza_;
+                            {
+                                if (Profundidad <= 1)
+                                    mejor_pieza = pieza_;
                                 menor_valor = utilidad;
                                 mejor_accion = accion_;
                             }
@@ -461,23 +461,23 @@ namespace Aipa.Modelo
                 if (Jugador_actual_.Color == UnColor.Negro)
                 {
                     //Console.WriteLine("es jaque -20k en negras");
-                    puntaje_negra += -200000;
+                    puntaje_negra += -32250;
                 }
                 else if (Jugador_actual_.Color == UnColor.Blanco)
                 {
                     //Console.WriteLine("es jaque -20k en blancas");
-                    puntaje_blanca += -200000;
+                    puntaje_blanca += -32250;
                 }
             }
 
-            foreach (Pieza caca in tablero)
+            foreach (Pieza pieza_aux in tablero)
             {
-                if (caca != null && caca.GetType().Name == "Rey")
+                if (pieza_aux != null && pieza_aux.GetType().Name == "Rey")
                 {
-                    if (caca.Color == UnColor.Negro)
-                        rey_negro = caca;
+                    if (pieza_aux.Color == UnColor.Negro)
+                        rey_negro = pieza_aux;
                     else
-                        rey_blanco = caca;
+                        rey_blanco = pieza_aux;
                 }
             }
 
@@ -497,10 +497,7 @@ namespace Aipa.Modelo
                                 }
                             }
 
-                            puntaje_negra += (tablero[x, y].valor_pieza)
-                                + (tablero[x, y].Movimientos_permitidos.Length * 10)
-                                + cobertura_rey_negro;
-
+                            puntaje_negra += (cobertura_rey_blanco + evaluar_pieza(tablero[x, y]));
                             cobertura_rey_negro = 0;
                         }
                         else
@@ -516,11 +513,8 @@ namespace Aipa.Modelo
                                 }
                             }
 
-                            puntaje_blanca += tablero[x, y].valor_pieza
-                                + (tablero[x, y].Movimientos_permitidos.Length * 10)
-                                + cobertura_rey_blanco;
-
-                                cobertura_rey_blanco = 0;
+                            puntaje_blanca += (cobertura_rey_blanco + evaluar_pieza(tablero[x, y]));
+                            cobertura_rey_blanco = 0;
                         }
                     }
                 }
@@ -1143,5 +1137,265 @@ namespace Aipa.Modelo
             }
             return salida;
         }
+
+
+        /*-------------------*/
+        private static readonly short[,] TablaPeon = new short[8, 8]
+        {
+         { 0,  0,  0,  0,  0,  0,  0,  0 },
+         { 50, 50, 50, 50, 50, 50, 50, 50 },
+         { 10, 10, 20, 30, 30, 20, 10, 10 },
+         { 5,  5, 10, 27, 27, 10,  5,  5 },
+         { 0,  0,  0, 25, 25,  0,  0,  0},
+         { 5, -5,-10,  0,  0,-10, -5,  5},
+         { 5, 10, 10,-25,-25, 10, 10,  5},
+         { 0,  0,  0,  0,  0,  0,  0,  0}
+        };
+
+        private static readonly short[,] TablaCaballo = new short[8, 8]
+        {
+         {-50,-40,-30,-30,-30,-30,-40,-50},
+         { -40,-20,  0,  0,  0,  0,-20,-40},
+         {-30,  0, 10, 15, 15, 10,  0,-30},
+         {-30,  5, 15, 20, 20, 15,  5,-30},
+         {-30,  0, 15, 20, 20, 15,  0,-30},
+         {-30,  5, 10, 15, 15, 10,  5,-30},
+         {-40,-20,  0,  5,  5,  0,-20,-40},
+         {-50,-40,-20,-30,-30,-20,-40,-50}
+        };
+
+        private static readonly short[,] TablaAlfil = new short[8, 8]
+        {
+         { -20,-10,-10,-10,-10,-10,-10,-20},
+         {-10,  0,  0,  0,  0,  0,  0,-10},
+         {-10,  0,  5, 10, 10,  5,  0,-10},
+         {-10,  5,  5, 10, 10,  5,  5,-10},
+         {-10,  0, 10, 10, 10, 10,  0,-10},
+         {-10, 10, 10, 10, 10, 10, 10,-10},
+         {-10,  5,  0,  0,  0,  0,  5,-10},
+         {-20,-10,-40,-10,-10,-40,-10,-20},
+        };
+
+        private static readonly short[,] TablaRey = new short[8, 8]
+        {
+          {-30, -40, -40, -50, -50, -40, -40, -30},
+          {-30, -40, -40, -50, -50, -40, -40, -30},
+          {-30, -40, -40, -50, -50, -40, -40, -30},
+          {-30, -40, -40, -50, -50, -40, -40, -30},
+          {-20, -30, -30, -40, -40, -30, -30, -20},
+          {-10, -20, -20, -20, -20, -20, -20, -10},
+          { 20,  20,   0,   0,   0,   0,  20,  20},
+          { 20,  30,  10,   0,   0,  10,  30,  20}
+        };
+
+        private static readonly short[,] TablaReyFinal = new short[8, 8]
+        {
+         {-50,-40,-30,-20,-20,-30,-40,-50},
+         {-30,-20,-10,  0,  0,-10,-20,-30},
+         {-30,-10, 20, 30, 30, 20,-10,-30},
+         {-30,-10, 30, 40, 40, 30,-10,-30},
+         {-30,-10, 30, 40, 40, 30,-10,-30},
+         {-30,-10, 20, 30, 30, 20,-10,-30},
+         {-30,-30,  0,  0,  0,  0,-30,-30},
+         {-50,-30,-30,-30,-30,-30,-30,-50}
+        };
+
+        private static readonly short[,] TablaReina = new short[8, 8]
+        {
+            {-20, -10, -10, -5, -5, -10, -10, -20 },
+            {-10, 0, 0, 0, 0, 0, 0, -10},
+            {-10, 0, 5, 5, 5, 5, 0, -10},
+            { -5, 0, 5, 5, 5, 5, 0, -5},
+            {  0, 0, 5, 5, 5, 5, 0, -5},
+            {-10, 5, 5, 5, 5, 5, 0, -10},
+            {-10, 0, 5, 0, 0, 0, 0, -10},
+            {-20, -10, -10, -5, -5, -10, -10, -20 }
+        };
+
+        private static readonly short[,] TablaTorre = new short[8, 8]
+        {
+         { 0, 0, 0, 0, 0, 0, 0, 0 },//7
+         { 5, 10, 10, 10, 10, 10, 10, 5},//15
+         {-5, 0, 0, 0, 0, 0, 0, -5},//23
+         {-5, 0, 0, 0, 0, 0, 0, -5},//31
+         {-5, 0, 0, 0, 0, 0, 0, -5},//39
+         {-5, 0, 0, 0, 0, 0, 0, -5},//47
+         {-5, 0, 0, 0, 0, 0, 0, -5},//55
+         { 0, 0, 0, 5, 5, 0, 0, 0}//65
+        };
+
+        private int evaluar_pieza(Pieza piezita)
+        {
+            int valor_salida = 0;
+            switch ((piezita.GetType().Name).ToString())
+            {
+                case "Peon":
+                    {
+                        valor_salida = TablaPeon[piezita.Ubicacion.X, piezita.Ubicacion.Y];
+                        break;
+                    }
+                case "Caballo":
+                    {
+                        valor_salida = TablaCaballo[piezita.Ubicacion.X, piezita.Ubicacion.Y];
+                        break;
+                    }
+                case "Alfil":
+                    {
+
+                        valor_salida = TablaAlfil[piezita.Ubicacion.X, piezita.Ubicacion.Y];
+                        break;
+                    }
+                case "Torre":
+                    {
+
+                        valor_salida = TablaTorre[piezita.Ubicacion.X, piezita.Ubicacion.Y];
+                        break;
+                    }
+                case "Reina":
+                    {
+                        valor_salida = TablaReina[piezita.Ubicacion.X, piezita.Ubicacion.Y];
+                        break;
+                    }
+                case "Rey":
+                    {
+                        valor_salida = TablaRey[piezita.Ubicacion.X, piezita.Ubicacion.Y];
+
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+            if (piezita.GetType().Name!= "Reina")
+            {
+                valor_salida += piezita.Movimientos_permitidos.Length * 10;
+            }
+
+            return valor_salida += (piezita.valor_pieza);
+
+        }
+
+        #region no implementado
+        /*internal string To_Fen(bool boardOnly, Pieza[,] _board)
+        {
+            //Pieza[] board = new Board[64];foreach 
+            string salida = String.Empty;
+            byte cuadros_vacios = 0;
+
+            int x=0;
+            foreach (Pieza pieza in _board)
+            {
+                if (pieza != null)
+                {
+                    if (cuadros_vacios > 0)
+                    {
+                        salida += cuadros_vacios.ToString();
+                        cuadros_vacios = 0;
+                    }
+                    if (pieza.Color == UnColor.Negro)
+                        salida += (pieza.Notacion_pieza).ToLower();
+                    else
+                        salida += pieza.Notacion_pieza;
+                }
+                else
+                    cuadros_vacios++;
+
+                if ( x % 8 == 7)
+                {
+                    if (cuadros_vacios > 0)
+                    {
+                        salida += cuadros_vacios.ToString();
+                        salida += "/";
+                        cuadros_vacios = 0;
+                    }
+
+                    else
+                    {
+                        if (x > 0 && x != 63)
+                            salida += "/";
+                    }
+
+                }
+                x++;
+            }
+
+            if (Jugador_actual_.Color == UnColor.Blanco)
+                salida += " w ";
+            else
+                salida += " b ";
+
+            string espacio = "";
+            //enroque blanco es posible?
+            if (enroque_blanco == false)
+            {
+                if ( _board[4,7] != null )
+                {//Rey ha sido movido (?)
+                    if (_board[4,7].Moved == false)
+                    {
+                        if (_board[7,7]!= null)
+                        {//Torre ha sido movida
+                            if (_board[7,7].Moved == false)
+                            {
+                                salida += "K";
+                                espacio = " ";
+                            }
+                        }
+
+                        if (_board[0,7] != null)
+                        {
+                            if (_board[0,7].Moved == false)
+                            {
+                                salida += "Q";
+                                espacio = " ";
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (enroque_negro == false)
+            {
+                if (_board[4,0] != null)
+                {
+                    if (_board[4,0].Moved == false)
+                    {
+                        if (_board[7,0] != null)
+                        {
+                            if (_board[7,0].Moved == false)
+                            {
+                                salida += "k";
+                                espacio = " ";
+                            }
+                        }
+                        if (_board[0,0] != null)
+                        {
+                            if (_board[0,0].Moved == false)
+                            {
+                                salida += "q";
+                                espacio = " ";
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (salida.EndsWith("/"))
+                salida.TrimEnd('/');
+
+            if (board.EnPassantPosition != 0)
+                salida += espacio + GetColumnFromByte((byte)(board.EnPassantPosition % 8)) + "" + (byte)(8 - (byte)(board.EnPassantPosition / 8)) + " ";
+
+            else
+                salida += espacio + "- ";
+
+            if (!boardOnly)
+            {
+                salida += board.FiftyMove + " ";
+                salida += board.MoveCount + 1;
+            }
+            return salida.Trim();
+        }*/
+        #endregion
     }
 }

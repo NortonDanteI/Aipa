@@ -59,3 +59,25 @@ C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.csproj.C
 C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.exe
 C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.pdb
 B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_manual.resources
+C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_manual.resources
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\bin\Debug\Aipa.exe.config
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\bin\Debug\Aipa.exe.manifest
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\bin\Debug\Aipa.application
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\bin\Debug\Aipa.exe
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\bin\Debug\Aipa.pdb
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\bin\Debug\CircularProgressBar.dll
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\bin\Debug\WinFormAnimation.dll
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\bin\Debug\CircularProgressBar.xml
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.csprojAssemblyReference.cache
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.Properties.Resources.resources
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_coronacion.resources
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_bienvenida.resources
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_juego.resources
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_manual.resources
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.csproj.GenerateResource.cache
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.csproj.CoreCompileInputs.cache
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.exe.manifest
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.application
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.csproj.CopyComplete
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.exe
+B:\Escritorio\FINAL FINAL AIPA\Aipa-seb4\Aipa\Aipa\obj\Debug\Aipa.pdb
