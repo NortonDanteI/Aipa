@@ -58,8 +58,14 @@ namespace Aipa.Modelo
             {
                 tablero[piezita.Ubicacion.X, piezita.Ubicacion.Y] = piezita;
             }
-
-            (mejor_pieza, mejor_accion, utilidad_final) = Valor_max(tablero, -9900000, 9900000);
+            if (Jugador_actual_.Color == UnColor.Negro)
+            {
+                (mejor_pieza, mejor_accion, utilidad_final) = Valor_max(tablero, -9900000, 9900000);
+            }
+            else
+            {
+                (mejor_pieza, mejor_accion, utilidad_final) = Valor_min(tablero, -9900000, 9900000);
+            }
             this.Pieza_a_mover = mejor_pieza;
             this.Cell_location = mejor_accion;
             //Console.WriteLine("UTILIDAD FINAL: " + utilidad_final);
@@ -230,9 +236,11 @@ namespace Aipa.Modelo
 
                             if (utilidad > mayor_valor)
                             {
+
+                                if (Profundidad <= 1)
+                                    mejor_pieza = piezita_;
                                 mayor_valor = utilidad;
                                 mejor_accion = accion_;
-                                mejor_pieza = piezita_;
                             }
                             if (mayor_valor >=   Beta)
                             {
@@ -415,8 +423,8 @@ namespace Aipa.Modelo
                             if (utilidad < menor_valor)
                             {
                                 //Console.WriteLine("Mejor utilidad blancas: " + utilidad);
-
-                                //mejor_pieza = pieza_;
+                                if (Profundidad<=1)
+                                    mejor_pieza = pieza_;
                                 menor_valor = utilidad;
                                 mejor_accion = accion_;
                             }
