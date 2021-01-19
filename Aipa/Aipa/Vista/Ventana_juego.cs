@@ -174,7 +174,6 @@ namespace Aipa.Vista
             {
                 if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Humano)
                 {
-                    Console.WriteLine("QUE SUCEDE");
                     Point _mouseLocation = new Point(e.Location.X - 27, e.Location.Y - 4); // resto los bordes del tablero        
                     var cell_Location = new Point(_mouseLocation.X / 82, _mouseLocation.Y / 82); // cada celda tiene un tamaños de  100x100 + 5x5 de borde                                                                                          
                     if (!val.Mover_pieza(cell_Location)) // si existe una pieza seleccionada, intenta moverla a la celda donde se realizo click
@@ -194,8 +193,7 @@ namespace Aipa.Vista
 
                     if (Jugador_jugando.Tipo_jugador == Tipo_de_jugador.Agente)
                     {
-                        Console.WriteLine("QUE SUCEDE");
-                        int dificultad = 2;
+                        int dificultad = 3;
                         Agente agente = new Agente(dificultad, Jugador_jugando, ActionLog, GameState, Board);
                         //obtengo optimo
                         label1.Visible = true;

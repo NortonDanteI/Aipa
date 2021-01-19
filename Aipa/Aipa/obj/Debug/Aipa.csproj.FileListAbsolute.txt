@@ -59,3 +59,4 @@ C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.csproj.C
 C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.exe
 C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.pdb
 B:\Escritorio\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_manual.resources
+C:\Users\shino\OneDrive\Documentos\GitHub\Aipa\Aipa\Aipa\obj\Debug\Aipa.Vista.Ventana_manual.resources
