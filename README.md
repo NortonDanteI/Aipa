@@ -3,7 +3,7 @@
 **Descripción del repositorio:**
 - Este repositorio corresponde al software Aipa, el cual contiene la documentación correspondiente al proceso de ingeniería de software y el código asociado a su implementación.
 
-**Documentación** 
+**Documentación:** 
 -	Plan general.
 -	Requerimientos específicos.
 -	Determinación del ciclo de vida.
@@ -14,7 +14,7 @@
 -	Manual de usuario.
 
 
-**Meta**
+**Meta:**
 - Generar un modelo de un jugador virtual de ajedrez que sea capaz de:
   * Aprender de partidas y vencer a jugadores no expertos. 
   * Aconsejar al usuario en partidas de práctica.
