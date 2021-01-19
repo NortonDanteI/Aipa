@@ -176,5 +176,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Diagramas\Controlador_DiagramasClase.png" />
+    <Content Include="Diagramas\Modelo_otros_DiagramasClase.png" />
+    <Content Include="Diagramas\Modelo_Piezas_DiagramasClass.png" />
+    <Content Include="Diagramas\Vista_DiagramsClass.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
