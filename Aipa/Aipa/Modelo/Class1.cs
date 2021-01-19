@@ -33,7 +33,7 @@ namespace Aipa.Modelo
         #region propiedades
 
         private Tablero Board { get; set; }
-        public List <Pieza> lista_piezas { get; set; }
+        public List<Pieza> lista_piezas { get; set; }
         public List<Historial_acciones> ActionLog_ { get; set; }
         private Jugador Jugador_actual_ { get; set; }
         public Point Cell_location { get; set; }
@@ -206,18 +206,18 @@ namespace Aipa.Modelo
                             Point accion_aux = accion;// new Point(accion.X, accion.Y);
                             //Console.WriteLine("MAX nivel: " + Profundidad);
 
-                            Array.Copy(Modificar_tablero(tablero_inicial_max, pieza_aux, accion_aux),tablero_resultado,64);
+                            Array.Copy(Modificar_tablero(tablero_inicial_max, pieza_aux, accion_aux), tablero_resultado, 64);
                             //imprimir_console(tablero_inicial_max);
 
                             float utilidad;
                             Pieza piezita_;
                             (piezita_, accion_, utilidad) = Valor_min(tablero_resultado, Alfa, Beta);
                             //imprimir_console(tablero_resultado);
-                            
+
                             if (piezita_ == null)
                             {
                                 accion_ = accion_aux;
-                                piezita_= piezita;
+                                piezita_ = piezita;
                             }
 
                             this.ActionLog_.RemoveAt(this.ActionLog_.Count() - 1);
@@ -234,7 +234,7 @@ namespace Aipa.Modelo
                                 mejor_accion = accion_;
                                 mejor_pieza = piezita_;
                             }
-                            if (mayor_valor >=   Beta)
+                            if (mayor_valor >= Beta)
                             {
                                 //Console.WriteLine("\t Corto la rama");
                                 Profundidad--;
@@ -394,7 +394,7 @@ namespace Aipa.Modelo
                         Point[] acciones = piezita.Movimientos_permitidos;
                         foreach (Point accion in acciones)
                         {
-                            Point accion_aux = accion ;
+                            Point accion_aux = accion;
                             //Console.WriteLine("Min nivel: " + Profundidad);
                             Array.Copy(Modificar_tablero(tablero_inicial_min, pieza_aux, accion_aux), tablero_resultado, 64);
 
@@ -415,18 +415,16 @@ namespace Aipa.Modelo
                             if (utilidad < menor_valor)
                             {
                                 //Console.WriteLine("Mejor utilidad blancas: " + utilidad);
-
-                                //mejor_pieza = pieza_;
                                 menor_valor = utilidad;
                                 mejor_accion = accion_;
                             }
-                            if (menor_valor <= Alfa) 
+                            if (menor_valor <= Alfa)
                             {
                                 //Console.WriteLine("\t Corto la rama");
                                 Profundidad--;
                                 return (mejor_pieza, mejor_accion, menor_valor);
                             }// Cambio de sentido
-                            if (menor_valor > Beta) 
+                            if (menor_valor > Beta)
                             {
                                 Beta = menor_valor;
                             }
@@ -453,23 +451,23 @@ namespace Aipa.Modelo
                 if (Jugador_actual_.Color == UnColor.Negro)
                 {
                     //Console.WriteLine("es jaque -20k en negras");
-                    puntaje_negra += -32000;
+                    puntaje_negra += -200000;
                 }
                 else if (Jugador_actual_.Color == UnColor.Blanco)
                 {
                     //Console.WriteLine("es jaque -20k en blancas");
-                    puntaje_blanca += -32000;
+                    puntaje_blanca += -200000;
                 }
             }
 
-            foreach (Pieza p_aux in tablero)
+            foreach (Pieza caca in tablero)
             {
-                if (p_aux != null && p_aux.GetType().Name == "Rey")
+                if (caca != null && caca.GetType().Name == "Rey")
                 {
-                    if (p_aux.Color == UnColor.Negro)
-                        rey_negro = p_aux;
+                    if (caca.Color == UnColor.Negro)
+                        rey_negro = caca;
                     else
-                        rey_blanco = p_aux;
+                        rey_blanco = caca;
                 }
             }
 
@@ -489,7 +487,9 @@ namespace Aipa.Modelo
                                 }
                             }
 
-                            puntaje_negra += (cobertura_rey_blanco + evaluar_pieza(tablero[x, y]));
+                            puntaje_negra += (tablero[x, y].valor_pieza)
+                                + (tablero[x, y].Movimientos_permitidos.Length * 10)
+                                + cobertura_rey_negro;
 
                             cobertura_rey_negro = 0;
                         }
@@ -506,7 +506,9 @@ namespace Aipa.Modelo
                                 }
                             }
 
-                            puntaje_blanca += (cobertura_rey_blanco + evaluar_pieza(tablero[x, y]));
+                            puntaje_blanca += tablero[x, y].valor_pieza
+                                + (tablero[x, y].Movimientos_permitidos.Length * 10)
+                                + cobertura_rey_blanco;
 
                             cobertura_rey_blanco = 0;
                         }
@@ -798,7 +800,7 @@ namespace Aipa.Modelo
             //Any Devuelve un booleano si algun elemento de la secuencia satisface la condicion
             var isCheck = lst_tablero.Any(x => x.Color != Jugador_actual_.Color && x.Movimientos_permitidos.Contains(king.Ubicacion));//Si alguno de los movimientos contiene la ubicacion del rey                                                                                                                                   // valida si en la jugada anterior se dejo al rey en jaque
 
-            if (isCheck) 
+            if (isCheck)
             {
                 //Console.WriteLine("\n\tENTROOOOOOOOOOOOOOOOOO AL CHECK");
                 this.GameState = Estado.Jaque;
@@ -807,7 +809,7 @@ namespace Aipa.Modelo
                     this.GameState = Estado.Jaquemate;
                 }
             }
-            else 
+            else
             {
                 if (moves == 0) // si nos quedamos sin movimientos y no es jaque, el juego queda en empate
                     this.GameState = Estado.Empate;
@@ -820,7 +822,7 @@ namespace Aipa.Modelo
             return salida;
         }
 
-        
+
         public void Set_pieza_seleccionada(Point cell_Location)
         {
             this.Board.Desmarcar_celdas();
@@ -1131,143 +1133,5 @@ namespace Aipa.Modelo
             }
             return salida;
         }
-
-        /*-------------------*/
-        private static readonly short[,] TablaPeon = new short[8, 8]
-        {
-         { 0,  0,  0,  0,  0,  0,  0,  0 },
-         { 50, 50, 50, 50, 50, 50, 50, 50 },
-         { 10, 10, 20, 30, 30, 20, 10, 10 },
-         { 5,  5, 10, 27, 27, 10,  5,  5 },
-         { 0,  0,  0, 25, 25,  0,  0,  0},
-         { 5, -5,-10,  0,  0,-10, -5,  5},
-         { 5, 10, 10,-25,-25, 10, 10,  5},
-         { 0,  0,  0,  0,  0,  0,  0,  0}
-        };
-
-        private static readonly short[,] TablaCaballo = new short[8, 8]
-        {
-         {-50,-40,-30,-30,-30,-30,-40,-50},
-         { -40,-20,  0,  0,  0,  0,-20,-40},
-         {-30,  0, 10, 15, 15, 10,  0,-30},
-         {-30,  5, 15, 20, 20, 15,  5,-30},
-         {-30,  0, 15, 20, 20, 15,  0,-30},
-         {-30,  5, 10, 15, 15, 10,  5,-30},
-         {-40,-20,  0,  5,  5,  0,-20,-40},
-         {-50,-40,-20,-30,-30,-20,-40,-50}
-        };
-
-        private static readonly short[,] TablaAlfil = new short[8, 8]
-        {
-         { -20,-10,-10,-10,-10,-10,-10,-20},
-         {-10,  0,  0,  0,  0,  0,  0,-10},
-         {-10,  0,  5, 10, 10,  5,  0,-10},
-         {-10,  5,  5, 10, 10,  5,  5,-10},
-         {-10,  0, 10, 10, 10, 10,  0,-10},
-         {-10, 10, 10, 10, 10, 10, 10,-10},
-         {-10,  5,  0,  0,  0,  0,  5,-10},
-         {-20,-10,-40,-10,-10,-40,-10,-20},
-        };
-
-        private static readonly short[,] TablaRey = new short[8, 8]
-        {
-          {-30, -40, -40, -50, -50, -40, -40, -30},
-          {-30, -40, -40, -50, -50, -40, -40, -30},
-          {-30, -40, -40, -50, -50, -40, -40, -30},
-          {-30, -40, -40, -50, -50, -40, -40, -30},
-          {-20, -30, -30, -40, -40, -30, -30, -20},
-          {-10, -20, -20, -20, -20, -20, -20, -10},
-          { 20,  20,   0,   0,   0,   0,  20,  20},
-          { 20,  30,  10,   0,   0,  10,  30,  20}
-        };
-
-        private static readonly short[,] TablaReyFinal = new short[8, 8]
-        {
-         {-50,-40,-30,-20,-20,-30,-40,-50},
-         {-30,-20,-10,  0,  0,-10,-20,-30},
-         {-30,-10, 20, 30, 30, 20,-10,-30},
-         {-30,-10, 30, 40, 40, 30,-10,-30},
-         {-30,-10, 30, 40, 40, 30,-10,-30},
-         {-30,-10, 20, 30, 30, 20,-10,-30},
-         {-30,-30,  0,  0,  0,  0,-30,-30},
-         {-50,-30,-30,-30,-30,-30,-30,-50}
-        };
-
-        private static readonly short[,] TablaReina = new short[8, 8]
-        {
-            {-20, -10, -10, -5, -5, -10, -10, -20 },
-            {-10, 0, 0, 0, 0, 0, 0, -10},
-            {-10, 0, 5, 5, 5, 5, 0, -10},
-            { -5, 0, 5, 5, 5, 5, 0, -5},
-            {  0, 0, 5, 5, 5, 5, 0, -5},
-            {-10, 5, 5, 5, 5, 5, 0, -10},
-            {-10, 0, 5, 0, 0, 0, 0, -10},
-            {-20, -10, -10, -5, -5, -10, -10, -20 }
-        };
-
-        private static readonly short[,] TablaTorre = new short[8, 8]
-        {
-         { 0, 0, 0, 0, 0, 0, 0, 0 },//7
-         { 5, 10, 10, 10, 10, 10, 10, 5},//15
-         {-5, 0, 0, 0, 0, 0, 0, -5},//23
-         {-5, 0, 0, 0, 0, 0, 0, -5},//31
-         {-5, 0, 0, 0, 0, 0, 0, -5},//39
-         {-5, 0, 0, 0, 0, 0, 0, -5},//47
-         {-5, 0, 0, 0, 0, 0, 0, -5},//55
-         { 0, 0, 0, 5, 5, 0, 0, 0}//65
-        };
-
-        private int evaluar_pieza(Pieza piezita)
-        {
-            int valor_salida = 0;
-            switch ((piezita.GetType().Name).ToString())
-            {
-                case "Peon":
-                    {
-                        valor_salida = TablaPeon[piezita.Ubicacion.X, piezita.Ubicacion.Y];
-                        break;
-                    }
-                case "Caballo":
-                    {
-                        valor_salida = TablaCaballo[piezita.Ubicacion.X, piezita.Ubicacion.Y];
-                        break;
-                    }
-                case "Alfil":
-                    {
-
-                        valor_salida = TablaAlfil[piezita.Ubicacion.X, piezita.Ubicacion.Y];
-                        break;
-                    }
-                case "Torre":
-                    {
-
-                        valor_salida = TablaTorre[piezita.Ubicacion.X, piezita.Ubicacion.Y];
-                        break;
-                    }
-                case "Reina":
-                    {
-                        valor_salida = TablaReina[piezita.Ubicacion.X, piezita.Ubicacion.Y];
-                        break;
-                    }
-                case "Rey":
-                    {
-                        valor_salida = TablaRey[piezita.Ubicacion.X, piezita.Ubicacion.Y];
-
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
-            }
-            if (piezita.GetType().Name != "Reina")
-            {
-                valor_salida += piezita.Movimientos_permitidos.Length * 10;
-            }
-
-            return valor_salida += (piezita.valor_pieza);
-
-        }
-
     }
 }
